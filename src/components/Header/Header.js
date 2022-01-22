@@ -19,8 +19,8 @@ function Header() {
                     <i className="far fa-clock"></i>
                   </div>
                   <div className="top-bar-text">
-                    <h3>Opening Hour</h3>
-                    <p>Mon - Fri, 8:00 - 9:00</p>
+                    <h3>Giờ mở cửa</h3>
+                    <p>T2 - CN, 7:30:AM - 8:00:PM</p>
                   </div>
                 </div>
               </div>
@@ -30,7 +30,7 @@ function Header() {
                     <i className="fa fa-phone-alt"></i>
                   </div>
                   <div className="top-bar-text">
-                    <h3>Call Us</h3>
+                    <h3>Liên hệ qua SĐT</h3>
                     <p>+012 345 6789</p>
                   </div>
                 </div>
@@ -41,8 +41,8 @@ function Header() {
                     <i className="far fa-envelope"></i>
                   </div>
                   <div className="top-bar-text">
-                    <h3>Email Us</h3>
-                    <p>info@example.com</p>
+                    <h3>Liên hệ qua email</h3>
+                    <p>otoviet@gmail.com</p>
                   </div>
                 </div>
               </div>

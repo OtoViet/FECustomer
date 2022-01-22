@@ -7,8 +7,8 @@ function Staffs() {
         <div className="team">
             <div className="container">
                 <div className="section-header text-center">
-                    <p>Meet Our Team</p>
-                    <h2>Our Engineers & Workers</h2>
+                    <p>Đội ngũ nhân viên của chúng tôi</p>
+                    <h2>Kĩ sư và kĩ thuật viên</h2>
                 </div>
                 <div className="row">
                     <div className="col-lg-3 col-md-6">
@@ -18,7 +18,7 @@ function Staffs() {
                             </div>
                             <div className="team-text">
                                 <h2>Donald John</h2>
-                                <p>Engineer</p>
+                                <p>Kĩ sư</p>
                                 <div className="team-social">
                                     <a href="/"><i className="fab fa-twitter"></i></a>
                                     <a href="/"><i className="fab fa-facebook-f"></i></a>
@@ -35,7 +35,7 @@ function Staffs() {
                             </div>
                             <div className="team-text">
                                 <h2>Adam Phillips</h2>
-                                <p>Engineer</p>
+                                <p>Kĩ sư</p>
                                 <div className="team-social">
                                     <a href="/"><i className="fab fa-twitter"></i></a>
                                     <a href="/"><i className="fab fa-facebook-f"></i></a>
@@ -52,7 +52,7 @@ function Staffs() {
                             </div>
                             <div className="team-text">
                                 <h2>Thomas Olsen</h2>
-                                <p>Worker</p>
+                                <p>Kĩ thuật viên</p>
                                 <div className="team-social">
                                     <a href="/"><i className="fab fa-twitter"></i></a>
                                     <a href="/"><i className="fab fa-facebook-f"></i></a>
@@ -69,7 +69,7 @@ function Staffs() {
                             </div>
                             <div className="team-text">
                                 <h2>James Alien</h2>
-                                <p>Worker</p>
+                                <p>Kĩ thuật viên</p>
                                 <div className="team-social">
                                     <a href="/"><i className="fab fa-twitter"></i></a>
                                     <a href="/"><i className="fab fa-facebook-f"></i></a>

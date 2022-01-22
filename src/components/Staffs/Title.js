@@ -5,11 +5,11 @@ function StaffsTitle() {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <h2>Team Member</h2>
+                            <h2>Đội ngũ nhân viên</h2>
                         </div>
                         <div className="col-12">
-                            <a href="">Home</a>
-                            <a href="">Team</a>
+                            <a href="">Trang chủ</a>
+                            <a href="">Đội ngũ nhân viên</a>
                         </div>
                     </div>
                 </div>

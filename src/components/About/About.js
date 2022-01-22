@@ -11,7 +11,7 @@ function About() {
                     </div>
                     <div className="col-lg-6">
                         <div className="section-header text-left">
-                            <p>About Us</p>
+                            <p>Về chúng tôi</p>
                             <h2>car washing and detailing</h2>
                         </div>
                         <div className="about-content">

@@ -4,11 +4,11 @@ function CarePointsTitle() {
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <h2>Washing Points</h2>
+                        <h2>Danh sách cửa hàng</h2>
                     </div>
                     <div className="col-12">
-                        <a href="">Home</a>
-                        <a href="">Location</a>
+                        <a href="">Trang chủ</a>
+                        <a href="">Vị trí</a>
                     </div>
                 </div>
             </div>

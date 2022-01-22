@@ -16,17 +16,17 @@ function CarePoints() {
                 <div className="row">
                     <div className="col-lg-7">
                         <div className="section-header text-left">
-                            <p>Washing Points</p>
-                            <h2>Car Washing & Care Points</h2>
+                            <p>Danh sách cửa hàng</p>
+                            <h2>Danh sách cửa hàng</h2>
                         </div>
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="location-item">
                                     <i className="fa fa-map-marker-alt"></i>
                                     <div className="location-text">
-                                        <h3>Car Washing Point</h3>
-                                        <p>123 Street, New York, USA</p>
-                                        <p><strong>Call:</strong>+012 345 6789</p>
+                                        <h3>Ô tô việt 1</h3>
+                                        <p>123 Trần Hưng Đạo, Ninh Kiều, Cần Thơ</p>
+                                        <p><strong>Liên hệ:</strong>+012 345 6789</p>
                                     </div>
                                 </div>
                             </div>
@@ -34,9 +34,9 @@ function CarePoints() {
                                 <div className="location-item">
                                     <i className="fa fa-map-marker-alt"></i>
                                     <div className="location-text">
-                                        <h3>Car Washing Point</h3>
+                                        <h3>Ô tô việt 1</h3>
                                         <p>123 Street, New York, USA</p>
-                                        <p><strong>Call:</strong>+012 345 6789</p>
+                                        <p><strong>Liên hệ:</strong>+012 345 6789</p>
                                     </div>
                                 </div>
                             </div>
@@ -44,9 +44,9 @@ function CarePoints() {
                                 <div className="location-item">
                                     <i className="fa fa-map-marker-alt"></i>
                                     <div className="location-text">
-                                        <h3>Car Washing Point</h3>
+                                        <h3>Ô tô việt 1</h3>
                                         <p>123 Street, New York, USA</p>
-                                        <p><strong>Call:</strong>+012 345 6789</p>
+                                        <p><strong>Liên hệ:</strong>+012 345 6789</p>
                                     </div>
                                 </div>
                             </div>
@@ -54,9 +54,9 @@ function CarePoints() {
                                 <div className="location-item">
                                     <i className="fa fa-map-marker-alt"></i>
                                     <div className="location-text">
-                                        <h3>Car Washing Point</h3>
+                                        <h3>Ô tô việt 1</h3>
                                         <p>123 Street, New York, USA</p>
-                                        <p><strong>Call:</strong>+012 345 6789</p>
+                                        <p><strong>Liên hệ:</strong>+012 345 6789</p>
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@ function CarePoints() {
                     </div>
                     <div className="col-lg-5">
                         <div className="location-form">
-                            <h3>Request for a car wash</h3>
+                            <h3>Yêu cầu chăm sóc xe</h3>
                             <Formik
                                 initialValues={{
                                     name: '',
@@ -81,21 +81,21 @@ function CarePoints() {
                                 {({ errors, touched }) => (
                                     <Form>
                                         <div className="control-group">
-                                            <Field type="text" name="name" className="form-control" placeholder="Name" />
+                                            <Field type="text" name="name" className="form-control" placeholder="Tên của bạn" />
                                             {errors.name && touched.name ? (
                                                 <p className="text-white"><i className="fas fa-exclamation-circle"></i> {errors.name}</p>
                                             ) : <p></p>}
                                         </div>
                                         <div className="control-group">
-                                            <Field type="email" name="email" className="form-control" placeholder="Email" />
+                                            <Field type="email" name="email" className="form-control" placeholder="Địa chỉ email liên hệ" />
                                             {errors.email && touched.email ? <p className="text-white"><i className="fas fa-exclamation-circle"></i> {errors.email}</p> : <p></p>}
                                         </div>
                                         <div className="control-group">
-                                            <Field as="textarea" name="description" className="form-control" placeholder="Description" />
+                                            <Field as="textarea" name="description" className="form-control" placeholder="Nhập yêu cầu phục vụ" />
                                             {errors.description && touched.description ? <p className="text-white"><i className="fas fa-exclamation-circle"></i> {errors.description}</p> : <p></p>}
                                         </div>
                                         <div>
-                                            <button className="btn btn-custom" type="submit">Send Request</button>
+                                            <button className="btn btn-custom" type="submit">Gửi yêu cầu</button>
                                         </div>
                                     </Form>
                                 )}

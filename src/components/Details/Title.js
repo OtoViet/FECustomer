@@ -5,11 +5,11 @@ function DetailTitle() {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <h2>Detail Page</h2>
+                            <h2>Trang chi tiết</h2>
                         </div>
                         <div className="col-12">
-                            <a href="">Home</a>
-                            <a href="">Detail</a>
+                            <a href="">Trang chủ</a>
+                            <a href="">Chi tiết</a>
                         </div>
                     </div>
                 </div>

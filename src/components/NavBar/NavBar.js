@@ -26,24 +26,24 @@ function NavBar() {
 
             <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
               <div className="navbar-nav mr-auto">
-                <NavLink to="/" className="nav-item nav-link">Home</NavLink>
-                <NavLink to="/about" className="nav-item nav-link">About</NavLink>
-                <NavLink to="/service" className="nav-item nav-link">Service</NavLink>
-                <NavLink to="/price" className="nav-item nav-link">Price</NavLink>
-                <NavLink to="/location" className="nav-item nav-link">Washing Points</NavLink>
+                <NavLink to="/" className="nav-item nav-link">Trang chủ</NavLink>
+                <NavLink to="/about" className="nav-item nav-link">Về chúng tôi</NavLink>
+                <NavLink to="/service" className="nav-item nav-link">Dịch vụ</NavLink>
+                <NavLink to="/price" className="nav-item nav-link">Bảng giá</NavLink>
+                <NavLink to="/location" className="nav-item nav-link">Danh sách cửa hàng</NavLink>
                 <div className="nav-item dropdown">
                   <a href="/" className="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                   <div className="dropdown-menu">
-                    <a href="blog.html" className="dropdown-item">Blog Grid</a>
-                    <a href="single.html" className="dropdown-item">Detail Page</a>
-                    <a href="team.html" className="dropdown-item">Team Member</a>
-                    <a href="booking.html" className="dropdown-item">Schedule Booking</a>
+                    <a href="blog.html" className="dropdown-item">Bài viết</a>
+                    <a href="single.html" className="dropdown-item">Trang chi tiết</a>
+                    <a href="team.html" className="dropdown-item">Đội ngũ nhân sự</a>
+                    <a href="booking.html" className="dropdown-item">Đặt lịch hẹn</a>
                   </div>
                 </div>
                 <NavLink to="/contact" className="nav-item nav-link">Contact</NavLink>
               </div>
               <div className="ml-auto">
-                <a className="btn btn-custom" href="/">Get Appointment</a>
+                <a className="btn btn-custom" href="/">Tra cứu lịch hẹn</a>
               </div>
             </div>
           </nav>

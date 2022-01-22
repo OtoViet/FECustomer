@@ -4,23 +4,23 @@ function ComboService() {
         <div className="price">
             <div className="container">
                 <div className="section-header text-center">
-                    <p>Washing Plan</p>
-                    <h2>Choose Your Plan</h2>
+                    <p>Gói combo</p>
+                    <h2>Chọn gói phù hợp với bạn</h2>
                 </div>
                 <div className="row">
                     <div className="col-md-4">
                         <div className="price-item">
                             <div className="price-header">
-                                <h3>Basic Cleaning</h3>
+                                <h3>Gói làm sạch cơ bản</h3>
                                 <h2><span>$</span><strong>25</strong><span>.99</span></h2>
                             </div>
                             <div className="price-body">
                                 <ul>
-                                    <li><i className="far fa-check-circle"></i>Seats Washing</li>
-                                    <li><i className="far fa-check-circle"></i>Vacuum Cleaning</li>
-                                    <li><i className="far fa-check-circle"></i>Exterior Cleaning</li>
-                                    <li><i className="far fa-times-circle"></i>Interior Wet Cleaning</li>
-                                    <li><i className="far fa-times-circle"></i>Window Wiping</li>
+                                    <li><i className="far fa-check-circle"></i>Rửa yên xe</li>
+                                    <li><i className="far fa-check-circle"></i>Hút chân không</li>
+                                    <li><i className="far fa-check-circle"></i>Làm sạch bên ngoài</li>
+                                    <li><i className="far fa-times-circle"></i>Làm sạch bên trong</li>
+                                    <li><i className="far fa-times-circle"></i>Lau kính xe</li>
                                 </ul>
                             </div>
                             <div className="price-footer">
@@ -31,16 +31,16 @@ function ComboService() {
                     <div className="col-md-4">
                         <div className="price-item featured-item">
                             <div className="price-header">
-                                <h3>Premium Cleaning</h3>
+                                <h3>Gói làm sạch premium</h3>
                                 <h2><span>$</span><strong>35</strong><span>.99</span></h2>
                             </div>
                             <div className="price-body">
                                 <ul>
-                                    <li><i className="far fa-check-circle"></i>Seats Washing</li>
-                                    <li><i className="far fa-check-circle"></i>Vacuum Cleaning</li>
-                                    <li><i className="far fa-check-circle"></i>Exterior Cleaning</li>
-                                    <li><i className="far fa-check-circle"></i>Interior Wet Cleaning</li>
-                                    <li><i className="far fa-times-circle"></i>Window Wiping</li>
+                                    <li><i className="far fa-check-circle"></i>Rửa yên xe</li>
+                                    <li><i className="far fa-check-circle"></i>Hút chân không</li>
+                                    <li><i className="far fa-check-circle"></i>Làm sạch bên ngoài</li>
+                                    <li><i className="far fa-check-circle"></i>Làm sạch bên trong</li>
+                                    <li><i className="far fa-times-circle"></i>Lau kính xe</li>
                                 </ul>
                             </div>
                             <div className="price-footer">
@@ -51,16 +51,16 @@ function ComboService() {
                     <div className="col-md-4">
                         <div className="price-item">
                             <div className="price-header">
-                                <h3>Complex Cleaning</h3>
+                                <h3>Gói làm sạch toàn bộ</h3>
                                 <h2><span>$</span><strong>49</strong><span>.99</span></h2>
                             </div>
                             <div className="price-body">
                                 <ul>
-                                    <li><i className="far fa-check-circle"></i>Seats Washing</li>
-                                    <li><i className="far fa-check-circle"></i>Vacuum Cleaning</li>
-                                    <li><i className="far fa-check-circle"></i>Exterior Cleaning</li>
-                                    <li><i className="far fa-check-circle"></i>Interior Wet Cleaning</li>
-                                    <li><i className="far fa-check-circle"></i>Window Wiping</li>
+                                    <li><i className="far fa-check-circle"></i>Rửa yên xe</li>
+                                    <li><i className="far fa-check-circle"></i>Hút chân không</li>
+                                    <li><i className="far fa-check-circle"></i>Làm sạch bên ngoài</li>
+                                    <li><i className="far fa-check-circle"></i>Làm sạch bên trong</li>
+                                    <li><i className="far fa-check-circle"></i>Lau kính xe</li>
                                 </ul>
                             </div>
                             <div className="price-footer">

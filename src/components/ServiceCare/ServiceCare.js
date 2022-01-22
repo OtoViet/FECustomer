@@ -3,63 +3,63 @@ function ServiceCare() {
         <div className="service">
             <div className="container">
                 <div className="section-header text-center">
-                    <p>What We Do?</p>
-                    <h2>Premium Washing Services</h2>
+                    <p>Chúng tôi làm gì?</p>
+                    <h2>Dịch vụ premium</h2>
                 </div>
                 <div className="row">
                     <div className="col-lg-3 col-md-6">
                         <div className="service-item">
                             <i className="flaticon-car-wash-1"></i>
-                            <h3>Exterior Washing</h3>
+                            <h3>Rửa bên ngoài</h3>
                             <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="service-item">
                             <i className="flaticon-car-wash"></i>
-                            <h3>Interior Washing</h3>
+                            <h3>Rửa bên trong</h3>
                             <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="service-item">
                             <i className="flaticon-vacuum-cleaner"></i>
-                            <h3>Vacuum Cleaning</h3>
+                            <h3>Làm sạch + hút bụi</h3>
                             <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="service-item">
                             <i className="flaticon-seat"></i>
-                            <h3>Seats Washing</h3>
+                            <h3>Rửa yên xe</h3>
                             <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="service-item">
                             <i className="flaticon-car-service"></i>
-                            <h3>Window Wiping</h3>
+                            <h3>Lau kính xe</h3>
                             <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="service-item">
                             <i className="flaticon-car-service-2"></i>
-                            <h3>Wet Cleaning</h3>
+                            <h3>Lau sạch</h3>
                             <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="service-item">
                             <i className="flaticon-car-wash"></i>
-                            <h3>Oil Changing</h3>
+                            <h3>Thay dầu/nhớt</h3>
                             <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="service-item">
                             <i className="flaticon-brush-1"></i>
-                            <h3>Brake Reparing</h3>
+                            <h3>Kiểm tra phanh xe</h3>
                             <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                         </div>
                     </div>

@@ -4,11 +4,11 @@ function AboutTitle(){
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <h2>About Us</h2>
+                        <h2>Về chúng tôi</h2>
                     </div>
                     <div className="col-12">
-                        <a href="">Home</a>
-                        <a href="">About Us</a>
+                        <a href="">Trang chủ</a>
+                        <a href="">Về chúng tôi</a>
                     </div>
                 </div>
             </div>

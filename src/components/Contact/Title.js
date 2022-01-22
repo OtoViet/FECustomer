@@ -4,11 +4,11 @@ function ContactTitle() {
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <h2>Contact Us</h2>
+                        <h2>Liên hệ với chúng tôi</h2>
                     </div>
                     <div className="col-12">
-                        <a href="">Home</a>
-                        <a href="">Contact</a>
+                        <a href="">Trang chủ</a>
+                        <a href="">Liên hệ</a>
                     </div>
                 </div>
             </div>

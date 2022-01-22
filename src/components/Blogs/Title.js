@@ -5,7 +5,7 @@ function BlogTitle() {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <h2>Blog Grid</h2>
+                            <h2>Bài viết</h2>
                         </div>
                         <div className="col-12">
                             <a href="">Home</a>
