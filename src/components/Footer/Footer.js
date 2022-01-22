@@ -1,4 +1,13 @@
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 function Footer() {
+    const NewsSchema = Yup.object().shape({
+        name: Yup.string()
+            .min(2, 'Too Short!')
+            .max(50, 'Too Long!')
+            .required('Vui lòng nhập tên của bạn'),
+        email: Yup.string().email('Địa chỉ email không hợp lệ').required('Vui lòng nhập email')
+    });
     return (
         <div className="footer">
             <div className="container">
@@ -20,7 +29,7 @@ function Footer() {
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="footer-link">
-                            <h2>Popular Links</h2>
+                            <h2>Liên kết</h2>
                             <a href="/">Về chúng tôi</a>
                             <a href="/">Liên hệ với chúng tôi</a>
                             <a href="/">Dịch vụ của chúng tôi</a>
@@ -41,11 +50,30 @@ function Footer() {
                     <div className="col-lg-3 col-md-6">
                         <div className="footer-newsletter">
                             <h2>Nhận tin tức mới</h2>
-                            <form>
-                                <input className="form-control" placeholder="Tên đầy đủ của bạn" />
-                                <input className="form-control" placeholder="Địa chỉ email" />
-                                <button className="btn btn-custom">Đăng kí nhận</button>
-                            </form>
+                            <Formik
+                                initialValues={{
+                                    name: '',
+                                    email: ''
+                                }}
+                                validationSchema={NewsSchema}
+                                onSubmit={values => {
+                                    // same shape as initial values
+                                    alert('Ham xu li form o file components/Footer/Footer.js');
+                                    console.log(values);
+                                }}
+                            >
+                                {({ errors, touched }) => (
+                                    <Form>
+                                        <Field name="name" className="form-control" placeholder="Tên đầy đủ của bạn" />
+                                        {errors.name && touched.name ? (
+                                            <p className="text-danger">{errors.name}</p>
+                                        ) : null}
+                                        <Field name="email" className="form-control" placeholder="Địa chỉ email" />
+                                        {errors.email && touched.email ? <p className="text-danger">{errors.email}</p> :null}
+                                        <button className="btn btn-custom">Đăng kí nhận</button>
+                                    </Form>
+                                )}
+                            </Formik>
                         </div>
                     </div>
                 </div>

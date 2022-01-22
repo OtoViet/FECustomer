@@ -6,6 +6,10 @@ import ContactPage from '../../pages/Contact/Contact';
 import PricesPage from '../../pages/Prices/Price'
 import CarePoints from '../../pages/CarePoints/CarePoints';
 import Home from '../../pages/Home/Home';
+import Blog from '../../pages/Blog/Blog';
+import Booking from '../../pages/Booking/Booking';
+import Detail from '../../pages/Detail/Detail';
+import Team from '../../pages/Staffs/Staffs';
 function NavBar() {
   const ScrollToTop = ({ children }) => {
     const location = useLocation();
@@ -34,10 +38,10 @@ function NavBar() {
                 <div className="nav-item dropdown">
                   <a href="/" className="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                   <div className="dropdown-menu">
-                    <a href="blog.html" className="dropdown-item">Bài viết</a>
-                    <a href="single.html" className="dropdown-item">Trang chi tiết</a>
-                    <a href="team.html" className="dropdown-item">Đội ngũ nhân sự</a>
-                    <a href="booking.html" className="dropdown-item">Đặt lịch hẹn</a>
+                    <NavLink to="/blog" className="dropdown-item">Bài viết</NavLink>
+                    <NavLink to="/detail" className="dropdown-item">Trang chi tiết</NavLink>
+                    <NavLink to="/team" className="dropdown-item">Đội ngũ nhân sự</NavLink>
+                    <NavLink to="/booking" className="dropdown-item">Đặt lịch hẹn</NavLink>
                   </div>
                 </div>
                 <NavLink to="/contact" className="nav-item nav-link">Contact</NavLink>
@@ -57,6 +61,10 @@ function NavBar() {
           <Route path="/price" element={<PricesPage />} />
           <Route path="/location" element={<CarePoints />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/detail" element={<Detail />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/booking" element={<Booking />} />
         </Routes>
       </ScrollToTop>
 
