@@ -1,91 +1,171 @@
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import InputAdornment from '@mui/material/InputAdornment';
+import Tab from '@mui/material/Tab';
+import TabPanel from '@mui/lab/TabPanel';
+import TabList from '@mui/lab/TabList';
+import TabContext from '@mui/lab/TabContext';
+import { useState } from 'react';
+import DatePicker from '@mui/lab/DatePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            light: '#757ce8',
+            main: '#202C45',
+            dark: '#002884',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#ff7961',
+            main: '#E81C2E',
+            dark: '#ba000d',
+            contrastText: '#fff',
+        },
+    },
+    typography: {
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            'Barlow',
+            '"Segoe UI"',
+            'Roboto',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
+    },
+});
 function Payment() {
+    const [value, setValue] = useState('1');
+    const [date, setDate] = useState(new Date());
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
     return (
-        <div className="container py-5">
-
-            <div className="row mb-4">
-                <div className="col-lg-8 mx-auto text-center">
-                    <h1 className="display-4">Bootstrap 4 credit card form</h1>
-                    <p className="lead mb-0">Easily build a well-structured credit card form using Bootstrap 4</p>
-                    <p className="lead">Snippet by <a href="https://bootstrapious.com/snippets">Bootstrapious</a></p>
-                </div>
-            </div>
-
-
-            <div className="row">
-                <div className="col-lg-7 mx-auto">
-                    <div className="bg-white rounded-lg shadow-sm p-5">
-                        <ul role="tablist" className="nav bg-light nav-pills rounded-pill nav-fill mb-3">
-                            <li className="nav-item">
-                                <a data-toggle="pill" href="#nav-tab-card" className="nav-link active rounded-pill">
-                                    <i className="fa fa-credit-card"></i>  Credit Card
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a data-toggle="pill" href="#nav-tab-paypal" className="nav-link rounded-pill">
-                                <i className="fab fa-cc-paypal"></i> Paypal
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a data-toggle="pill" href="#nav-tab-bank" className="nav-link rounded-pill">
-                                    <i className="fa fa-university"></i>  Bank Transfer
-                                </a>
-                            </li>
-                        </ul>
-                        <div className="tab-content">
-
-                            <div id="nav-tab-card" className="tab-pane fade show active">
-                                <p className="alert alert-success">Some text success or error</p>
-                                <form >
-                                    <div className="form-group">
-                                        <label htmlFor="username">Full name (on the card)</label>
-                                        <input type="text" name="username" id="username" placeholder="Jason Doe" required className="form-control" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="cardNumber">Card number</label>
-                                        <div className="input-group">
-                                            <input type="text" name="cardNumber" id="cardNumber" placeholder="Your card number" className="form-control" required />
-                                            <div className="input-group-append">
-                                                <span className="input-group-text text-muted">
-                                                    <i className="fab fa-cc-visa mx-1"></i>
-                                                    <i className="fab fa-cc-mastercard mx-1"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="sm" className="py-5">
+                <div className="bg-white rounded-lg shadow-sm p-5">
+                    <TabContext value={value} variant="fullWidth">
+                        <Box >
+                            <TabList centered indicatorColor="secondary" onChange={handleChange} aria-label="lab API tabs example">
+                                <Tab className="shadow-none" iconPosition="start" icon={<i className="fa fa-credit-card"></i>} label="Credit Card" value="1" />
+                                <Tab className="shadow-none" iconPosition="start" icon={<i className="fab fa-paypal"></i>} label="Paypal" value="2" />
+                                <Tab className="shadow-none" iconPosition="start" icon={<i className="fa fa-university"></i>} label="Bank Transfer" value="3" />
+                            </TabList>
+                        </Box>
+                        <TabPanel value="1">
+                            <div >
+                                <Box component="form" sx={{ mt: 1 }}>
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="name"
+                                        label="Full name (on the card)"
+                                        name="name"
+                                        placeholder="Jason Doe"
+                                        autoComplete="name"
+                                        autoFocus
+                                    />
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="cardNumber"
+                                        label="Card number"
+                                        name="cardNumber"
+                                        placeholder="Your card number"
+                                        autoComplete="cardNumber"
+                                        autoFocus
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <span className="input-group-text text-muted">
+                                                        <i className="fab fa-cc-visa mx-1"></i>
+                                                        <i className="fab fa-cc-mastercard mx-1"></i>
+                                                    </span>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
                                     <div className="row">
                                         <div className="col-sm-8">
-                                            <div className="form-group">
-                                                <label><span className="hidden-xs">Expiration</span></label>
-                                                <div className="input-group">
-                                                    <input type="number" placeholder="MM" name="" className="form-control" required />
-                                                    <input type="number" placeholder="YY" name="" className="form-control" required />
-                                                </div>
+                                            <div className="form-group mt-3">
+                                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                    <DatePicker
+                                                        inputFormat="MM/yyyy"
+                                                        views={['year', 'month']}
+                                                        label="Expiration(MM/YY)"
+                                                        minDate={new Date('2000-03-01')}
+                                                        maxDate={new Date('2030-06-01')}
+                                                        value={date}
+                                                        onChange={(newDate) => {
+                                                            setDate(newDate);
+                                                        }}
+                                                        renderInput={(params) => <TextField {...params} helperText={null} />}
+                                                    />
+                                                </LocalizationProvider>
                                             </div>
                                         </div>
                                         <div className="col-sm-4">
                                             <div className="form-group mb-4">
-                                                <label data-toggle="tooltip" title="Three-digits code on the back of your card">CVV
-                                                    <i className="fa fa-question-circle"></i>
-                                                </label>
-                                                <input type="text" required className="form-control" />
+                                                <TextField
+                                                    margin="normal"
+                                                    id="input-cvv"
+                                                    label="CVV"
+                                                    InputProps={{
+                                                        endAdornment: (
+                                                            <InputAdornment position="end">
+                                                                <i data-toggle="tooltip" title="Three-digits code on the back of your card" className="fa fa-question-circle"></i>
+                                                            </InputAdornment>
+                                                        ),
+                                                    }}
+                                                    variant="outlined"
+                                                />
                                             </div>
                                         </div>
-
-
-
                                     </div>
-                                    <button type="button" className="subscribe btn btn-primary btn-block rounded-pill shadow-sm"> Confirm  </button>
-                                </form>
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        color="secondary"
+                                        size="large"
+                                        sx={{ mt: 3, mb: 2, borderRadius: 10 }}
+                                    >
+                                        Xác nhận
+                                    </Button>
+                                </Box>
                             </div>
-                            <div id="nav-tab-paypal" className="tab-pane fade">
+                        </TabPanel>
+                        <TabPanel value="2">
+                            <div >
                                 <p>Paypal is easiest way to pay online</p>
                                 <p>
-                                    <button type="button" className="btn btn-primary rounded-pill"><i className="fab fa-paypal"></i> Log into my Paypal</button>
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        color="secondary"
+                                        size="large"
+                                        className="rounded-pill"
+                                    >
+                                        <i className="fab fa-paypal"></i> Log into my Paypal
+                                    </Button>
                                 </p>
                                 <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                 </p>
                             </div>
-                            <div id="nav-tab-bank" className="tab-pane fade">
+                        </TabPanel>
+                        <TabPanel value="3">
+                            <div>
                                 <h6>Bank account details</h6>
                                 <dl>
                                     <dt>Bank</dt>
@@ -102,12 +182,12 @@ function Payment() {
                                 <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                 </p>
                             </div>
-                        </div>
-
-                    </div>
+                        </TabPanel>
+                    </TabContext>
                 </div>
-            </div>
-        </div>
+            </Container>
+        </ThemeProvider>
+
     );
 }
 export default Payment;
