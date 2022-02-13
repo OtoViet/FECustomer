@@ -7,8 +7,8 @@ function CarePointsTitle() {
                         <h2>Danh sách cửa hàng</h2>
                     </div>
                     <div className="col-12">
-                        <a href="">Trang chủ</a>
-                        <a href="">Vị trí</a>
+                        <a href="/">Trang chủ</a>
+                        <a href="/location">Vị trí</a>
                     </div>
                 </div>
             </div>

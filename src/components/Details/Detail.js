@@ -16,7 +16,7 @@ function Detail() {
                     <div className="row">
                         <div className="col-lg-8">
                             <div className="single-content">
-                                <img src={sigleImg} />
+                                <img src={sigleImg} alt="anh xe oto" />
                                 <h2>Lorem ipsum dolor sit amet</h2>
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer molestie, lorem eu eleifend bibendum, augue purus mollis sapien, non rhoncus eros leo in nunc. Donec a nulla vel turpis consectetur tempor ac vel justo. In hac habitasse platea dictumst. Cras nec sollicitudin eros. Nunc eu enim non turpis sagittis rhoncus consectetur id augue. Mauris dignissim neque felis. Phasellus mollis mi a pharetra cursus. Maecenas vulputate augue placerat lacus mattis, nec ornare risus sollicitudin.
@@ -46,62 +46,62 @@ function Detail() {
                                 </p>
                             </div>
                             <div className="single-tags">
-                                <a href="">National</a>
-                                <a href="">International</a>
-                                <a href="">Economics</a>
-                                <a href="">Politics</a>
-                                <a href="">Lifestyle</a>
-                                <a href="">Technology</a>
-                                <a href="">Trades</a>
+                                <a href="/">National</a>
+                                <a href="/">International</a>
+                                <a href="/">Economics</a>
+                                <a href="/">Politics</a>
+                                <a href="/">Lifestyle</a>
+                                <a href="/">Technology</a>
+                                <a href="/">Trades</a>
                             </div>
                             <div className="single-related">
                                 <h2>Related Post</h2>
                                 <div className="owl-carousel related-slider">
                                     <div className="post-item">
                                         <div className="post-img">
-                                            <img src={post1Img} />
+                                            <img src={post1Img} alt="anh post" />
                                         </div>
                                         <div className="post-text">
-                                            <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                            <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                             <div className="post-meta">
-                                                <p>By<a href="">Admin</a></p>
-                                                <p>In<a href="">Web Design</a></p>
+                                                <p>By<a href="/">Admin</a></p>
+                                                <p>In<a href="/">Web Design</a></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="post-item">
                                         <div className="post-img">
-                                            <img src={post2Img} />
+                                            <img src={post2Img} alt="anh post" />
                                         </div>
                                         <div className="post-text">
-                                            <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                            <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                             <div className="post-meta">
-                                                <p>By<a href="">Admin</a></p>
-                                                <p>In<a href="">Web Design</a></p>
+                                                <p>By<a href="/">Admin</a></p>
+                                                <p>In<a href="/">Web Design</a></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="post-item">
                                         <div className="post-img">
-                                            <img src={post3Img} />
+                                            <img src={post3Img} alt="anh post" />
                                         </div>
                                         <div className="post-text">
-                                            <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                            <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                             <div className="post-meta">
-                                                <p>By<a href="">Admin</a></p>
-                                                <p>In<a href="">Web Design</a></p>
+                                                <p>By<a href="/">Admin</a></p>
+                                                <p>In<a href="/">Web Design</a></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="post-item">
                                         <div className="post-img">
-                                            <img src={post4Img} />
+                                            <img src={post4Img} alt="anh post" />
                                         </div>
                                         <div className="post-text">
-                                            <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                            <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                             <div className="post-meta">
-                                                <p>By<a href="">Admin</a></p>
-                                                <p>In<a href="">Web Design</a></p>
+                                                <p>By<a href="/">Admin</a></p>
+                                                <p>In<a href="/">Web Design</a></p>
                                             </div>
                                         </div>
                                     </div>
@@ -114,45 +114,45 @@ function Detail() {
                                     <li className="comment-item">
                                         <div className="comment-body">
                                             <div className="comment-img">
-                                                <img src={userImg} />
+                                                <img src={userImg} alt="anh post" />
                                             </div>
                                             <div className="comment-text">
-                                                <h3><a href="">Josh Dunn</a></h3>
+                                                <h3><a href="/">Josh Dunn</a></h3>
                                                 <span>01 Jan 2045 at 12:00pm</span>
                                                 <p>
                                                     Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst.
                                                 </p>
-                                                <a className="btn" href="">Reply</a>
+                                                <a className="btn" href="/">Reply</a>
                                             </div>
                                         </div>
                                     </li>
                                     <li className="comment-item">
                                         <div className="comment-body">
                                             <div className="comment-img">
-                                                <img src={userImg} />
+                                                <img src={userImg} alt="anh post" />
                                             </div>
                                             <div className="comment-text">
-                                                <h3><a href="">Josh Dunn</a></h3>
+                                                <h3><a href="/">Josh Dunn</a></h3>
                                                 <p><span>01 Jan 2045 at 12:00pm</span></p>
                                                 <p>
                                                     Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst.
                                                 </p>
-                                                <a className="btn" href="">Reply</a>
+                                                <a className="btn" href="/">Reply</a>
                                             </div>
                                         </div>
                                         <ul className="comment-child">
                                             <li className="comment-item">
                                                 <div className="comment-body">
                                                     <div className="comment-img">
-                                                        <img src={userImg} />
+                                                        <img src={userImg} alt="anh user" />
                                                     </div>
                                                     <div className="comment-text">
-                                                        <h3><a href="">Josh Dunn</a></h3>
+                                                        <h3><a href="/">Josh Dunn</a></h3>
                                                         <p><span>01 Jan 2045 at 12:00pm</span></p>
                                                         <p>
                                                             Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst.
                                                         </p>
-                                                        <a className="btn" href="">Reply</a>
+                                                        <a className="btn" href="/">Reply</a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -192,7 +192,7 @@ function Detail() {
                                 <div className="sidebar-widget">
                                     <div className="single-bio">
                                         <div className="single-bio-img">
-                                            <img src={userImg} />
+                                            <img src={userImg} alt="anh user" />
                                         </div>
                                         <div className="single-bio-text">
                                             <h3>Author Name</h3>
@@ -201,11 +201,11 @@ function Detail() {
                                             </p>
                                         </div>
                                         <div className="single-bio-social">
-                                            <a className="btn" href=""><i className="fab fa-twitter"></i></a>
-                                            <a className="btn" href=""><i className="fab fa-facebook-f"></i></a>
-                                            <a className="btn" href=""><i className="fab fa-youtube"></i></a>
-                                            <a className="btn" href=""><i className="fab fa-instagram"></i></a>
-                                            <a className="btn" href=""><i className="fab fa-linkedin-in"></i></a>
+                                            <a className="btn" href="https://twitter.com/"><i className="fab fa-twitter"></i></a>
+                                            <a className="btn" href="https://www.facebook.com/"><i className="fab fa-facebook-f"></i></a>
+                                            <a className="btn" href="https://www.youtube.com/"><i className="fab fa-youtube"></i></a>
+                                            <a className="btn" href="https://www.instagram.com/"><i className="fab fa-instagram"></i></a>
+                                            <a className="btn" href="https://www.linkedin.com/"><i className="fab fa-linkedin-in"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -224,61 +224,61 @@ function Detail() {
                                     <div className="recent-post">
                                         <div className="post-item">
                                             <div className="post-img">
-                                                <img src={post1Img} />
+                                                <img src={post1Img} alt="anh post" />
                                             </div>
                                             <div className="post-text">
-                                                <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                 <div className="post-meta">
-                                                    <p>By<a href="">Admin</a></p>
-                                                    <p>In<a href="">Web Design</a></p>
+                                                    <p>By<a href="/">Admin</a></p>
+                                                    <p>In<a href="/">Web Design</a></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="post-item">
                                             <div className="post-img">
-                                                <img src={post2Img} />
+                                                <img src={post2Img} alt="anh post" />
                                             </div>
                                             <div className="post-text">
-                                                <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                 <div className="post-meta">
-                                                    <p>By<a href="">Admin</a></p>
-                                                    <p>In<a href="">Web Design</a></p>
+                                                    <p>By<a href="/">Admin</a></p>
+                                                    <p>In<a href="/">Web Design</a></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="post-item">
                                             <div className="post-img">
-                                                <img src={post3Img} />
+                                                <img src={post3Img} alt="anh post" />
                                             </div>
                                             <div className="post-text">
-                                                <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                 <div className="post-meta">
-                                                    <p>By<a href="">Admin</a></p>
-                                                    <p>In<a href="">Web Design</a></p>
+                                                    <p>By<a href="/">Admin</a></p>
+                                                    <p>In<a href="/">Web Design</a></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="post-item">
                                             <div className="post-img">
-                                                <img src={post4Img} />
+                                                <img src={post4Img} alt="anh post" />
                                             </div>
                                             <div className="post-text">
-                                                <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                 <div className="post-meta">
-                                                    <p>By<a href="">Admin</a></p>
-                                                    <p>In<a href="">Web Design</a></p>
+                                                    <p>By<a href="/">Admin</a></p>
+                                                    <p>In<a href="/">Web Design</a></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="post-item">
                                             <div className="post-img">
-                                                <img src={post5Img} />
+                                                <img src={post5Img} alt="anh post" />
                                             </div>
                                             <div className="post-text">
-                                                <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                 <div className="post-meta">
-                                                    <p>By<a href="">Admin</a></p>
-                                                    <p>In<a href="">Web Design</a></p>
+                                                    <p>By<a href="/">Admin</a></p>
+                                                    <p>In<a href="/">Web Design</a></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -287,7 +287,7 @@ function Detail() {
 
                                 <div className="sidebar-widget">
                                     <div className="image-widget">
-                                        <a href="#"><img src={blog1Img} alt="Image" /></a>
+                                        <a href="/"><img src={blog1Img} alt="blog 1" /></a>
                                     </div>
                                 </div>
 
@@ -309,61 +309,61 @@ function Detail() {
                                             <div id="featured" className="container tab-pane active">
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post1Img} />
+                                                        <img src={post1Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post2Img} />
+                                                        <img src={post2Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post3Img} />
+                                                        <img src={post3Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post4Img} />
+                                                        <img src={post4Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post5Img} />
+                                                        <img src={post5Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -371,61 +371,61 @@ function Detail() {
                                             <div id="popular" className="container tab-pane fade">
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post1Img} />
+                                                        <img src={post1Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post2Img} />
+                                                        <img src={post2Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post3Img} />
+                                                        <img src={post3Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post4Img} />
+                                                        <img src={post4Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post5Img} />
+                                                        <img src={post5Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -433,61 +433,61 @@ function Detail() {
                                             <div id="latest" className="container tab-pane fade">
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post1Img} />
+                                                        <img src={post1Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post2Img} />
+                                                        <img src={post2Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post3Img} />
+                                                        <img src={post3Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post4Img} />
+                                                        <img src={post4Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="post-item">
                                                     <div className="post-img">
-                                                        <img src={post5Img} />
+                                                        <img src={post5Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
-                                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
                                                         <div className="post-meta">
-                                                            <p>By<a href="">Admin</a></p>
-                                                            <p>In<a href="">Web Design</a></p>
+                                                            <p>By<a href="/">Admin</a></p>
+                                                            <p>In<a href="/">Web Design</a></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -498,7 +498,7 @@ function Detail() {
 
                                 <div className="sidebar-widget">
                                     <div className="image-widget">
-                                        <a href="#"><img src={blog2Img} alt="Image" /></a>
+                                        <a href="/"><img src={blog2Img} alt="blog" /></a>
                                     </div>
                                 </div>
 
@@ -506,33 +506,33 @@ function Detail() {
                                     <h2 className="widget-title">Categories</h2>
                                     <div className="category-widget">
                                         <ul>
-                                            <li><a href="">National</a><span>(98)</span></li>
-                                            <li><a href="">International</a><span>(87)</span></li>
-                                            <li><a href="">Economics</a><span>(76)</span></li>
-                                            <li><a href="">Politics</a><span>(65)</span></li>
-                                            <li><a href="">Lifestyle</a><span>(54)</span></li>
-                                            <li><a href="">Technology</a><span>(43)</span></li>
-                                            <li><a href="">Trades</a><span>(32)</span></li>
+                                            <li><a href="/">National</a><span>(98)</span></li>
+                                            <li><a href="/">International</a><span>(87)</span></li>
+                                            <li><a href="/">Economics</a><span>(76)</span></li>
+                                            <li><a href="/">Politics</a><span>(65)</span></li>
+                                            <li><a href="/">Lifestyle</a><span>(54)</span></li>
+                                            <li><a href="/">Technology</a><span>(43)</span></li>
+                                            <li><a href="/">Trades</a><span>(32)</span></li>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <div className="sidebar-widget">
                                     <div className="image-widget">
-                                        <a href="#"><img src={blog3Img} alt="Image" /></a>
+                                        <a href="/"><img src={blog3Img} alt="blog" /></a>
                                     </div>
                                 </div>
 
                                 <div className="sidebar-widget">
                                     <h2 className="widget-title">Tags Cloud</h2>
                                     <div className="tag-widget">
-                                        <a href="">National</a>
-                                        <a href="">International</a>
-                                        <a href="">Economics</a>
-                                        <a href="">Politics</a>
-                                        <a href="">Lifestyle</a>
-                                        <a href="">Technology</a>
-                                        <a href="">Trades</a>
+                                        <a href="/">National</a>
+                                        <a href="/">International</a>
+                                        <a href="/">Economics</a>
+                                        <a href="/">Politics</a>
+                                        <a href="/">Lifestyle</a>
+                                        <a href="/">Technology</a>
+                                        <a href="/">Trades</a>
                                     </div>
                                 </div>
 

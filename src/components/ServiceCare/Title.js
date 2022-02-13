@@ -7,8 +7,8 @@ function ServiceCareTitle() {
                         <h2>Dịch vụ</h2>
                     </div>
                     <div className="col-12">
-                        <a href="">Trang chủ</a>
-                        <a href="">Dịch vụ</a>
+                        <a href="/">Trang chủ</a>
+                        <a href="/service">Dịch vụ</a>
                     </div>
                 </div>
             </div>

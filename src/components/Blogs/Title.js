@@ -8,8 +8,8 @@ function BlogTitle() {
                             <h2>Bài viết</h2>
                         </div>
                         <div className="col-12">
-                            <a href="">Home</a>
-                            <a href="">Blog</a>
+                            <a href="/">Home</a>
+                            <a href="/blog">Blog</a>
                         </div>
                     </div>
                 </div>

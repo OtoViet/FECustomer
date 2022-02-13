@@ -7,8 +7,8 @@ function AboutTitle(){
                         <h2>Về chúng tôi</h2>
                     </div>
                     <div className="col-12">
-                        <a href="">Trang chủ</a>
-                        <a href="">Về chúng tôi</a>
+                        <a href="/">Trang chủ</a>
+                        <a href="/about">Về chúng tôi</a>
                     </div>
                 </div>
             </div>

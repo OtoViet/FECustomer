@@ -7,8 +7,8 @@ function ContactTitle() {
                         <h2>Liên hệ với chúng tôi</h2>
                     </div>
                     <div className="col-12">
-                        <a href="">Trang chủ</a>
-                        <a href="">Liên hệ</a>
+                        <a href="/">Trang chủ</a>
+                        <a href="/contact">Liên hệ</a>
                     </div>
                 </div>
             </div>

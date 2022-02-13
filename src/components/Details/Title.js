@@ -8,8 +8,8 @@ function DetailTitle() {
                             <h2>Trang chi tiết</h2>
                         </div>
                         <div className="col-12">
-                            <a href="">Trang chủ</a>
-                            <a href="">Chi tiết</a>
+                            <a href="/">Trang chủ</a>
+                            <a href="detail">Chi tiết</a>
                         </div>
                     </div>
                 </div>

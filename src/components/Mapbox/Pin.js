@@ -1,16 +1,9 @@
 import * as React from 'react';
-
 import ICON from "../../assets/icons/svgs/car.svg";
 
-const pinStyle = {
-  cursor: 'pointer',
-  fill: '#d00',
-  stroke: 'none'
-};
-
-function Pin({size = 20, onClick}: {size?: number; onClick?: () => void}) {
+function Pin({size = 20, onClick}) {
   return (
-    <img src={ICON}  style={{width:40,height:40}} onClick={onClick}/>
+    <img src={ICON} alt="icon red car"  style={{width:40,height:40}} onClick={onClick}/>
   );
 }
 

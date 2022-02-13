@@ -7,8 +7,8 @@ function PlanTitle(){
                         <h2>Washing Plan</h2>
                     </div>
                     <div className="col-12">
-                        <a href="">Home</a>
-                        <a href="">Price</a>
+                        <a href="/">Home</a>
+                        <a href="/price">Price</a>
                     </div>
                 </div>
             </div>
