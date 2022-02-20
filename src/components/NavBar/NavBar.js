@@ -12,6 +12,7 @@ import Detail from '../../pages/Detail/Detail';
 import Team from '../../pages/Staffs/Staffs';
 import LoginPage from '../../pages/Login/Login';
 import SignUpPage from '../../pages/SignUp/SignUp';
+import NotFoundPage from '../../pages/NotFound/NotFound';
 function NavBar() {
   const ScrollToTop = ({ children }) => {
     const location = useLocation();
@@ -46,7 +47,7 @@ function NavBar() {
                     <NavLink to="/booking" className="dropdown-item">Đặt lịch hẹn</NavLink>
                   </div>
                 </div>
-                <NavLink to="/contact" className="nav-item nav-link">Contact</NavLink>
+                <NavLink to="/contact" className="nav-item nav-link">Liên hệ</NavLink>
                 <NavLink to="/login" className="nav-item nav-link">Đăng nhập</NavLink>
               </div>
               <div className="ml-auto">
@@ -58,7 +59,8 @@ function NavBar() {
       </div>
       <ScrollToTop>
         <Routes>
-          <Route path="/*" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<NotFoundPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/service" element={<ServiceCarePage />} />
           <Route path="/price" element={<PricesPage />} />

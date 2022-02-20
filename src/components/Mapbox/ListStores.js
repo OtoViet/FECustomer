@@ -11,23 +11,19 @@ mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 mapboxgl.accessToken = "pk.eyJ1Ijoibmd1eWVubmhhdHRhbiIsImEiOiJja3pkazA0bXkxbnppMm5vMW04Y2xjc2ZsIn0.pcnzXZfj_tRB6m1Ee5zqOQ"
 function ListStores() {
     const directions = useRef(null);
-    function ChangeLocation() {
-        navigator.geolocation.getCurrentPosition(pos => {
-            const { latitude, longitude } = pos.coords;
-            directions.current.setOrigin([longitude, latitude]);
-        });
-    }
+
     function DirectionsControl(props) {
-        directions.current =new MapboxDirections({
+        directions.current = new MapboxDirections({
+            interactive: true,
             accessToken: mapboxgl.accessToken,
             language: 'vi',
             unit: 'metric',
             placeholderOrigin: 'Nhập địa chỉ của bạn',
             placeholderDestination: 'Nhập địa chỉ đến',
             controls: {
-                // inputs: false,
+                inputs: true,
                 profileSwitcher: false,
-            }
+            },
         });
         useControl(() => directions.current, {
             position: props.position
@@ -45,7 +41,8 @@ function ListStores() {
                     anchor="bottom"
                 >
                     <Pin onClick={() => {
-                        directions.current.setDestination([store.longitude,store.latitude]);setPopupInfo(store)}} 
+                        setPopupInfo(store);
+                    }}
                     />
                 </Marker>
             )),
@@ -62,7 +59,7 @@ function ListStores() {
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxAccessToken={mapboxgl.accessToken}
     >
-        <GeolocateControl position="top-right" trackUserLocation={true} onTrackUserLocationStart={ChangeLocation} />
+        <GeolocateControl position="top-right" />
         <FullscreenControl position="top-right" />
         <NavigationControl position="top-right" />
         <DirectionsControl position="top-left" />
@@ -75,11 +72,19 @@ function ListStores() {
                 longitude={Number(popupInfo.longitude)}
                 latitude={Number(popupInfo.latitude)}
                 closeOnClick={false}
-                onClose={() => setPopupInfo(null)}
+                focusAfterOpen={true}
+                onClose={() => {
+                    setPopupInfo(null);
+                    navigator.geolocation.getCurrentPosition(pos => {
+                        var { latitude, longitude } = pos.coords;
+                        directions.current.removeRoutes();
+                        directions.current.setOrigin([longitude, latitude]);
+                        directions.current.setDestination([Number(popupInfo.longitude), Number(popupInfo.latitude)]);
+                    });
+                }}
             >
                 <div style={{ 'textAlign': 'center' }}>
                     {popupInfo.store}
-
                 </div>
                 <img alt="anh cua hang" width="100%" src={popupInfo.image} />
             </Popup>

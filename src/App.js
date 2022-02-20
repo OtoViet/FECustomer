@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 import Loader from './components/Loader/Loader';
 import GoToTop from './components/GoToTop/GoToTop';
 // import Payment from './components/Forms/Payment';
+
 function App() {
   return (
     <div className="App">

@@ -2,17 +2,20 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { NavLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import FormApi from '../../api/formApi';
+import {useState} from 'react';
 
 const theme = createTheme({
     palette: {
@@ -45,17 +48,18 @@ const theme = createTheme({
 });
 
 export default function SignUp() {
+    const [valueDate, setValueDate] = useState(new Date('2014-08-18T21:11:54'));
+
     const signUpSchema = Yup.object().shape({
         email: Yup.string()
-            .min(2, 'Quá ngắn!')
-            .max(50, 'Quá dài!')
+            .email('Email không hợp lệ')
             .required('Vui lòng nhập email'),
-        password: Yup.string().required('Vui lòng nhập mật khẩu'),
-        rePassword: Yup.string().required('Vui lòng nhập lại mật khẩu'),
+        password: Yup.string().required('Vui lòng nhập mật khẩu').min(6, 'Mật khẩu phải có ít nhất 6 ký tự'),
+        rePassword: Yup.string().required('Vui lòng nhập lại mật khẩu').oneOf([Yup.ref('password')], 'Mật khẩu không trùng khớp'),
         firstName: Yup.string().required('Vui lòng nhập tên của bạn'),
         lastName: Yup.string().required('Vui lòng nhập họ của bạn'),
-        phoneNumber: Yup.number('Vui lòng nhập số').required('Vui lòng nhập số điện thoại').min(10, 'Số điện thoại không hợp lệ'),
-
+        phoneNumber: Yup.number().typeError('Vui lòng nhập số').required('Vui lòng nhập số điện thoại').min(100000000, 'Số điện thoại không hợp lệ'),
+        dateOfBirth: Yup.date().typeError('Vui lòng chọn ngày sinh').max(new Date(), "Ngày sinh không hợp lệ"),
     });
 
     const formik = useFormik({
@@ -65,23 +69,25 @@ export default function SignUp() {
             rePassword: '',
             firstName: '',
             lastName: '',
-            phoneNumber: ''
+            phoneNumber: '',
+            dateOfBirth: '',
         },
         validationSchema: signUpSchema,
         onSubmit: (values) => {
+
             alert(JSON.stringify(values, null, 2));
+            const loginFormData = values;
+            FormApi.signUp(loginFormData).then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            });
         },
     });
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     const data = new FormData(event.currentTarget);
-    //     // eslint-disable-next-line no-console
-    //     console.log({
-    //         email: data.get('email'),
-    //         password: data.get('password'),
-    //     });
-    // };
-
+    const handleChangeDate = (newValue) => {
+        setValueDate(newValue);
+        formik.setFieldValue('dateOfBirth', newValue);
+    };
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -131,6 +137,36 @@ export default function SignUp() {
                                     helperText={formik.touched.firstName && formik.errors.firstName}
                                 />
                             </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <DesktopDatePicker
+                                        label="Ngày sinh"
+                                        inputFormat="dd/MM/yyyy"
+                                        value={valueDate}
+                                        onChange={handleChangeDate}
+                                        renderInput={(params) => <TextField {...params} 
+                                        name="dateOfBirth"
+                                        id="dateOfBirth"
+                                        error={formik.touched.dateOfBirth && Boolean(formik.errors.dateOfBirth)}
+                                        helperText={formik.touched.dateOfBirth && formik.errors.dateOfBirth}
+                                        required fullWidth />}
+                                    />
+                                </LocalizationProvider>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="phoneNumber"
+                                    label="Nhập số điện thoại"
+                                    name="phoneNumber"
+                                    value={formik.values.phoneNumber}
+                                    onChange={formik.handleChange}
+                                    error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+                                    helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
+                                />
+                            </Grid>
+                            
                             <Grid item xs={12}>
                                 <TextField
                                     required
@@ -145,19 +181,7 @@ export default function SignUp() {
                                     helperText={formik.touched.email && formik.errors.email}
                                 />
                             </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="phoneNumber"
-                                    label="Nhập số điện thoại"
-                                    name="phoneNumber"
-                                    value={formik.values.phoneNumber}
-                                    onChange={formik.handleChange}
-                                    error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
-                                    helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
-                                />
-                            </Grid>
+                            
                             <Grid item xs={12}>
                                 <TextField
                                     required
@@ -186,12 +210,6 @@ export default function SignUp() {
                                     onChange={formik.handleChange}
                                     error={formik.touched.rePassword && Boolean(formik.errors.rePassword)}
                                     helperText={formik.touched.rePassword && formik.errors.rePassword}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="Đông ý nhận thông tin từ cửa hàng"
                                 />
                             </Grid>
                         </Grid>
