@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { NavLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import FormApi from '../../api/formApi';
 
 const theme = createTheme({
   palette: {
@@ -60,7 +61,13 @@ export default function Login() {
     },
     validationSchema: loginSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      FormApi.login(values).then(res => {
+        // set refresh token
+        localStorage.setItem('token', res.refreshToken);
+        // use react router dom to redirect to home page
+
+      });
+
     },
   });
   // const handleSubmit = (event) => {
@@ -88,7 +95,7 @@ export default function Login() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" sx={{fontWeight:500}}>
+          <Typography component="h1" variant="h5" sx={{ fontWeight: 500 }}>
             Đăng nhập
           </Typography>
           <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{ mt: 1 }}>

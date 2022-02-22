@@ -4,6 +4,14 @@ const formApi={
         const url ='/auth/signUp';
         return axiosClient.post(url,body);
     },
+    existAccount:function(body){
+        const url ='/auth/checkExistAccount';
+        return axiosClient.post(url,body);
+    },
+    login:function(body){
+        const url ='/auth/login';
+        return axiosClient.post(url,body);
+    },
     api:function(params){
         const url ='/api';
         return axiosClient.get(url,{

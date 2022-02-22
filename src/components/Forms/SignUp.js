@@ -15,8 +15,7 @@ import { NavLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import FormApi from '../../api/formApi';
-import {useState} from 'react';
-
+import { useState } from 'react';
 const theme = createTheme({
     palette: {
         primary: {
@@ -49,11 +48,27 @@ const theme = createTheme({
 
 export default function SignUp() {
     const [valueDate, setValueDate] = useState(new Date('2014-08-18T21:11:54'));
-
     const signUpSchema = Yup.object().shape({
         email: Yup.string()
             .email('Email không hợp lệ')
-            .required('Vui lòng nhập email'),
+            .required('Vui lòng nhập email')
+            .test('Unique Email', 'Email đã tồn tại', // <- key, message
+                function (value) {
+                    return new Promise((resolve, reject) => {
+                        FormApi.existAccount({ email: value }).then(res => {
+                            if (res.exist) {   
+                                resolve(false);
+                            } else {
+                                resolve(true);
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            reject(err);
+                        });
+                    })
+                }
+            ),
         password: Yup.string().required('Vui lòng nhập mật khẩu').min(6, 'Mật khẩu phải có ít nhất 6 ký tự'),
         rePassword: Yup.string().required('Vui lòng nhập lại mật khẩu').oneOf([Yup.ref('password')], 'Mật khẩu không trùng khớp'),
         firstName: Yup.string().required('Vui lòng nhập tên của bạn'),
@@ -75,7 +90,7 @@ export default function SignUp() {
         validationSchema: signUpSchema,
         onSubmit: (values) => {
 
-            alert(JSON.stringify(values, null, 2));
+            // alert(JSON.stringify(values, null, 2));
             const loginFormData = values;
             FormApi.signUp(loginFormData).then(res => {
                 console.log(res);
@@ -144,12 +159,12 @@ export default function SignUp() {
                                         inputFormat="dd/MM/yyyy"
                                         value={valueDate}
                                         onChange={handleChangeDate}
-                                        renderInput={(params) => <TextField {...params} 
-                                        name="dateOfBirth"
-                                        id="dateOfBirth"
-                                        error={formik.touched.dateOfBirth && Boolean(formik.errors.dateOfBirth)}
-                                        helperText={formik.touched.dateOfBirth && formik.errors.dateOfBirth}
-                                        required fullWidth />}
+                                        renderInput={(params) => <TextField {...params}
+                                            name="dateOfBirth"
+                                            id="dateOfBirth"
+                                            error={formik.touched.dateOfBirth && Boolean(formik.errors.dateOfBirth)}
+                                            helperText={formik.touched.dateOfBirth && formik.errors.dateOfBirth}
+                                            required fullWidth />}
                                     />
                                 </LocalizationProvider>
                             </Grid>
@@ -166,7 +181,7 @@ export default function SignUp() {
                                     helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
                                 />
                             </Grid>
-                            
+
                             <Grid item xs={12}>
                                 <TextField
                                     required
@@ -177,11 +192,12 @@ export default function SignUp() {
                                     autoComplete="email"
                                     value={formik.values.email}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     error={formik.touched.email && Boolean(formik.errors.email)}
                                     helperText={formik.touched.email && formik.errors.email}
                                 />
                             </Grid>
-                            
+
                             <Grid item xs={12}>
                                 <TextField
                                     required
