@@ -47,7 +47,7 @@ const theme = createTheme({
 });
 
 export default function SignUp() {
-    const [valueDate, setValueDate] = useState(new Date('2014-08-18T21:11:54'));
+    const [valueDate, setValueDate] = useState(new Date('2000-08-18T21:11:54'));
     const signUpSchema = Yup.object().shape({
         email: Yup.string()
             .email('Email không hợp lệ')
@@ -134,6 +134,7 @@ export default function SignUp() {
                                     autoFocus
                                     value={formik.values.lastName}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     error={formik.touched.lastName && Boolean(formik.errors.lastName)}
                                     helperText={formik.touched.lastName && formik.errors.lastName}
                                 />
@@ -148,6 +149,7 @@ export default function SignUp() {
                                     autoComplete="given-name"
                                     value={formik.values.firstName}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     error={formik.touched.firstName && Boolean(formik.errors.firstName)}
                                     helperText={formik.touched.firstName && formik.errors.firstName}
                                 />
@@ -159,6 +161,7 @@ export default function SignUp() {
                                         inputFormat="dd/MM/yyyy"
                                         value={valueDate}
                                         onChange={handleChangeDate}
+                                        onBlur={formik.handleBlur}
                                         renderInput={(params) => <TextField {...params}
                                             name="dateOfBirth"
                                             id="dateOfBirth"
@@ -177,6 +180,7 @@ export default function SignUp() {
                                     name="phoneNumber"
                                     value={formik.values.phoneNumber}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
                                     helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
                                 />
@@ -209,6 +213,7 @@ export default function SignUp() {
                                     autoComplete="new-password"
                                     value={formik.values.password}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     error={formik.touched.password && Boolean(formik.errors.password)}
                                     helperText={formik.touched.password && formik.errors.password}
                                 />
@@ -224,6 +229,7 @@ export default function SignUp() {
                                     autoComplete="new-password"
                                     value={formik.values.rePassword}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     error={formik.touched.rePassword && Boolean(formik.errors.rePassword)}
                                     helperText={formik.touched.rePassword && formik.errors.rePassword}
                                 />

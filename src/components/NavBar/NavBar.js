@@ -31,14 +31,15 @@ function NavBar() {
   const handleLogout = () => {
     FormApi.logout()
     .then((res)=>{
-      console.log(res);
-      // localStorage.removeItem('token');
-      // localStorage.removeItem('refreshToken');
+      if(res){
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        navigate('/login');
+      }
     })
     .catch((err)=>{
       console.log(err);
     });
-    navigate('/login');
   };
   return (
     <>
