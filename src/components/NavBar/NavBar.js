@@ -1,5 +1,6 @@
-import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
+import { Routes, Route, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useLayoutEffect } from 'react';
+
 import AboutPage from '../../pages/About/About';
 import ServiceCarePage from '../../pages/ServiceCare/ServiceCare';
 import ContactPage from '../../pages/Contact/Contact';
@@ -13,7 +14,13 @@ import Team from '../../pages/Staffs/Staffs';
 import LoginPage from '../../pages/Login/Login';
 import SignUpPage from '../../pages/SignUp/SignUp';
 import NotFoundPage from '../../pages/NotFound/NotFound';
+import FormApi from '../../api/formApi';
+import AccountMenu from '../../components/Menu/Account';
+import Dropdown from '../../components/Menu/Dropdown';
+
+
 function NavBar() {
+  let navigate = useNavigate();
   const ScrollToTop = ({ children }) => {
     const location = useLocation();
     useLayoutEffect(() => {
@@ -21,6 +28,18 @@ function NavBar() {
     }, [location.pathname]);
     return children;
   }
+  const handleLogout = () => {
+    FormApi.logout()
+    .then((res)=>{
+      console.log(res);
+      // localStorage.removeItem('token');
+      // localStorage.removeItem('refreshToken');
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
+    navigate('/login');
+  };
   return (
     <>
       <div className="nav-bar">
@@ -38,17 +57,13 @@ function NavBar() {
                 <NavLink to="/service" className="nav-item nav-link">Dịch vụ</NavLink>
                 <NavLink to="/price" className="nav-item nav-link">Bảng giá</NavLink>
                 <NavLink to="/location" className="nav-item nav-link">Danh sách cửa hàng</NavLink>
-                <div className="nav-item dropdown">
-                  <a href="/" className="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                  <div className="dropdown-menu">
-                    <NavLink to="/blog" className="dropdown-item">Bài viết</NavLink>
-                    <NavLink to="/detail" className="dropdown-item">Trang chi tiết</NavLink>
-                    <NavLink to="/team" className="dropdown-item">Đội ngũ nhân sự</NavLink>
-                    <NavLink to="/booking" className="dropdown-item">Đặt lịch hẹn</NavLink>
-                  </div>
-                </div>
                 <NavLink to="/contact" className="nav-item nav-link">Liên hệ</NavLink>
-                <NavLink to="/login" className="nav-item nav-link">Đăng nhập</NavLink>
+                <Dropdown />
+                {
+                  localStorage.getItem('token') ?
+                    <AccountMenu handleLogout={handleLogout} />:
+                    <NavLink to="/login" className="nav-item nav-link">Đăng nhập</NavLink>
+                }
               </div>
               <div className="ml-auto">
                 <a className="btn btn-custom" href="/">Tra cứu lịch hẹn</a>

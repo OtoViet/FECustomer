@@ -14,7 +14,7 @@ import { NavLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import FormApi from '../../api/formApi';
-
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
   palette: {
     primary: {
@@ -46,6 +46,14 @@ const theme = createTheme({
 });
 
 export default function Login() {
+  let navigate = useNavigate();
+  const getToken = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      return token;
+    }
+    return null;
+  };
   const loginSchema = Yup.object().shape({
     email: Yup.string()
       .min(2, 'Quá ngắn!')
@@ -65,7 +73,7 @@ export default function Login() {
         // set refresh token
         localStorage.setItem('token', res.refreshToken);
         // use react router dom to redirect to home page
-
+        navigate('/');
       });
 
     },

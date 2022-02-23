@@ -20,11 +20,11 @@ const formApi={
         });
     },
     token: function(body){
-        const url ='/token';
+        const url ='/auth/token';
         return axiosClient.post(url,body);
     },
     logout: function(){
-        const url ='/logout';
+        const url ='/auth/logout';
         return axiosClient.delete(url);
     }
 }
