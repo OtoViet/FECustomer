@@ -16,6 +16,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import FormApi from '../../api/formApi';
 import { useState } from 'react';
+import Google from './Google';
 const theme = createTheme({
     palette: {
         primary: {
@@ -56,16 +57,16 @@ export default function SignUp() {
                 function (value) {
                     return new Promise((resolve, reject) => {
                         FormApi.existAccount({ email: value }).then(res => {
-                            if (res.exist) {   
+                            if (res.exist) {
                                 resolve(false);
                             } else {
                                 resolve(true);
                             }
                         })
-                        .catch(err => {
-                            console.log(err);
-                            reject(err);
-                        });
+                            .catch(err => {
+                                console.log(err);
+                                reject(err);
+                            });
                     })
                 }
             ),
@@ -245,8 +246,11 @@ export default function SignUp() {
                         >
                             Đăng kí
                         </Button>
-                        <Grid container justifyContent="flex-end">
+                        <Grid container justifyContent="flex-end" alignItems="center">
                             <Grid item>
+                                <Google />
+                            </Grid>
+                            <Grid item sx={{ml:1}}>
                                 <NavLink to="/login" variant="body2">
                                     Đã có tài khoản? Đăng nhập
                                 </NavLink>

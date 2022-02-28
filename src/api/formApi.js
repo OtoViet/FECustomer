@@ -12,6 +12,10 @@ const formApi={
         const url ='/auth/login';
         return axiosClient.post(url,body);
     },
+    loginGoogle:function(body){
+        const url ='/auth/loginGoogle';
+        return axiosClient.post(url,body);
+    },
     api:function(params){
         const url ='/api';
         return axiosClient.get(url,{
@@ -26,6 +30,18 @@ const formApi={
     logout: function(){
         const url ='/auth/logout';
         return axiosClient.delete(url);
-    }
+    },
+    forgotPassword: function(body){
+        const url ='/auth/forgotPassword';
+        return axiosClient.patch(url,body);
+    },
+    checkTokenResetPassword: function(body){
+        const url ='/auth/checkTokenResetPassword';
+        return axiosClient.post(url,body);
+    },
+    resetPassword: function(body){
+        const url ='/auth/resetPassword';
+        return axiosClient.post(url,body);
+    },
 }
 export default formApi;

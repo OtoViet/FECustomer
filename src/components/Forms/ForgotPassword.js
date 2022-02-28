@@ -1,20 +1,20 @@
+import {useState, useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import FormApi from '../../api/formApi';
-import { useNavigate } from 'react-router-dom';
+import ResponsiveDialog from '../Dialog/Dialog';
+import Alert from '@mui/material/Alert';
 const theme = createTheme({
   palette: {
     primary: {
@@ -45,31 +45,31 @@ const theme = createTheme({
   },
 });
 
-export default function Login() {
-  let navigate = useNavigate();
+export default function ForgotPassword() {
+  const [open, setOpen] = useState(false);
+  const [errorAlert, setErrorAlert] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    if(location.state && location.state.error) {
+      setErrorAlert(true);
+    }
+  },[location]);
   const loginSchema = Yup.object().shape({
-    email: Yup.string()
-      .min(2, 'Quá ngắn!')
-      .max(50, 'Quá dài!')
-      .required('Vui lòng nhập tên của bạn'),
-    password: Yup.string().required('Vui lòng nhập mật khẩu')
+    email: Yup.string().email('Email không hợp lệ')
+      .required('Vui lòng nhập tên email của bạn'),
   });
 
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: '',
     },
     validationSchema: loginSchema,
     onSubmit: (values) => {
-      FormApi.login(values).then(res => {
-        // set refresh token
-        localStorage.setItem('token', res.accessToken);
-        localStorage.setItem('refreshToken', res.refreshToken);
-        // use react router dom to redirect to home page
-        navigate('/');
-      });
-
+        FormApi.forgotPassword(values).then(res => {
+          setOpen(true);
+        }).catch(err => {
+            console.log(err);
+        });
     },
   });
 
@@ -77,6 +77,9 @@ export default function Login() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        {open? <ResponsiveDialog open={open} title="Thông báo"
+          content="Chúng tôi đã gửi cho bạn một email xác nhận.
+          Kiểm tra email để xác thực việc thay đổi mật khẩu." />: null}
         <Box
           sx={{
             marginTop: 8,
@@ -86,11 +89,13 @@ export default function Login() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+            <MailOutlineIcon />
           </Avatar>
           <Typography component="h1" variant="h5" sx={{ fontWeight: 500 }}>
-            Đăng nhập
+            Quên mật khẩu
           </Typography>
+          {errorAlert ? 
+          <Alert severity="error">Có vẻ như có vấn đề với đường dẫn của bạn!</Alert> : null }
           <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -107,25 +112,6 @@ export default function Login() {
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Mật khẩu"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Ghi nhớ"
-            />
             <Button
               type="submit"
               fullWidth
@@ -134,12 +120,12 @@ export default function Login() {
               size="large"
               sx={{ mt: 3, mb: 2, borderRadius: 10 }}
             >
-              Đăng nhập
+              Quên mật khẩu
             </Button>
             <Grid container>
               <Grid item xs>
-                <NavLink to="/passwordReset" variant="body2">
-                  Quên mật khẩu?
+                <NavLink to="/" variant="body2">
+                  Về trang chủ
                 </NavLink>
               </Grid>
               <Grid item>
