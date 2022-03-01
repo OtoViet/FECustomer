@@ -17,6 +17,8 @@ import * as Yup from 'yup';
 import FormApi from '../../api/formApi';
 import { useState } from 'react';
 import Google from './Google';
+import ResponsiveDialog from '../Dialog/Dialog';
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -48,6 +50,7 @@ const theme = createTheme({
 });
 
 export default function SignUp() {
+    const [open, setOpen] = useState(false);
     const [valueDate, setValueDate] = useState(new Date('2000-08-18T21:11:54'));
     const signUpSchema = Yup.object().shape({
         email: Yup.string()
@@ -95,6 +98,8 @@ export default function SignUp() {
             const loginFormData = values;
             FormApi.signUp(loginFormData).then(res => {
                 console.log(res);
+                setOpen(true);
+                
             }).catch(err => {
                 console.log(err);
             });
@@ -108,6 +113,10 @@ export default function SignUp() {
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
+                {open? <ResponsiveDialog open={open} title="Thông báo"
+                    content="Đăng kí tài khoản thành công!
+                    Vui lòng kiểm tra email để xác nhận tài khoản
+                    Hoặc về trang đăng nhập để tiếp tục" />: null}
                 <Box
                     sx={{
                         marginTop: 8,

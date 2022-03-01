@@ -8,6 +8,10 @@ const formApi={
         const url ='/auth/checkExistAccount';
         return axiosClient.post(url,body);
     },
+    checkPassword: function(body){
+        const url ='/auth/checkPassword';
+        return axiosClient.post(url,body);
+    },
     login:function(body){
         const url ='/auth/login';
         return axiosClient.post(url,body);
@@ -43,5 +47,9 @@ const formApi={
         const url ='/auth/resetPassword';
         return axiosClient.post(url,body);
     },
+    changePassword: function(body){
+        const url ='/auth/changePassword';
+        return axiosClient.patch(url,body);
+    }
 }
 export default formApi;

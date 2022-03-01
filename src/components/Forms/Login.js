@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,6 +16,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import FormApi from '../../api/formApi';
 import { useNavigate } from 'react-router-dom';
+import ResponsiveDialog from '../Dialog/Dialog';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -47,6 +50,7 @@ const theme = createTheme({
 
 export default function Login() {
   let navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const loginSchema = Yup.object().shape({
     email: Yup.string()
       .min(2, 'Quá ngắn!')
@@ -68,6 +72,8 @@ export default function Login() {
         localStorage.setItem('refreshToken', res.refreshToken);
         // use react router dom to redirect to home page
         navigate('/');
+      }).catch(err => {
+        setOpen(true);
       });
 
     },
@@ -77,6 +83,10 @@ export default function Login() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        {open ? <ResponsiveDialog open={open} 
+          title="Thông báo"
+          content="Đăng nhập không thành công!
+          Mật khẩu hoặc tài khoản của bạn không đúng" /> : null}
         <Box
           sx={{
             marginTop: 8,

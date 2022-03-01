@@ -15,6 +15,7 @@ import LoginPage from '../../pages/Login/Login';
 import SignUpPage from '../../pages/SignUp/SignUp';
 import ForgotPasswordPage from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPasswordPage from '../../pages/ResetPassword/ResetPassword';
+import ChangePasswordPage from '../../pages/ChangePassword/ChangePassword';
 import NotFoundPage from '../../pages/NotFound/NotFound';
 import FormApi from '../../api/formApi';
 import AccountMenu from '../../components/Menu/Account';
@@ -55,6 +56,9 @@ function NavBar() {
               })
               .catch((err) => {
                 console.log('co loi xay ra khi goi logout lan 2');
+                localStorage.removeItem('token');
+                localStorage.removeItem('refreshToken');
+                navigate('/login');
               });
             }
           })
@@ -75,12 +79,12 @@ function NavBar() {
 
             <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
               <div className="navbar-nav mr-auto">
-                <NavLink to="/" className="nav-item nav-link">Trang chủ</NavLink>
-                <NavLink to="/about" className="nav-item nav-link">Về chúng tôi</NavLink>
-                <NavLink to="/service" className="nav-item nav-link">Dịch vụ</NavLink>
-                <NavLink to="/price" className="nav-item nav-link">Bảng giá</NavLink>
-                <NavLink to="/location" className="nav-item nav-link">Danh sách cửa hàng</NavLink>
-                <NavLink to="/contact" className="nav-item nav-link">Liên hệ</NavLink>
+                <NavLink to="/" className="nav-item nav-link nav-item-navlink">Trang chủ</NavLink>
+                <NavLink to="/about" className="nav-item nav-link nav-item-navlink">Về chúng tôi</NavLink>
+                <NavLink to="/service" className="nav-item nav-link nav-item-navlink">Dịch vụ</NavLink>
+                <NavLink to="/price" className="nav-item nav-link nav-item-navlink">Bảng giá</NavLink>
+                <NavLink to="/location" className="nav-item nav-link nav-item-navlink">Danh sách cửa hàng</NavLink>
+                <NavLink to="/contact" className="nav-item nav-link nav-item-navlink">Liên hệ</NavLink>
                 <Dropdown />
                 {
                   localStorage.getItem('token') ?
@@ -112,6 +116,7 @@ function NavBar() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/passwordReset" element={<ForgotPasswordPage />} />
           <Route path="/passwordReset/:id" element={<ResetPasswordPage />} />
+          <Route path="/changePassword" element={<ChangePasswordPage />} />
         </Routes>
       </ScrollToTop>
 

@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
+import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -101,23 +101,20 @@ export default function AccountMenu(props) {
                 anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
             >
                 <MenuItem>
-                    <Avatar /> Profile
+                    <Avatar /> Thông tin tài khoản
                 </MenuItem>
                 <MenuItem>
-                    <Avatar /> My account
+                    <ListItemIcon>
+                        <EnhancedEncryptionIcon fontSize="small" />
+                    </ListItemIcon>
+                    Đổi mật khẩu
                 </MenuItem>
                 <Divider />
                 <MenuItem>
                     <ListItemIcon>
-                        <PersonAdd fontSize="small" />
-                    </ListItemIcon>
-                    Add another account
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
                         <Settings fontSize="small" />
                     </ListItemIcon>
-                    Settings
+                    Cài đặt
                 </MenuItem>
                 <MenuItem onClick={props.handleLogout}>
                     <ListItemIcon>
