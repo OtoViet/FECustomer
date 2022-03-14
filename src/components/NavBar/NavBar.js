@@ -7,7 +7,7 @@ import ContactPage from '../../pages/Contact/Contact';
 import PricesPage from '../../pages/Prices/Price'
 import CarePoints from '../../pages/CarePoints/CarePoints';
 import Home from '../../pages/Home/Home';
-import Blog from '../../pages/Blog/Blog';
+import ListService from '../../pages/ListService/ListService';
 import Booking from '../../pages/Booking/Booking';
 import Detail from '../../pages/Detail/Detail';
 import Team from '../../pages/Staffs/Staffs';
@@ -19,8 +19,8 @@ import ChangePasswordPage from '../../pages/ChangePassword/ChangePassword';
 import NotFoundPage from '../../pages/NotFound/NotFound';
 import FormApi from '../../api/formApi';
 import AccountMenu from '../../components/Menu/Account';
-import Dropdown from '../../components/Menu/Dropdown';
-
+import Dropdown from '../Menu/DropdownBlog';
+import DropdownService from '../Menu/DropdownService';
 
 function NavBar() {
   let navigate = useNavigate();
@@ -30,7 +30,7 @@ function NavBar() {
       document.documentElement.scrollTo(0, 0);
     }, [location.pathname]);
     return children;
-  }
+  };
   const handleLogout = () => {
     FormApi.logout()
       .then((res) => {
@@ -81,7 +81,7 @@ function NavBar() {
               <div className="navbar-nav mr-auto">
                 <NavLink to="/" className="nav-item nav-link nav-item-navlink">Trang chủ</NavLink>
                 <NavLink to="/about" className="nav-item nav-link nav-item-navlink">Về chúng tôi</NavLink>
-                <NavLink to="/service" className="nav-item nav-link nav-item-navlink">Dịch vụ</NavLink>
+                <DropdownService />
                 <NavLink to="/price" className="nav-item nav-link nav-item-navlink">Bảng giá</NavLink>
                 <NavLink to="/location" className="nav-item nav-link nav-item-navlink">Danh sách cửa hàng</NavLink>
                 <NavLink to="/contact" className="nav-item nav-link nav-item-navlink">Liên hệ</NavLink>
@@ -108,7 +108,7 @@ function NavBar() {
           <Route path="/price" element={<PricesPage />} />
           <Route path="/location" element={<CarePoints />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/listService" element={<ListService />} />
           <Route path="/detail" element={<Detail />} />
           <Route path="/team" element={<Team />} />
           <Route path="/booking" element={<Booking />} />

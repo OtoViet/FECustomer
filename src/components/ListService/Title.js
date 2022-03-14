@@ -1,15 +1,15 @@
-function BlogTitle() {
+function ListServiceTitle() {
     return (
         <>
             <div className="page-header">
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <h2>Bài viết</h2>
+                            <h2>Danh sách dịch vụ</h2>
                         </div>
                         <div className="col-12">
                             <a href="/">Home</a>
-                            <a href="/blog">Blog</a>
+                            <a href="/listService">Danh sách dịch vụ</a>
                         </div>
                     </div>
                 </div>
@@ -17,4 +17,4 @@ function BlogTitle() {
         </>
     );
 }
-export default BlogTitle;
+export default ListServiceTitle;

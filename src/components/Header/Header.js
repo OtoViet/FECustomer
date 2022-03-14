@@ -1,14 +1,18 @@
+import {useNavigate} from 'react-router-dom';
 function Header() {
-
+  const navigate = useNavigate();
+  const handleClick = ()=>{
+    navigate('/');
+  }
   return (
     <div className="top-bar">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-lg-4 col-md-12">
             <div className="logo">
-              <a href="index.html">
+              <span onClick={handleClick} style={{cursor: 'pointer'}}>
                 <h1>Oto<span>Viet</span></h1>
-              </a>
+              </span>
             </div>
           </div>
           <div className="col-lg-8 col-md-7 d-none d-lg-block">
@@ -20,7 +24,7 @@ function Header() {
                   </div>
                   <div className="top-bar-text">
                     <h3>Giờ mở cửa</h3>
-                    <p>T2 - CN, 7:30:AM - 8:00:PM</p>
+                    <p>T2 - CN, 7:30:SA - 8:00:Tối</p>
                   </div>
                 </div>
               </div>

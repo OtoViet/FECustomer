@@ -49,7 +49,7 @@ export default function BasicMenu() {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
             >
-                Blog
+                Dịch vụ
                 <ArrowDropDownIcon />
             </Button>
             <Menu
@@ -61,10 +61,8 @@ export default function BasicMenu() {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}><NavLink to="/blog" className="dropdown-item">Bài viết</NavLink></MenuItem>
-                <MenuItem onClick={handleClose}><NavLink to="/detail" className="dropdown-item">Trang chi tiết</NavLink></MenuItem>
-                <MenuItem onClick={handleClose}><NavLink to="/team" className="dropdown-item">Đội ngũ nhân sự</NavLink></MenuItem>
-                <MenuItem onClick={handleClose}><NavLink to="/booking" className="dropdown-item">Đặt lịch hẹn</NavLink></MenuItem>
+                <MenuItem onClick={handleClose}><NavLink to="/service" className="dropdown-item">Giới thiệu</NavLink></MenuItem>
+                <MenuItem onClick={handleClose}><NavLink to="/listService" className="dropdown-item">Danh sách dịch vụ</NavLink></MenuItem>
             </Menu>
         </ThemeProvider>
     );

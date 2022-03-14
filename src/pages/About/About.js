@@ -1,5 +1,5 @@
 import CountUp from '../../components/CountUp/CountUp';
-import Blogs from '../../components/Blogs/Blogs';
+import Blogs from '../../components/ListService/ListService';
 import Staffs from '../../components/Staffs/Staffs';
 import About from '../../components/About/About';
 import AboutTitle from '../../components/About/Title';

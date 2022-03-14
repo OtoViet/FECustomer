@@ -1,294 +1,273 @@
-import sigleImg from '../../assets/images/single.jpg';
 import post1Img from '../../assets/images/post-1.jpg';
 import post2Img from '../../assets/images/post-2.jpg';
 import post3Img from '../../assets/images/post-3.jpg';
-import post4Img from '../../assets/images/post-4.jpg';
-import post5Img from '../../assets/images/post-5.jpg';
 import userImg from '../../assets/images/user.jpg';
-import blog1Img from '../../assets/images/blog-1.jpg';
-import blog2Img from '../../assets/images/blog-2.jpg';
-import blog3Img from '../../assets/images/blog-3.jpg';
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
+import { useState } from 'react';
+import {
+    Tab,
+    Tabs,
+    Box,
+    Grid,
+    Rating,
+    Button,
+    CssBaseline,
+    Typography,
+} from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            light: '#757ce8',
+            main: '#202C45',
+            dark: '#002884',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#ff7961',
+            main: '#E81C2E',
+            dark: '#ba000d',
+            contrastText: '#fff',
+        },
+    },
+    typography: {
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            'Barlow',
+            '"Segoe UI"',
+            'Roboto',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
+    },
+});
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography variant="span">{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
 function Detail() {
+    const [value, setValue] = useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+    const images = [
+        {
+            original: 'https://picsum.photos/id/1018/1000/600/',
+            thumbnail: 'https://picsum.photos/id/1018/250/150/',
+            thumbnailHeight: 50,
+            thumbnailWidth: 80
+        },
+        {
+            original: 'https://picsum.photos/id/1015/1000/600/',
+            thumbnail: 'https://picsum.photos/id/1015/250/150/',
+            thumbnailHeight: 50,
+            thumbnailWidth: 80
+        },
+        {
+            original: 'https://picsum.photos/id/1019/1000/600/',
+            thumbnail: 'https://picsum.photos/id/1019/250/150/',
+            thumbnailHeight: 50,
+            thumbnailWidth: 80
+        },
+    ];
     return (
         <>
             <div className="single">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-8">
-                            <div className="single-content">
-                                <img src={sigleImg} alt="anh xe oto" />
-                                <h2>Lorem ipsum dolor sit amet</h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer molestie, lorem eu eleifend bibendum, augue purus mollis sapien, non rhoncus eros leo in nunc. Donec a nulla vel turpis consectetur tempor ac vel justo. In hac habitasse platea dictumst. Cras nec sollicitudin eros. Nunc eu enim non turpis sagittis rhoncus consectetur id augue. Mauris dignissim neque felis. Phasellus mollis mi a pharetra cursus. Maecenas vulputate augue placerat lacus mattis, nec ornare risus sollicitudin.
-                                </p>
-                                <p>
-                                    Mauris eu pulvinar tellus, eu luctus nisl. Pellentesque suscipit mi eu varius pulvinar. Aenean vulputate, massa eget elementum finibus, ipsum arcu commodo est, ut mattis eros orci ac risus. Suspendisse ornare, massa in feugiat facilisis, eros nisl auctor lacus, laoreet tempus elit dolor eu lorem. Nunc a arcu suscipit, suscipit quam quis, semper augue.
-                                </p>
-                                <p>
-                                    Quisque arcu nulla, convallis nec orci vel, suscipit elementum odio. Curabitur volutpat velit non diam tincidunt sodales. Nullam sapien libero, bibendum nec viverra in, iaculis ut eros.
-                                </p>
-                                <h3>Lorem ipsum dolor sit amet</h3>
-                                <p>
-                                    Vestibulum sit amet ullamcorper sem. Integer hendrerit elit eget purus sodales maximus. Quisque ac nulla arcu. Morbi venenatis arcu ac arcu cursus pharetra. Morbi sit amet viverra augue, ac ultricies libero. Praesent elementum lectus mi, eu elementum urna venenatis sed. Donec auctor purus ut mattis feugiat. Integer mi erat, consectetur sed tincidunt vitae, sagittis elementum libero. Vivamus a mauris consequat, hendrerit lectus in, fermentum libero. Integer mattis bibendum neque et porttitor.
-                                </p>
-                                <p>
-                                    Mauris quis arcu finibus, posuere dolor eu, viverra felis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In porta, ex vitae accumsan facilisis, nisi tellus dictum metus, quis fringilla dui tellus in tellus. Praesent pharetra orci at vehicula posuere. Sed molestie fringilla lorem, vel imperdiet tortor blandit at. Quisque non ultrices lorem, eget rhoncus orci. Fusce porttitor placerat diam et mattis. Nam laoreet, ex eu posuere sollicitudin, sem tortor pellentesque ipsum, quis mattis purus lectus ut lacus. Integer eu risus ac est interdum scelerisque.
-                                </p>
-                                <h4>Lorem ipsum dolor sit amet</h4>
-                                <p>
-                                    Praesent ultricies, mauris eget vestibulum viverra, neque lorem malesuada mauris, eget rhoncus lectus enim a lorem. Vivamus at vehicula risus, eget facilisis massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et posuere sapien. Fusce bibendum lorem sem, quis tincidunt felis mattis nec.
-                                </p>
-                                <p>
-                                    Proin vel nulla purus. Nunc nec eros in nisi efficitur rutrum quis sed eros. Mauris felis dolor, rhoncus eget gravida vitae, pretium vel arcu. Cras blandit tellus eget tellus dictum venenatis. Sed ultricies bibendum dictum. Etiam facilisis erat id turpis tincidunt malesuada. Duis bibendum sapien eu condimentum sagittis. Proin nunc lorem, ullamcorper vel tortor sodales, imperdiet lacinia dui. Sed congue, felis id rhoncus varius, urna lacus imperdiet nunc, ut porttitor mauris mi quis mi. Integer rutrum est finibus metus eleifend scelerisque. Morbi auctor dignissim purus in interdum. Vestibulum eu dictum enim. Suspendisse et sem vitae velit feugiat facilisis.
-                                </p>
-                                <p>
-                                    Nam sodales scelerisque nunc sed convallis. Vestibulum facilisis porta erat, sit amet pharetra tortor blandit id. Nunc velit tellus, consectetur sed convallis in, tincidunt finibus nulla. Integer vel ex in mauris tincidunt tincidunt nec sed elit. Etiam pretium lectus lectus, sed aliquet erat tristique euismod. Praesent faucibus nisl augue, ac tempus libero pellentesque malesuada. Vivamus iaculis imperdiet laoreet. Aliquam vel felis felis. Proin sed sapien erat. Etiam a quam et metus tempor rutrum. Curabitur in faucibus justo. Etiam imperdiet iaculis urna.
-                                </p>
-                            </div>
-                            <div className="single-tags">
-                                <a href="/">National</a>
-                                <a href="/">International</a>
-                                <a href="/">Economics</a>
-                                <a href="/">Politics</a>
-                                <a href="/">Lifestyle</a>
-                                <a href="/">Technology</a>
-                                <a href="/">Trades</a>
-                            </div>
-                            <div className="single-related">
-                                <h2>Related Post</h2>
-                                <div className="owl-carousel related-slider">
-                                    <div className="post-item">
-                                        <div className="post-img">
-                                            <img src={post1Img} alt="anh post" />
+                            <ImageGallery items={images}
+                                showIndex={true} />
+                            <ThemeProvider theme={theme}>
+                                <CssBaseline />
+                                <Box sx={{ width: '100%', mt: 2 }}>
+                                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                        <Tabs value={value} onChange={handleChange}
+                                            textColor="secondary"
+                                            indicatorColor="secondary"
+                                            aria-label="tab description, rating and comment">
+                                            <Tab label="Thông tin dịch vụ" style={{ fontWeight: 'bold' }} {...a11yProps(0)} />
+                                            <Tab label="Bình luận đánh giá" style={{ fontWeight: 'bold' }} {...a11yProps(1)} />
+                                        </Tabs>
+                                    </Box>
+                                    <TabPanel value={value} index={0}>
+                                        <div className="single-content">
+                                            <h2>Lorem ipsum dolor sit amet</h2>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer molestie, lorem eu eleifend bibendum, augue purus mollis sapien, non rhoncus eros leo in nunc. Donec a nulla vel turpis consectetur tempor ac vel justo. In hac habitasse platea dictumst. Cras nec sollicitudin eros. Nunc eu enim non turpis sagittis rhoncus consectetur id augue. Mauris dignissim neque felis. Phasellus mollis mi a pharetra cursus. Maecenas vulputate augue placerat lacus mattis, nec ornare risus sollicitudin.
+                                            </p>
+                                            <p>
+                                                Mauris eu pulvinar tellus, eu luctus nisl. Pellentesque suscipit mi eu varius pulvinar. Aenean vulputate, massa eget elementum finibus, ipsum arcu commodo est, ut mattis eros orci ac risus. Suspendisse ornare, massa in feugiat facilisis, eros nisl auctor lacus, laoreet tempus elit dolor eu lorem. Nunc a arcu suscipit, suscipit quam quis, semper augue.
+                                            </p>
+                                            <p>
+                                                Quisque arcu nulla, convallis nec orci vel, suscipit elementum odio. Curabitur volutpat velit non diam tincidunt sodales. Nullam sapien libero, bibendum nec viverra in, iaculis ut eros.
+                                            </p>
                                         </div>
-                                        <div className="post-text">
-                                            <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                            <div className="post-meta">
-                                                <p>By<a href="/">Admin</a></p>
-                                                <p>In<a href="/">Web Design</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="post-item">
-                                        <div className="post-img">
-                                            <img src={post2Img} alt="anh post" />
-                                        </div>
-                                        <div className="post-text">
-                                            <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                            <div className="post-meta">
-                                                <p>By<a href="/">Admin</a></p>
-                                                <p>In<a href="/">Web Design</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="post-item">
-                                        <div className="post-img">
-                                            <img src={post3Img} alt="anh post" />
-                                        </div>
-                                        <div className="post-text">
-                                            <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                            <div className="post-meta">
-                                                <p>By<a href="/">Admin</a></p>
-                                                <p>In<a href="/">Web Design</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="post-item">
-                                        <div className="post-img">
-                                            <img src={post4Img} alt="anh post" />
-                                        </div>
-                                        <div className="post-text">
-                                            <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                            <div className="post-meta">
-                                                <p>By<a href="/">Admin</a></p>
-                                                <p>In<a href="/">Web Design</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="single-comment">
-                                <h2>3 Comments</h2>
-                                <ul className="comment-list">
-                                    <li className="comment-item">
-                                        <div className="comment-body">
-                                            <div className="comment-img">
-                                                <img src={userImg} alt="anh post" />
-                                            </div>
-                                            <div className="comment-text">
-                                                <h3><a href="/">Josh Dunn</a></h3>
-                                                <span>01 Jan 2045 at 12:00pm</span>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst.
-                                                </p>
-                                                <a className="btn" href="/">Reply</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="comment-item">
-                                        <div className="comment-body">
-                                            <div className="comment-img">
-                                                <img src={userImg} alt="anh post" />
-                                            </div>
-                                            <div className="comment-text">
-                                                <h3><a href="/">Josh Dunn</a></h3>
-                                                <p><span>01 Jan 2045 at 12:00pm</span></p>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst.
-                                                </p>
-                                                <a className="btn" href="/">Reply</a>
-                                            </div>
-                                        </div>
-                                        <ul className="comment-child">
-                                            <li className="comment-item">
-                                                <div className="comment-body">
+                                    </TabPanel>
+                                    <TabPanel value={value} index={1}>
+                                        <Grid container>
+                                            <Grid item xs={4}>
+                                                <Box sx={{ p: 2, border: '1px dashed grey', borderRight: 'none' }} style={{ textAlign: "center" }}>
+                                                    <Typography variant="p"
+                                                        style={{ fontWeight: 'bold' }}>
+                                                        Đánh giá dịch vụ
+                                                    </Typography><br />
+                                                    <Typography variant="h4" style={{ fontWeight: "bold" }}>
+                                                        3.5/5<br />
+                                                        <Rating name="read-only" precision={0.5} value={3.5} readOnly /><br />
+                                                    </Typography>
+                                                    <Typography variant="p">
+                                                        (4k đánh giá)
+                                                    </Typography>
+                                                </Box>
+                                            </Grid>
+                                            <Grid item xs={4}>
+                                                <Box sx={{ p: 2, border: '1px dashed grey', borderRight: 'none', height: '100%' }}
+                                                    style={{ textAlign: "center" }}>
+                                                    <Typography variant="p"
+                                                        style={{ fontWeight: 'bold' }}>
+                                                        Mức độ hài lòng
+                                                    </Typography><br />
+                                                    <Typography variant="h2" style={{ fontWeight: "bold" }}>
+                                                        90%
+                                                    </Typography>
+                                                </Box>
+                                            </Grid>
+                                            <Grid item xs={4}>
+                                                <Box sx={{ p: 2, border: '1px dashed grey', height: '100%' }}
+                                                    style={{ textAlign: "center" }}>
+                                                    <Typography variant="p"
+                                                        style={{ fontWeight: 'bold' }}>
+                                                        Hãy để lại góp ý của bạn cho chúng tôi
+                                                    </Typography><br />
+                                                    <Button variant="contained" style={{ width: '100%' }}>
+                                                        Viết đánh giá
+                                                    </Button>
+                                                </Box>
+                                            </Grid>
+                                        </Grid>
+                                        <div className="single-comment">
+                                            <h2>3 Comments</h2>
+                                            <Grid container className="comment-list" mb={4}>
+                                                <Grid item xs={3} className="comment-item"
+                                                alignItems="center" justifyContent="center">
                                                     <div className="comment-img">
                                                         <img src={userImg} alt="anh user" />
                                                     </div>
-                                                    <div className="comment-text">
-                                                        <h3><a href="/">Josh Dunn</a></h3>
-                                                        <p><span>01 Jan 2045 at 12:00pm</span></p>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst.
-                                                        </p>
-                                                        <a className="btn" href="/">Reply</a>
+                                                    <h6><a href="/">Josh Dunn</a></h6>
+                                                    <span>01/01/2045/12:00pm</span>
+                                                </Grid>
+                                                <Grid item xs={9}>
+                                                    <Rating name="read-only" precision={0.5} value={3.5} readOnly /><br />
+                                                    Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst.
+                                                </Grid>
+                                            </Grid>
+                                            <Grid container className="comment-list" mb={4}>
+                                                <Grid item xs={3} className="comment-item"
+                                                alignItems="center" justifyContent="center">
+                                                    <div className="comment-img">
+                                                        <img src={userImg} alt="anh user" />
                                                     </div>
+                                                    <h6><a href="/">Josh Dunn</a></h6>
+                                                    <span>01/01/2045/12:00pm</span>
+                                                </Grid>
+                                                <Grid item xs={9}>
+                                                    <Rating name="read-only" precision={0.5} value={3.5} readOnly /><br />
+                                                    Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst.
+                                                </Grid>
+                                            </Grid>
+                                        </div>
+                                        <div className="comment-form">
+                                            <h2>Để lại bình luận</h2>
+                                            <form>
+                                                <div className="form-group">
+                                                    <label htmlFor="name">Name *</label>
+                                                    <input type="text" className="form-control" id="name" />
                                                 </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="comment-form">
-                                <h2>Leave a comment</h2>
-                                <form>
-                                    <div className="form-group">
-                                        <label for="name">Name *</label>
-                                        <input type="text" className="form-control" id="name" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="email">Email *</label>
-                                        <input type="email" className="form-control" id="email" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="website">Website</label>
-                                        <input type="url" className="form-control" id="website" />
-                                    </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="email">Email *</label>
+                                                    <input type="email" className="form-control" id="email" />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="website">Website</label>
+                                                    <input type="url" className="form-control" id="website" />
+                                                </div>
 
-                                    <div className="form-group">
-                                        <label for="message">Message *</label>
-                                        <textarea id="message" cols="30" rows="5" className="form-control"></textarea>
-                                    </div>
-                                    <div className="form-group">
-                                        <input type="submit" value="Post Comment" className="btn btn-custom" />
-                                    </div>
-                                </form>
-                            </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="message">Message *</label>
+                                                    <textarea id="message" cols="30" rows="5" className="form-control"></textarea>
+                                                </div>
+                                                <div className="form-group">
+                                                    <input type="submit" value="Post Comment" className="btn btn-custom" />
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </TabPanel>
+                                </Box>
+                            </ThemeProvider>
+
                         </div>
-
                         <div className="col-lg-4">
                             <div className="sidebar">
                                 <div className="sidebar-widget">
                                     <div className="single-bio">
-                                        <div className="single-bio-img">
-                                            <img src={userImg} alt="anh user" />
-                                        </div>
                                         <div className="single-bio-text">
-                                            <h3>Author Name</h3>
-                                            <p>
-                                                Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea dictumst.
+                                            <h3>Đặt lịch hẹn ngay với otoviet</h3>
+                                            <p className="text-danger font-weight-bold">Với hệ thống đặt lịch chăm sóc xe hàng đầu Việt Nam</p>
+                                            <p className="mt-5">
+                                                Hãy đặt lịch rửa xe và chăm sóc với chúng tôi chỉ trong vòng 3 phút.
+                                                Xe của bạn sẽ được ưu tiên rửa xe ngay khi đến OtoViet trong thời gian đặt lịch
                                             </p>
-                                        </div>
-                                        <div className="single-bio-social">
-                                            <a className="btn" href="https://twitter.com/"><i className="fab fa-twitter"></i></a>
-                                            <a className="btn" href="https://www.facebook.com/"><i className="fab fa-facebook-f"></i></a>
-                                            <a className="btn" href="https://www.youtube.com/"><i className="fab fa-youtube"></i></a>
-                                            <a className="btn" href="https://www.instagram.com/"><i className="fab fa-instagram"></i></a>
-                                            <a className="btn" href="https://www.linkedin.com/"><i className="fab fa-linkedin-in"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="sidebar-widget">
-                                    <div className="search-widget">
-                                        <form>
-                                            <input className="form-control" type="text" placeholder="Search Keyword" />
-                                                <button className="btn"><i className="fa fa-search"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <div className="sidebar-widget">
-                                    <h2 className="widget-title">Recent Post</h2>
-                                    <div className="recent-post">
-                                        <div className="post-item">
-                                            <div className="post-img">
-                                                <img src={post1Img} alt="anh post" />
-                                            </div>
-                                            <div className="post-text">
-                                                <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                <div className="post-meta">
-                                                    <p>By<a href="/">Admin</a></p>
-                                                    <p>In<a href="/">Web Design</a></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="post-item">
-                                            <div className="post-img">
-                                                <img src={post2Img} alt="anh post" />
-                                            </div>
-                                            <div className="post-text">
-                                                <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                <div className="post-meta">
-                                                    <p>By<a href="/">Admin</a></p>
-                                                    <p>In<a href="/">Web Design</a></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="post-item">
-                                            <div className="post-img">
-                                                <img src={post3Img} alt="anh post" />
-                                            </div>
-                                            <div className="post-text">
-                                                <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                <div className="post-meta">
-                                                    <p>By<a href="/">Admin</a></p>
-                                                    <p>In<a href="/">Web Design</a></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="post-item">
-                                            <div className="post-img">
-                                                <img src={post4Img} alt="anh post" />
-                                            </div>
-                                            <div className="post-text">
-                                                <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                <div className="post-meta">
-                                                    <p>By<a href="/">Admin</a></p>
-                                                    <p>In<a href="/">Web Design</a></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="post-item">
-                                            <div className="post-img">
-                                                <img src={post5Img} alt="anh post" />
-                                            </div>
-                                            <div className="post-text">
-                                                <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                <div className="post-meta">
-                                                    <p>By<a href="/">Admin</a></p>
-                                                    <p>In<a href="/">Web Design</a></p>
-                                                </div>
+                                            <div className="ml-auto mt-5">
+                                                <ThemeProvider theme={theme}>
+                                                    <Button
+                                                        type="submit"
+                                                        fullWidth
+                                                        variant="contained"
+                                                        color="secondary"
+                                                        size="large"
+                                                        sx={{ mt: 3, mb: 2, borderRadius: 10 }}
+                                                    >
+                                                        Đặt lịch ngay
+                                                    </Button>
+                                                </ThemeProvider>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="sidebar-widget">
-                                    <div className="image-widget">
-                                        <a href="/"><img src={blog1Img} alt="blog 1" /></a>
-                                    </div>
+                                    <h2 className="widget-title">Một số dịch vụ khác</h2>
+
                                 </div>
 
                                 <div className="sidebar-widget">
@@ -343,30 +322,6 @@ function Detail() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post4Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post5Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <div id="popular" className="container tab-pane fade">
                                                 <div className="post-item">
@@ -396,30 +351,6 @@ function Detail() {
                                                 <div className="post-item">
                                                     <div className="post-img">
                                                         <img src={post3Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post4Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post5Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
                                                         <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
@@ -467,38 +398,8 @@ function Detail() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post4Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post5Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div className="sidebar-widget">
-                                    <div className="image-widget">
-                                        <a href="/"><img src={blog2Img} alt="blog" /></a>
                                     </div>
                                 </div>
 
@@ -517,33 +418,6 @@ function Detail() {
                                     </div>
                                 </div>
 
-                                <div className="sidebar-widget">
-                                    <div className="image-widget">
-                                        <a href="/"><img src={blog3Img} alt="blog" /></a>
-                                    </div>
-                                </div>
-
-                                <div className="sidebar-widget">
-                                    <h2 className="widget-title">Tags Cloud</h2>
-                                    <div className="tag-widget">
-                                        <a href="/">National</a>
-                                        <a href="/">International</a>
-                                        <a href="/">Economics</a>
-                                        <a href="/">Politics</a>
-                                        <a href="/">Lifestyle</a>
-                                        <a href="/">Technology</a>
-                                        <a href="/">Trades</a>
-                                    </div>
-                                </div>
-
-                                <div className="sidebar-widget">
-                                    <h2 className="widget-title">Text Widget</h2>
-                                    <div className="text-widget">
-                                        <p>
-                                            Lorem ipsum dolor sit amet elit. Integer lorem augue purus mollis sapien, non eros leo in nunc. Donec a nulla vel turpis tempor ac vel justo. In hac platea nec eros. Nunc eu enim non turpis id augue.
-                                        </p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import ListStores from '../Mapbox/ListStores.js';
 function Contact() {
     const ContactSchema = Yup.object().shape({
         name: Yup.string()
@@ -20,20 +19,20 @@ function Contact() {
             <div className="contact">
                 <div className="container">
                     <div className="section-header text-center">
-                        <p>Get In Touch</p>
-                        <h2>Contact for any query</h2>
+                        <p>Liên hệ với chúng tôi</p>
+                        <h2>Nếu bạn có câu hỏi</h2>
                     </div>
                     <div className="row">
                         <div className="col-md-4">
                             <div className="contact-info">
-                                <h2>Quick Contact Info</h2>
+                                <h2>Thông tin liên hệ nhanh</h2>
                                 <div className="contact-info-item">
                                     <div className="contact-info-icon">
                                         <i className="far fa-clock"></i>
                                     </div>
                                     <div className="contact-info-text">
-                                        <h3>Opening Hour</h3>
-                                        <p>Mon - Fri, 8:00 - 9:00</p>
+                                        <h3>Giờ mở cửa</h3>
+                                        <p>T2 - CN, 7:30:SA - 8:00:Tối</p>
                                     </div>
                                 </div>
                                 <div className="contact-info-item">
@@ -41,8 +40,8 @@ function Contact() {
                                         <i className="fa fa-phone-alt"></i>
                                     </div>
                                     <div className="contact-info-text">
-                                        <h3>Call Us</h3>
-                                        <p>+012 345 6789</p>
+                                        <h3>Liên hệ qua điện thoại</h3>
+                                        <p>0123456789</p>
                                     </div>
                                 </div>
                                 <div className="contact-info-item">
@@ -50,8 +49,8 @@ function Contact() {
                                         <i className="far fa-envelope"></i>
                                     </div>
                                     <div className="contact-info-text">
-                                        <h3>Email Us</h3>
-                                        <p>info@example.com</p>
+                                        <h3>Email</h3>
+                                        <p>otoviet@gmail.com</p>
                                     </div>
                                 </div>
                             </div>
@@ -75,38 +74,35 @@ function Contact() {
                                     {({ errors, touched }) => (
                                         <Form name="sentMessage" id="contactForm">
                                             <div className="control-group">
-                                                <Field type="text" name="name" className="form-control" id="name" placeholder="Your Name" />
+                                                <Field type="text" name="name" className="form-control" id="name" placeholder="Tên của bạn" />
                                                 {errors.name && touched.name ? (
                                                     <p className="text-danger">{errors.name}</p>
                                                 ) : <p></p>}
                                             </div>
                                             <div className="control-group">
-                                                <Field type="email" name="email" className="form-control" id="email" placeholder="Your Email" />
+                                                <Field type="email" name="email" className="form-control" id="email" placeholder="Địa chỉ email" />
                                                 {errors.email && touched.email ? <p className="text-danger">{errors.email}</p> : <p></p>}
                                             </div>
                                             <div className="control-group">
-                                                <Field type="text" name="subject" className="form-control" id="subject" placeholder="Subject" />
+                                                <Field type="text" name="subject" className="form-control" id="subject" placeholder="Tiêu đề" />
                                                 {errors.subject && touched.subject ? (
                                                     <p className="text-danger">{errors.subject}</p>
                                                 ) : <p></p>}
                                             </div>
                                             <div className="control-group">
-                                                <Field as="textarea"className="form-control" name="message" id="message" placeholder="Message"/>
+                                                <Field as="textarea"className="form-control" name="message" id="message" placeholder="Nội dung thắc mắc"/>
                                                 {errors.message && touched.message ? (
                                                     <p className="text-danger">{errors.message}</p>
                                                 ) : <p></p>}
                                             </div>
                                             <div>
-                                                <button className="btn btn-custom" type="submit" id="sendMessageButton">Send Message</button>
+                                                <button className="btn btn-custom" type="submit" id="sendMessageButton">Gửi thắc mắc</button>
                                             </div>
                                         </Form>
                                     )}
                                 </Formik>
 
                             </div>
-                        </div>
-                        <div className="col-md-12">
-                            <ListStores/>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import ListStores from '../Mapbox/ListStores.js';
 function CarePoints() {
     const ContactSchema = Yup.object().shape({
         name: Yup.string()
@@ -17,7 +18,7 @@ function CarePoints() {
                     <div className="col-lg-7">
                         <div className="section-header text-left">
                             <p>Danh sách cửa hàng</p>
-                            <h2>Danh sách cửa hàng</h2>
+                            <h2>Một số cửa hàng lớn</h2>
                         </div>
                         <div className="row">
                             <div className="col-md-6">
@@ -101,6 +102,12 @@ function CarePoints() {
                                 )}
                             </Formik>
                         </div>
+                    </div>
+                    <div className="col-md-12 mt-4">
+                        <div className="care-point-detail section-header">
+                            <h2 className="mb-4 mt-4">Danh sách và địa chỉ chi tiết</h2>
+                        </div>
+                        <ListStores/>
                     </div>
                 </div>
             </div>

@@ -50,6 +50,10 @@ const formApi={
     changePassword: function(body){
         const url ='/auth/changePassword';
         return axiosClient.patch(url,body);
+    },
+    getAllProduct: function(){
+        const url ='/customer/getAllProduct';
+        return axiosClient.get(url);
     }
 }
 export default formApi;

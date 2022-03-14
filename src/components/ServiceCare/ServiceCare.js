@@ -4,7 +4,7 @@ function ServiceCare() {
             <div className="container">
                 <div className="section-header text-center">
                     <p>Chúng tôi làm gì?</p>
-                    <h2>Dịch vụ premium</h2>
+                    <h2>Tổng quan dịch vụ</h2>
                 </div>
                 <div className="row">
                     <div className="col-lg-3 col-md-6">
