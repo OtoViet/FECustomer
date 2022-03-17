@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useLayoutEffect } from 'react';
 
+import ContactAndPreviewOrderPage from '../../pages/Booking/ContactAndPreviewOrder'
 import AboutPage from '../../pages/About/About';
 import ServiceCarePage from '../../pages/ServiceCare/ServiceCare';
 import ContactPage from '../../pages/Contact/Contact';
@@ -109,9 +110,10 @@ function NavBar() {
           <Route path="/location" element={<CarePoints />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/listService" element={<ListService />} />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/detail/:id" element={<Detail />} />
           <Route path="/team" element={<Team />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/contactAndPreview" element={<ContactAndPreviewOrderPage/>} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/passwordReset" element={<ForgotPasswordPage />} />

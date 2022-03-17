@@ -1,6 +1,4 @@
-import FormApi from '../../api/formApi';
 import {useNavigate} from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import useGetAllProduct from '../../hooks/useGetAllProduct';
 import {
     Grid,
@@ -20,8 +18,7 @@ function Blogs({ images }) {
     let [loading, products] = useGetAllProduct();
 
     const handleClick = (id) => {
-        alert(id);
-        navigate(`/detail`);
+        navigate(`/detail/${id}`);
     };
 
     if (loading) return <>
@@ -33,10 +30,6 @@ function Blogs({ images }) {
     return (
         <div className="blog">
             <div className="container">
-                {/* <div className="section-header text-center">
-                    <p>Danh sách sản phẩm dịch vụ</p>
-                    <h2>Danh sách sản phẩm dịch vụ</h2>
-                </div> */}
                 <Grid container
                     justifyContent="center"
                     alignItems="center"

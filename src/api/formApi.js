@@ -54,6 +54,14 @@ const formApi={
     getAllProduct: function(){
         const url ='/customer/getAllProduct';
         return axiosClient.get(url);
+    },
+    getProductById: function(id){
+        const url ='/customer/getProductById/'+id;
+        return axiosClient.get(url);
+    },
+    getInfoCustomer: function(body){
+        const url ='/customer/getInfoCustomer';
+        return axiosClient.get(url,body);
     }
 }
 export default formApi;

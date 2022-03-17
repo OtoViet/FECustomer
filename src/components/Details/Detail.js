@@ -1,19 +1,23 @@
 import post1Img from '../../assets/images/post-1.jpg';
-import post2Img from '../../assets/images/post-2.jpg';
-import post3Img from '../../assets/images/post-3.jpg';
 import userImg from '../../assets/images/user.jpg';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import useGetAllProduct from '../../hooks/useGetAllProduct';
+import useGetProductById from '../../hooks/useGetProductById';
 import {
     Tab,
     Tabs,
     Box,
+    CardMedia,
     Grid,
+    Stack,
     Rating,
     Button,
-    CssBaseline,
     Typography,
+    CssBaseline,
+    CircularProgress,
 } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -49,7 +53,6 @@ const theme = createTheme({
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-
     return (
         <div
             role="tabpanel"
@@ -73,32 +76,47 @@ function a11yProps(index) {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
-function Detail() {
-    const [value, setValue] = useState(0);
 
+
+function Detail() {
+    const params = useParams();
+    const [value, setValue] = useState(0);
+    let [loading, product] = useGetProductById(params.id);
+    let [loadingAllProduct, allProduct] = useGetAllProduct();
+    const handleHideCommentForm = e => {
+        e.preventDefault();
+        document.getElementById('comment-form').classList.add('d-none');
+    };
+    const handleShowFormComment = () => {
+        document.getElementById('comment-form').classList.remove('d-none');
+    };
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    const images = [
-        {
-            original: 'https://picsum.photos/id/1018/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1018/250/150/',
+
+    if (loading || loadingAllProduct) return <>
+        <h2 style={{ textAlign: "center" }}>Đang tải thông tin dịch vụ</h2>
+        <Stack alignItems="center" mt={10} mb={10}>
+            <CircularProgress size={80} />
+        </Stack>
+    </>;
+
+    let allProductSortByLatest = allProduct.sort((a, b) => {
+        let dateA = new Date(a.createdAt);
+        let dateB = new Date(b.createdAt);
+        return dateA > dateB ? -1 : 1;
+    });
+    allProductSortByLatest = allProductSortByLatest.slice(0, 3);
+    console.log(allProductSortByLatest);
+
+    const images = product.images.map(image => {
+        return {
+            original: image.url,
+            thumbnail: image.url,
             thumbnailHeight: 50,
             thumbnailWidth: 80
-        },
-        {
-            original: 'https://picsum.photos/id/1015/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1015/250/150/',
-            thumbnailHeight: 50,
-            thumbnailWidth: 80
-        },
-        {
-            original: 'https://picsum.photos/id/1019/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1019/250/150/',
-            thumbnailHeight: 50,
-            thumbnailWidth: 80
-        },
-    ];
+        }
+    });
     return (
         <>
             <div className="single">
@@ -121,15 +139,9 @@ function Detail() {
                                     </Box>
                                     <TabPanel value={value} index={0}>
                                         <div className="single-content">
-                                            <h2>Lorem ipsum dolor sit amet</h2>
+                                            <h2>{product.productName}</h2>
                                             <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer molestie, lorem eu eleifend bibendum, augue purus mollis sapien, non rhoncus eros leo in nunc. Donec a nulla vel turpis consectetur tempor ac vel justo. In hac habitasse platea dictumst. Cras nec sollicitudin eros. Nunc eu enim non turpis sagittis rhoncus consectetur id augue. Mauris dignissim neque felis. Phasellus mollis mi a pharetra cursus. Maecenas vulputate augue placerat lacus mattis, nec ornare risus sollicitudin.
-                                            </p>
-                                            <p>
-                                                Mauris eu pulvinar tellus, eu luctus nisl. Pellentesque suscipit mi eu varius pulvinar. Aenean vulputate, massa eget elementum finibus, ipsum arcu commodo est, ut mattis eros orci ac risus. Suspendisse ornare, massa in feugiat facilisis, eros nisl auctor lacus, laoreet tempus elit dolor eu lorem. Nunc a arcu suscipit, suscipit quam quis, semper augue.
-                                            </p>
-                                            <p>
-                                                Quisque arcu nulla, convallis nec orci vel, suscipit elementum odio. Curabitur volutpat velit non diam tincidunt sodales. Nullam sapien libero, bibendum nec viverra in, iaculis ut eros.
+                                                {product.description}
                                             </p>
                                         </div>
                                     </TabPanel>
@@ -169,7 +181,8 @@ function Detail() {
                                                         style={{ fontWeight: 'bold' }}>
                                                         Hãy để lại góp ý của bạn cho chúng tôi
                                                     </Typography><br />
-                                                    <Button variant="contained" style={{ width: '100%' }}>
+                                                    <Button variant="contained" style={{ width: '100%' }}
+                                                    onClick={handleShowFormComment}>
                                                         Viết đánh giá
                                                     </Button>
                                                 </Box>
@@ -179,7 +192,7 @@ function Detail() {
                                             <h2>3 Comments</h2>
                                             <Grid container className="comment-list" mb={4}>
                                                 <Grid item xs={3} className="comment-item"
-                                                alignItems="center" justifyContent="center">
+                                                    alignItems="center" justifyContent="center">
                                                     <div className="comment-img">
                                                         <img src={userImg} alt="anh user" />
                                                     </div>
@@ -193,7 +206,7 @@ function Detail() {
                                             </Grid>
                                             <Grid container className="comment-list" mb={4}>
                                                 <Grid item xs={3} className="comment-item"
-                                                alignItems="center" justifyContent="center">
+                                                    alignItems="center" justifyContent="center">
                                                     <div className="comment-img">
                                                         <img src={userImg} alt="anh user" />
                                                     </div>
@@ -206,11 +219,11 @@ function Detail() {
                                                 </Grid>
                                             </Grid>
                                         </div>
-                                        <div className="comment-form">
+                                        <div className="comment-form d-none" id="comment-form">
                                             <h2>Để lại bình luận</h2>
                                             <form>
                                                 <div className="form-group">
-                                                    <label htmlFor="name">Name *</label>
+                                                    <label htmlFor="name">Tên *</label>
                                                     <input type="text" className="form-control" id="name" />
                                                 </div>
                                                 <div className="form-group">
@@ -218,16 +231,12 @@ function Detail() {
                                                     <input type="email" className="form-control" id="email" />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label htmlFor="website">Website</label>
-                                                    <input type="url" className="form-control" id="website" />
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label htmlFor="message">Message *</label>
+                                                    <label htmlFor="message">Nội dung *</label>
                                                     <textarea id="message" cols="30" rows="5" className="form-control"></textarea>
                                                 </div>
-                                                <div className="form-group">
-                                                    <input type="submit" value="Post Comment" className="btn btn-custom" />
+                                                <div className="form-group d-flex justify-content-between">
+                                                    <button  className="btn btn-custom" onClick={handleHideCommentForm}>Hủy bỏ</button>
+                                                    <input type="submit" value="Gửi bình luận" className="btn btn-custom" />
                                                 </div>
                                             </form>
                                         </div>
@@ -274,13 +283,13 @@ function Detail() {
                                     <div className="tab-post">
                                         <ul className="nav nav-pills nav-justified">
                                             <li className="nav-item">
-                                                <a className="nav-link active" data-toggle="pill" href="#featured">Featured</a>
+                                                <a className="nav-link active" data-toggle="pill" href="#featured">Ưa thích</a>
                                             </li>
                                             <li className="nav-item">
-                                                <a className="nav-link" data-toggle="pill" href="#popular">Popular</a>
+                                                <a className="nav-link" data-toggle="pill" href="#popular">Phổ biến</a>
                                             </li>
                                             <li className="nav-item">
-                                                <a className="nav-link" data-toggle="pill" href="#latest">Latest</a>
+                                                <a className="nav-link" data-toggle="pill" href="#latest">Mới nhất</a>
                                             </li>
                                         </ul>
 
@@ -289,30 +298,6 @@ function Detail() {
                                                 <div className="post-item">
                                                     <div className="post-img">
                                                         <img src={post1Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post2Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post3Img} alt="post" />
                                                     </div>
                                                     <div className="post-text">
                                                         <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
@@ -336,68 +321,35 @@ function Detail() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post2Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post3Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <div id="latest" className="container tab-pane fade">
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post1Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post2Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="post-item">
-                                                    <div className="post-img">
-                                                        <img src={post3Img} alt="post" />
-                                                    </div>
-                                                    <div className="post-text">
-                                                        <a href="/">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                                        <div className="post-meta">
-                                                            <p>By<a href="/">Admin</a></p>
-                                                            <p>In<a href="/">Web Design</a></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {
+                                                    allProductSortByLatest.map((product, index) => {
+                                                        return (
+
+                                                            <div className="post-item" key={index}>
+                                                                <div className="post-img">
+                                                                    <CardMedia
+                                                                        component="img"
+                                                                        height="60"
+                                                                        image={product.images[0].url}
+                                                                        alt="dich vu"
+                                                                    />
+                                                                </div>
+                                                                <div className="post-text">
+                                                                    <a href={`/detail/${product.id}`}>{product.productName}</a>
+                                                                    <div className="post-meta">
+                                                                        <p>Giá dịch vụ {
+                                                                            product.price.toLocaleString('vi-VN', {
+                                                                                style: 'currency',
+                                                                                currency: 'VND',
+                                                                            })}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
                                             </div>
                                         </div>
                                     </div>

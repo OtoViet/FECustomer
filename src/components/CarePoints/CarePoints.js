@@ -1,27 +1,85 @@
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
+import { useState, useEffect } from 'react';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import viLocale from 'date-fns/locale/vi';
+import MobileDateTimePicker from '@mui/lab/MobileDateTimePicker';
 import ListStores from '../Mapbox/ListStores.js';
+import ComboService from '../ServiceCare/ComboService.js';
+import {
+    InputLabel, Box, FormControl, MenuItem, Select,
+    Grid, Typography, TextField, Stack, CircularProgress,
+    Radio, RadioGroup, FormControlLabel
+} from '@mui/material';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import { DataGrid } from '@mui/x-data-grid';
+import useGetAllProduct from '../../hooks/useGetAllProduct';
+import { useNavigate } from 'react-router-dom';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
+const columns = [
+    { field: 'id', headerName: 'Thứ tự', width: 150 },
+    {
+        field: 'productName',
+        headerName: 'Tên dịch vụ',
+        width: 400,
+        editable: true,
+    },
+    {
+        field: 'price',
+        headerName: 'Giá tiền',
+        width: 200,
+        editable: true,
+    },
+];
 function CarePoints() {
-    const ContactSchema = Yup.object().shape({
-        name: Yup.string()
-            .min(2, 'Too Short!')
-            .max(50, 'Too Long!')
-            .required('Vui lòng nhập tên của bạn'),
-        email: Yup.string().email('Địa chỉ email không hợp lệ').required('Vui lòng nhập email'),
-        description: Yup.string().required('Vui lòng nhập mô tả')
-    });
+    const localeMap = {
+        vi: viLocale
+    };
+    const maskMap = {
+        vi: '__/__/____',
+    };
+    const [carePoint, setCarePoint] = useState('');
+    const [selectedRows, setSelectedRows] = useState([]);
+    const [value, setValue] = useState(new Date());
+    const [loading, products] = useGetAllProduct();
+    const [rows, setRows] = useState();
+    const handleChange = (event) => {
+        setCarePoint(event.target.value);
+    };
+    const [carSize, setCarSize] = useState();
+    const handleChangeSizeCar = (event)=>{
+        alert(event.target.value);
+        setCarSize(event.target.value);
+    }
+    const navigate = useNavigate();
+    useEffect(() => {
+        console.log('row re render');
+        setRows(products.map((product, index) => {
+            return {
+                id: index + 1,
+                productName: product.productName,
+                price: product.price
+            }
+        }));
+    }, [products]);
+
+    if (loading) return <>
+        <h2 style={{ textAlign: "center" }}>Đang tải danh thông tin</h2>
+        <Stack alignItems="center" mt={10} mb={10}>
+            <CircularProgress size={80} />
+        </Stack>
+    </>;
     return (
         <div className="location">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-7">
-                        <div className="section-header text-left">
-                            <p>Danh sách cửa hàng</p>
-                            <h2>Một số cửa hàng lớn</h2>
+                    <div className="col-lg-12">
+                        <div className="section-header text-left text-center">
+                            <p>Cửa hàng</p>
+                            <h2>Địa chỉ cửa hàng OtoViet</h2>
                         </div>
                         <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <div className="location-item">
                                     <i className="fa fa-map-marker-alt"></i>
                                     <div className="location-text">
@@ -31,7 +89,7 @@ function CarePoints() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <div className="location-item">
                                     <i className="fa fa-map-marker-alt"></i>
                                     <div className="location-text">
@@ -41,7 +99,7 @@ function CarePoints() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <div className="location-item">
                                     <i className="fa fa-map-marker-alt"></i>
                                     <div className="location-text">
@@ -51,7 +109,7 @@ function CarePoints() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <div className="location-item">
                                     <i className="fa fa-map-marker-alt"></i>
                                     <div className="location-text">
@@ -63,51 +121,129 @@ function CarePoints() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-5">
-                        <div className="location-form">
-                            <h3>Yêu cầu chăm sóc xe</h3>
-                            <Formik
-                                initialValues={{
-                                    name: '',
-                                    email: '',
-                                    description: ''
-                                }}
-                                validationSchema={ContactSchema}
-                                onSubmit={values => {
-                                    // same shape as initial values
-                                    alert('Ham xu li form o file components/CarePoints/CarePoints.js');
-                                    console.log(values);
-                                }}
-                            >
-                                {({ errors, touched }) => (
-                                    <Form>
-                                        <div className="control-group">
-                                            <Field type="text" name="name" className="form-control" placeholder="Tên của bạn" />
-                                            {errors.name && touched.name ? (
-                                                <p className="text-white"><i className="fas fa-exclamation-circle"></i> {errors.name}</p>
-                                            ) : <p></p>}
-                                        </div>
-                                        <div className="control-group">
-                                            <Field type="email" name="email" className="form-control" placeholder="Địa chỉ email liên hệ" />
-                                            {errors.email && touched.email ? <p className="text-white"><i className="fas fa-exclamation-circle"></i> {errors.email}</p> : <p></p>}
-                                        </div>
-                                        <div className="control-group">
-                                            <Field as="textarea" name="description" className="form-control" placeholder="Nhập yêu cầu phục vụ" />
-                                            {errors.description && touched.description ? <p className="text-white"><i className="fas fa-exclamation-circle"></i> {errors.description}</p> : <p></p>}
-                                        </div>
-                                        <div>
-                                            <button className="btn btn-custom" type="submit">Gửi yêu cầu</button>
-                                        </div>
-                                    </Form>
-                                )}
-                            </Formik>
-                        </div>
-                    </div>
+
                     <div className="col-md-12 mt-4">
+                        <div className="care-point-detail">
+                            <h2 className="mb-4 mt-4">Vui lòng chọn các thông tin bên dưới để tiến hành đặt lịch</h2>
+                            <h4 className="mt-4 mb-4">Chọn Chi Nhánh</h4>
+                            <Box sx={{ minWidth: 120 }}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Địa chỉ</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={carePoint}
+                                        label="Địa chỉ"
+                                        onChange={handleChange}
+                                    >
+                                        <MenuItem value={1}>369K Đường Nguyễn Văn Linh, Phường An Khánh, Ninh Kiều, Cần Thơ</MenuItem>
+                                        <MenuItem value={2}>Số 38 Hòa Bình, Ninh Kiều, Cần Thơ</MenuItem>
+                                        <MenuItem value={3}>58 Đường Ngô Quyền, Tân An, Ninh Kiều, Cần Thơ</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                            <h4 className="mt-4 mb-4">Chọn Kích Cỡ Xe</h4>
+                            <RadioGroup
+                                row
+                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                name="row-radio-buttons-group"
+                                onChange={handleChangeSizeCar}
+                            >
+
+                                <Grid container>
+                                    <Grid item xs={4}>
+                                        <Box sx={{ p: 2, border: '1px dashed grey', borderRight: 'none', height: '100%' }}
+                                            style={{ textAlign: "center" }}>
+                                            <Typography variant="p"
+                                                style={{ fontWeight: 'bold' }}>
+                                                Kích thước xe(Nhỏ)
+                                            </Typography><br />
+                                            <FormControlLabel value="carSmall"
+                                            control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
+                                            label="" />
+                                            <DirectionsCarIcon sx={{ fontSize: 40 }} />
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <Box sx={{ p: 2, border: '1px dashed grey', borderRight: 'none', height: '100%' }}
+                                            style={{ textAlign: "center" }}>
+                                            <Typography variant="p"
+                                                style={{ fontWeight: 'bold' }}>
+                                                Kích thước xe(Vừa)
+                                            </Typography><br />
+                                            <FormControlLabel value="carMedium"
+                                            control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
+                                            label="" />
+                                            <DirectionsCarIcon sx={{ fontSize: 50 }} />
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <Box sx={{ p: 2, border: '1px dashed grey', height: '100%' }}
+                                            style={{ textAlign: "center" }}>
+                                            <Typography variant="p"
+                                                style={{ fontWeight: 'bold' }}>
+                                                Kích thước xe(Lớn)
+                                            </Typography><br />
+                                            <FormControlLabel value="carLarge"
+                                            control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
+                                            label="" />
+                                            <DirectionsCarIcon sx={{ fontSize: 60 }} />
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+                            </RadioGroup>
+                            <h4 className="mt-4 mb-4">Chọn Combo Rửa Và Chăm Sóc Xe</h4>
+                            <ComboService />
+                            <h4 className="mt-4 mb-4">Chọn Dịch Vụ</h4>
+                            <div style={{ height: 420, width: '100%' }}>
+                                <DataGrid
+                                    rows={rows}
+                                    columns={columns}
+                                    pageSize={5}
+                                    rowsPerPageOptions={[5]}
+                                    checkboxSelection
+                                    onSelectionModelChange={(ids) => {
+                                        const selectedIDs = new Set(ids);
+                                        const selectedRows = rows.filter((row) =>
+                                            selectedIDs.has(row.id),
+                                        );
+
+                                        setSelectedRows(selectedRows);
+                                        console.log(selectedRows);
+                                    }}
+                                />
+                            </div>
+                            <h4 className="mt-4 mb-4">Chọn Thời Gian</h4>
+                            <LocalizationProvider
+                                locale={localeMap["vi"]}
+                                dateAdapter={AdapterDateFns}>
+                                <MobileDateTimePicker
+                                    value={value}
+                                    onChange={(newValue) => {
+                                        setValue(newValue);
+                                    }}
+                                    label="Chọn thời gian"
+                                    onError={console.log}
+                                    minDate={new Date()}
+                                    inputFormat="dd/MM/yyyy hh:mm a"
+                                    mask={maskMap["vi"]}
+                                    renderInput={(params) => <TextField fullWidth {...params} />}
+                                />
+                            </LocalizationProvider>
+                            <button className="btn btn-custom mt-4 mb-4"
+                                onClick={() => {
+                                    let dataSend ={};
+                                    dataSend.carSize = carSize;
+                                    dataSend.carePoint = carePoint;
+                                    dataSend.listServiceChoose = selectedRows;
+                                    dataSend.time = value;
+                                    navigate("/contactAndPreview", { state: dataSend });
+                                }}>Tiếp tục </button>
+                        </div>
                         <div className="care-point-detail section-header">
                             <h2 className="mb-4 mt-4">Danh sách và địa chỉ chi tiết</h2>
                         </div>
-                        <ListStores/>
+                        <ListStores />
                     </div>
                 </div>
             </div>
