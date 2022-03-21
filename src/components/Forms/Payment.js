@@ -1,19 +1,16 @@
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import InputAdornment from '@mui/material/InputAdornment';
 import Tab from '@mui/material/Tab';
 import TabPanel from '@mui/lab/TabPanel';
 import TabList from '@mui/lab/TabList';
 import TabContext from '@mui/lab/TabContext';
 import { useState } from 'react';
-import DatePicker from '@mui/lab/DatePicker';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-
-
+import VNPayLogo from '../../assets/images/VNPayLogo.svg';
+import { useLocation } from 'react-router-dom';
+import FormApi from '../../api/formApi';
+import Dialog from '../Dialog/DialogNotify';
 const theme = createTheme({
     palette: {
         primary: {
@@ -44,142 +41,122 @@ const theme = createTheme({
     },
 });
 function Payment() {
+    const location = useLocation();
     const [value, setValue] = useState('1');
-    const [date, setDate] = useState(new Date());
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    window.addEventListener('popstate', function(event) {
+        alert('Back button was pressed.');
+    });
+    const [open, setOpen] = useState(false);
+    let totalPrice = 0;
+    location.state.listServiceChoose.map((item) => {
+        totalPrice += item.price;
+    });
+    const handleCloseDialog = (status) => {
+        setOpen(status);
+    };
+    const handleClick = () => {
+        FormApi.createOrder(location.state)
+            .then(res => {
+                setOpen(true);
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="sm" className="py-5">
-                <div className="bg-white rounded-lg shadow-sm p-5">
+                {open ? <Dialog open={open}
+                    handleCloseDialog={handleCloseDialog}
+                    title="Thông báo"
+                    content="Đã gửi yêu cầu chăm sóc xe thành công" /> : null}
+                
+                <div className="rounded-lg shadow-sm p-5" style={{ backgroundColor: '#F5F5F5' }}>
                     <TabContext value={value} variant="fullWidth">
                         <Box >
                             <TabList centered indicatorColor="secondary" onChange={handleChange} aria-label="lab API tabs example">
-                                <Tab className="shadow-none" iconPosition="start" icon={<i className="fa fa-credit-card"></i>} label="Credit Card" value="1" />
-                                <Tab className="shadow-none" iconPosition="start" icon={<i className="fab fa-paypal"></i>} label="Paypal" value="2" />
-                                <Tab className="shadow-none" iconPosition="start" icon={<i className="fa fa-university"></i>} label="Bank Transfer" value="3" />
+                                <Tab className="shadow-none" iconPosition="start" icon={<i className="fa fa-credit-card"></i>} label="Thanh toán sau" value="1" />
+                                <Tab className="shadow-none" iconPosition="start" icon={<img alt="logo vnpay" src={VNPayLogo} style={{ width: 50 }} />} label="VNPAY" value="2" />
+                                <Tab className="shadow-none" iconPosition="start" icon={<i className="fa fa-university"></i>} label="Chuyển khoản" value="3" />
                             </TabList>
                         </Box>
                         <TabPanel value="1">
                             <div >
                                 <Box component="form" sx={{ mt: 1 }}>
-                                    <TextField
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="name"
-                                        label="Full name (on the card)"
-                                        name="name"
-                                        placeholder="Jason Doe"
-                                        autoComplete="name"
-                                        autoFocus
-                                    />
-                                    <TextField
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="cardNumber"
-                                        label="Card number"
-                                        name="cardNumber"
-                                        placeholder="Your card number"
-                                        autoComplete="cardNumber"
-                                        autoFocus
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <span className="input-group-text text-muted">
-                                                        <i className="fab fa-cc-visa mx-1"></i>
-                                                        <i className="fab fa-cc-mastercard mx-1"></i>
-                                                    </span>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                    />
-                                    <div className="row">
-                                        <div className="col-sm-8">
-                                            <div className="form-group mt-3">
-                                                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                                    <DatePicker
-                                                        inputFormat="MM/yyyy"
-                                                        views={['year', 'month']}
-                                                        label="Expiration(MM/YY)"
-                                                        minDate={new Date('2000-03-01')}
-                                                        maxDate={new Date('2030-06-01')}
-                                                        value={date}
-                                                        onChange={(newDate) => {
-                                                            setDate(newDate);
-                                                        }}
-                                                        renderInput={(params) => <TextField {...params} helperText={null} />}
-                                                    />
-                                                </LocalizationProvider>
-                                            </div>
-                                        </div>
-                                        <div className="col-sm-4">
-                                            <div className="form-group mb-4">
-                                                <TextField
-                                                    margin="normal"
-                                                    id="input-cvv"
-                                                    label="CVV"
-                                                    InputProps={{
-                                                        endAdornment: (
-                                                            <InputAdornment position="end">
-                                                                <i data-toggle="tooltip" title="Three-digits code on the back of your card" className="fa fa-question-circle"></i>
-                                                            </InputAdornment>
-                                                        ),
-                                                    }}
-                                                    variant="outlined"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <p className="text-muted">
+                                        Vui lòng đến đúng giờ để tránh bất tiện, chúng tôi sẽ gửi cho bạn email nhắc nhở trước 1 ngày để bạn thu xếp thời gian
+                                    </p>
                                     <Button
-                                        type="submit"
+                                        type="button"
                                         fullWidth
                                         variant="contained"
                                         color="secondary"
                                         size="large"
+                                        onClick={handleClick}
                                         sx={{ mt: 3, mb: 2, borderRadius: 10 }}
                                     >
-                                        Xác nhận
+                                        Xác nhận đặt lịch hẹn
                                     </Button>
                                 </Box>
                             </div>
                         </TabPanel>
                         <TabPanel value="2">
                             <div >
-                                <p>Paypal is easiest way to pay online</p>
-                                <p>
-                                    <Button
-                                        type="submit"
-                                        variant="contained"
-                                        color="secondary"
-                                        size="large"
-                                        className="rounded-pill"
-                                    >
-                                        <i className="fab fa-paypal"></i> Log into my Paypal
-                                    </Button>
-                                </p>
-                                <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                <p>Thanh toán trực tuyến dễ dàng với VNPAY</p>
+                                    <form id="createOrder" action="http://localhost:5000/api/order/create_payment_url" method="POST">
+                                        <div className="form-group" style={{ display: "none" }}><label>Loại hàng hóa</label>
+                                            <select readOnly value="vehicle" id="orderType" name="orderType" className="form-control">
+                                                <option value="vehicle">Xe</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group" style={{ display: "none" }}>
+                                            <label>Số tiền</label>
+                                            <input id="amount" name="amount" placeholder="Số tiền" readOnly value={totalPrice} className="form-control" />
+
+                                        </div>
+                                        <div className="form-group" style={{ display: "none" }}><label>Nội dung thanh toán</label>
+                                            <textarea id="orderDescription" name="orderDescription" readOnly value="Thanh toán dịch vụ otoviet" className="form-control" />
+                                        </div>
+                                        <div className="form-group" style={{ display: "none" }}>
+                                            <select readOnly value="" id="bankCode" name="bankCode" className="form-control" default>
+                                                <option value="">Chọn ngân hàng</option>
+                                            </select></div><div className="form-group" style={{ display: "none" }}>
+                                            <select readOnly value="vn" id="language" name="language" className="form-control" style={{ display: "none" }}>
+                                                <option value="vn">Tiếng Việt</option>
+                                            </select>
+                                        </div>
+                                        <Button
+                                            type="submit"
+                                            variant="contained"
+                                            style={{ backgroundColor: "black" }}
+                                            size="large"
+                                            className="rounded-pill"
+                                        >
+                                            <img alt="logo vnpay" src={VNPayLogo} style={{ width: 50 }} /> Thanh toán VNPAY
+                                        </Button>
+                                    </form>
+                                <p className="text-muted">
+                                    Nhanh chóng, an toàn và tiện lợi hơn
                                 </p>
                             </div>
                         </TabPanel>
                         <TabPanel value="3">
                             <div>
-                                <h6>Bank account details</h6>
+                                <h6>Thông tin người nhận</h6>
                                 <dl>
-                                    <dt>Bank</dt>
-                                    <dd> THE WORLD BANK</dd>
+                                    <dt>Tên Ngân Hàng</dt>
+                                    <dd>Sacombank</dd>
                                 </dl>
                                 <dl>
-                                    <dt>Account number</dt>
-                                    <dd>7775877975</dd>
+                                    <dt>Số tài khoải</dt>
+                                    <dd>070435430207</dd>
                                 </dl>
-                                <dl>
-                                    <dt>IBAN</dt>
-                                    <dd>CZ7775877975656</dd>
-                                </dl>
-                                <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                <p className="text-muted">
+                                    Chúng tôi sẽ xác nhận với bạn sau khi bạn chuyển khoản thành công!
                                 </p>
                             </div>
                         </TabPanel>

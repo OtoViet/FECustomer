@@ -62,6 +62,14 @@ const formApi={
     getInfoCustomer: function(body){
         const url ='/customer/getInfoCustomer';
         return axiosClient.get(url,body);
+    },
+    createOrder: function(body){
+        const url ='/order/createOrder';
+        return axiosClient.post(url,body);
+    },
+    getAllOrder: function(){
+        const url ='/order/getAllOrder';
+        return axiosClient.get(url);
     }
 }
 export default formApi;

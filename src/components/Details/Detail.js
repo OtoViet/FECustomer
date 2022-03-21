@@ -3,7 +3,7 @@ import userImg from '../../assets/images/user.jpg';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useGetAllProduct from '../../hooks/useGetAllProduct';
 import useGetProductById from '../../hooks/useGetProductById';
 import {
@@ -80,6 +80,7 @@ function a11yProps(index) {
 
 function Detail() {
     const params = useParams();
+    const navigate = useNavigate();
     const [value, setValue] = useState(0);
     let [loading, product] = useGetProductById(params.id);
     let [loadingAllProduct, allProduct] = useGetAllProduct();
@@ -93,7 +94,9 @@ function Detail() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
+    const handleClick = ()=>{
+        navigate('/booking', {state: product});
+    };
     if (loading || loadingAllProduct) return <>
         <h2 style={{ textAlign: "center" }}>Đang tải thông tin dịch vụ</h2>
         <Stack alignItems="center" mt={10} mb={10}>
@@ -259,12 +262,13 @@ function Detail() {
                                             <div className="ml-auto mt-5">
                                                 <ThemeProvider theme={theme}>
                                                     <Button
-                                                        type="submit"
+                                                        type="button"
                                                         fullWidth
                                                         variant="contained"
                                                         color="secondary"
                                                         size="large"
                                                         sx={{ mt: 3, mb: 2, borderRadius: 10 }}
+                                                        onClick={handleClick}
                                                     >
                                                         Đặt lịch ngay
                                                     </Button>

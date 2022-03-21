@@ -5,6 +5,7 @@ import viLocale from 'date-fns/locale/vi';
 import MobileDateTimePicker from '@mui/lab/MobileDateTimePicker';
 import ListStores from '../Mapbox/ListStores.js';
 import ComboService from '../ServiceCare/ComboService.js';
+import DialogNotify from '../Dialog/DialogNotify.js';
 import {
     InputLabel, Box, FormControl, MenuItem, Select,
     Grid, Typography, TextField, Stack, CircularProgress,
@@ -13,11 +14,12 @@ import {
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import { DataGrid } from '@mui/x-data-grid';
 import useGetAllProduct from '../../hooks/useGetAllProduct';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const columns = [
-    { field: 'id', headerName: 'Thứ tự', width: 150 },
+    { field: 'id', headerName: 'Thứ tự', width: 80 },
+    { field: 'idProduct', headerName: 'Mã sản phẩm', width: 250 },
     {
         field: 'productName',
         headerName: 'Tên dịch vụ',
@@ -38,30 +40,51 @@ function CarePoints() {
     const maskMap = {
         vi: '__/__/____',
     };
+    const location = useLocation();
+    const [open, setOpen] = useState(false);
     const [carePoint, setCarePoint] = useState('');
     const [selectedRows, setSelectedRows] = useState([]);
     const [value, setValue] = useState(new Date());
     const [loading, products] = useGetAllProduct();
     const [rows, setRows] = useState();
+    const [combo, setCombo] = useState("");
     const handleChange = (event) => {
         setCarePoint(event.target.value);
     };
-    const [carSize, setCarSize] = useState();
-    const handleChangeSizeCar = (event)=>{
-        alert(event.target.value);
+    const [carSize, setCarSize] = useState("");
+    const [selectionModel, setSelectionModel] = useState();
+    const handleChangeSizeCar = (event) => {
         setCarSize(event.target.value);
     }
+    const handleCloseDialog = (status) => {
+        setOpen(status);
+    };
+    const handleChangeCombo = (comb) => {
+        setCombo(comb);
+    };
     const navigate = useNavigate();
     useEffect(() => {
-        console.log('row re render');
         setRows(products.map((product, index) => {
             return {
                 id: index + 1,
+                idProduct: product._id,
                 productName: product.productName,
                 price: product.price
             }
         }));
-    }, [products]);
+        if (location.state) {
+            setSelectedRows([location.state]);
+            setSelectionModel(() =>
+                products.map((product, index) => {
+                    return {
+                        id: index + 1,
+                        idProduct: product._id,
+                        productName: product.productName,
+                        price: product.price
+                    }
+                }).filter((r) => r.idProduct === location.state._id).map((r) => r.id));
+        }
+    }, [products,location.state]);
 
     if (loading) return <>
         <h2 style={{ textAlign: "center" }}>Đang tải danh thông tin</h2>
@@ -71,6 +94,10 @@ function CarePoints() {
     </>;
     return (
         <div className="location">
+            {open ? <DialogNotify open={open}
+                handleCloseDialog={handleCloseDialog}
+                title="Thông báo"
+                content="Các thông tin bên trên là bắt buộc chọn trừ gói combo dịch vụ" /> : null}
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12">
@@ -136,9 +163,9 @@ function CarePoints() {
                                         label="Địa chỉ"
                                         onChange={handleChange}
                                     >
-                                        <MenuItem value={1}>369K Đường Nguyễn Văn Linh, Phường An Khánh, Ninh Kiều, Cần Thơ</MenuItem>
-                                        <MenuItem value={2}>Số 38 Hòa Bình, Ninh Kiều, Cần Thơ</MenuItem>
-                                        <MenuItem value={3}>58 Đường Ngô Quyền, Tân An, Ninh Kiều, Cần Thơ</MenuItem>
+                                        <MenuItem value={0}>369K Đường Nguyễn Văn Linh, Phường An Khánh, Ninh Kiều, Cần Thơ</MenuItem>
+                                        <MenuItem value={1}>Số 38 Hòa Bình, Ninh Kiều, Cần Thơ</MenuItem>
+                                        <MenuItem value={2}>58 Đường Ngô Quyền, Tân An, Ninh Kiều, Cần Thơ</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Box>
@@ -159,8 +186,8 @@ function CarePoints() {
                                                 Kích thước xe(Nhỏ)
                                             </Typography><br />
                                             <FormControlLabel value="carSmall"
-                                            control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
-                                            label="" />
+                                                control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
+                                                label="" />
                                             <DirectionsCarIcon sx={{ fontSize: 40 }} />
                                         </Box>
                                     </Grid>
@@ -172,8 +199,8 @@ function CarePoints() {
                                                 Kích thước xe(Vừa)
                                             </Typography><br />
                                             <FormControlLabel value="carMedium"
-                                            control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
-                                            label="" />
+                                                control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
+                                                label="" />
                                             <DirectionsCarIcon sx={{ fontSize: 50 }} />
                                         </Box>
                                     </Grid>
@@ -185,29 +212,35 @@ function CarePoints() {
                                                 Kích thước xe(Lớn)
                                             </Typography><br />
                                             <FormControlLabel value="carLarge"
-                                            control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
-                                            label="" />
+                                                control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
+                                                label="" />
                                             <DirectionsCarIcon sx={{ fontSize: 60 }} />
                                         </Box>
                                     </Grid>
                                 </Grid>
                             </RadioGroup>
                             <h4 className="mt-4 mb-4">Chọn Combo Rửa Và Chăm Sóc Xe</h4>
-                            <ComboService />
+
+                            <ComboService combo={handleChangeCombo} />
+
                             <h4 className="mt-4 mb-4">Chọn Dịch Vụ</h4>
                             <div style={{ height: 420, width: '100%' }}>
                                 <DataGrid
                                     rows={rows}
                                     columns={columns}
                                     pageSize={5}
+                                    selectionModel={selectionModel}
                                     rowsPerPageOptions={[5]}
                                     checkboxSelection
+                                    localeText={{
+                                        footerRowSelected: (count) => `${count} dịch vụ được chọn`,
+                                    }}
                                     onSelectionModelChange={(ids) => {
+                                        setSelectionModel(ids);
                                         const selectedIDs = new Set(ids);
                                         const selectedRows = rows.filter((row) =>
                                             selectedIDs.has(row.id),
                                         );
-
                                         setSelectedRows(selectedRows);
                                         console.log(selectedRows);
                                     }}
@@ -232,12 +265,17 @@ function CarePoints() {
                             </LocalizationProvider>
                             <button className="btn btn-custom mt-4 mb-4"
                                 onClick={() => {
-                                    let dataSend ={};
+                                    let dataSend = {};
+                                    dataSend.combo = combo;
                                     dataSend.carSize = carSize;
                                     dataSend.carePoint = carePoint;
                                     dataSend.listServiceChoose = selectedRows;
                                     dataSend.time = value;
-                                    navigate("/contactAndPreview", { state: dataSend });
+                                    if (dataSend.carSize === "" || dataSend.carePoint === "" ||
+                                        dataSend.listServiceChoose.length === 0 || dataSend.time === "") {
+                                        setOpen(true);
+                                    }
+                                    else navigate("/contactAndPreview", { state: dataSend });
                                 }}>Tiếp tục </button>
                         </div>
                         <div className="care-point-detail section-header">

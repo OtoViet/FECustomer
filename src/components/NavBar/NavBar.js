@@ -1,6 +1,9 @@
 import { Routes, Route, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useLayoutEffect } from 'react';
 
+import ScheduleList from '../../pages/ScheduleList/ScheduleList';
+import TimeLinePage from "../../pages/TimeLine/TimeLine";
+import CheckoutPage from '../../pages/Checkout/Checkout';
 import ContactAndPreviewOrderPage from '../../pages/Booking/ContactAndPreviewOrder'
 import AboutPage from '../../pages/About/About';
 import ServiceCarePage from '../../pages/ServiceCare/ServiceCare';
@@ -32,6 +35,21 @@ function NavBar() {
     }, [location.pathname]);
     return children;
   };
+  useLayoutEffect(() => {
+    FormApi.token({ refreshToken: localStorage.getItem('refreshToken') })
+    .then((res) => {
+      if (res) {
+        localStorage.setItem('token', res.accessToken);
+        localStorage.setItem('refreshToken', res.refreshToken);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      navigate('/login');
+    });
+  }, []);
   const handleLogout = () => {
     FormApi.logout()
       .then((res) => {
@@ -46,21 +64,21 @@ function NavBar() {
           .then((res) => {
             if (res) {
               localStorage.setItem('token', res.accessToken);
-              localStorage.setItem('refreshToken',res.refreshToken);
+              localStorage.setItem('refreshToken', res.refreshToken);
               FormApi.logout()
-              .then((res) => {
-                if (res) {
+                .then((res) => {
+                  if (res) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('refreshToken');
+                    navigate('/login');
+                  }
+                })
+                .catch((err) => {
+                  console.log('co loi xay ra khi goi logout lan 2');
                   localStorage.removeItem('token');
                   localStorage.removeItem('refreshToken');
                   navigate('/login');
-                }
-              })
-              .catch((err) => {
-                console.log('co loi xay ra khi goi logout lan 2');
-                localStorage.removeItem('token');
-                localStorage.removeItem('refreshToken');
-                navigate('/login');
-              });
+                });
             }
           })
           .catch((err) => {
@@ -113,12 +131,15 @@ function NavBar() {
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/team" element={<Team />} />
           <Route path="/booking" element={<Booking />} />
-          <Route path="/contactAndPreview" element={<ContactAndPreviewOrderPage/>} />
+          <Route path="/contactAndPreview" element={<ContactAndPreviewOrderPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/passwordReset" element={<ForgotPasswordPage />} />
           <Route path="/passwordReset/:id" element={<ResetPasswordPage />} />
           <Route path="/changePassword" element={<ChangePasswordPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/appointmentSchedule" element={<TimeLinePage />} />
+          <Route path="/scheduleList" element={<ScheduleList />} />
         </Routes>
       </ScrollToTop>
 

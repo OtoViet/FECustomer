@@ -1,10 +1,25 @@
 import { Radio, RadioGroup, FormControlLabel, FormControl } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-
-function ComboService() {
+import { useState } from 'react';
+function ComboService(props) {
+    const [value, setValue] = useState("");
+    const handleChange = (event) => {
+        props.combo(event.target.value);
+    };
+    const handleClickRadio = (event) => {
+        if (event.target.value === value) {
+            setValue("");
+            props.combo("");
+        } else {
+            setValue(event.target.value);
+            props.combo(event.target.value);
+        }
+    };
     return (
         <FormControl className="d-flex ">
             <RadioGroup
+                onChange={handleChange}
+                value={value}
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
@@ -34,7 +49,9 @@ function ComboService() {
                                     <div className="price-footer">
                                         <FormControlLabel value="combo1"
                                             className="btn btn-custom"
-                                            control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
+                                            control={<Radio
+                                                onClick={handleClickRadio}
+                                                checkedIcon={<CheckCircleOutlineIcon />} />}
                                             label="Đặt ngay" />
                                     </div>
                                 </div>
@@ -57,7 +74,9 @@ function ComboService() {
                                     <div className="price-footer">
                                         <FormControlLabel value="combo2"
                                             className="btn btn-custom"
-                                            control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
+                                            control={<Radio
+                                                onClick={handleClickRadio}
+                                                checkedIcon={<CheckCircleOutlineIcon />} />}
                                             label="Đặt ngay" />
                                     </div>
                                 </div>
@@ -65,7 +84,7 @@ function ComboService() {
                             <div className="col-md-4">
                                 <div className="price-item">
                                     <div className="price-header">
-                                        <h3>Gói làm sạch toàn bộ</h3>
+                                        <h3>Gói làm sạch super premium</h3>
                                         <h2><span>$</span><strong>49</strong><span>.99</span></h2>
                                     </div>
                                     <div className="price-body">
@@ -80,7 +99,9 @@ function ComboService() {
                                     <div className="price-footer">
                                         <FormControlLabel value="combo3"
                                             className="btn btn-custom"
-                                            control={<Radio checkedIcon={<CheckCircleOutlineIcon />} />}
+                                            control={<Radio
+                                                onClick={handleClickRadio}
+                                                checkedIcon={<CheckCircleOutlineIcon />} />}
                                             label="Đặt ngay" />
                                     </div>
                                 </div>
