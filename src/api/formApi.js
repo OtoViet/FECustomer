@@ -70,6 +70,14 @@ const formApi={
     getAllOrder: function(){
         const url ='/order/getAllOrder';
         return axiosClient.get(url);
+    },
+    getOrderById: function(id){
+        const url ='/order/getOrderById/'+id;
+        return axiosClient.get(url);
+    },
+    getAllStore: function(){
+        const url ='/admin/getAllStore';
+        return axiosClient.get(url);
     }
 }
 export default formApi;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useParams } from 'react-router-dom';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -13,7 +14,9 @@ import Typography from '@mui/material/Typography';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TimerIcon from '@mui/icons-material/Timer';
-
+import useGetOrderById from '../../hooks/useGetOrderById';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 const theme = createTheme({
     palette: {
         primary: {
@@ -44,6 +47,15 @@ const theme = createTheme({
     },
 });
 export default function CustomizedTimeline() {
+    const params = useParams();
+    let [loading, order] = useGetOrderById(params.id);
+    console.log(order);
+    if (loading) return <>
+        <h2 style={{ textAlign: "center" }}>Đang tải thông tin</h2>
+        <Stack alignItems="center" mt={10} mb={10}>
+            <CircularProgress size={80} />
+        </Stack>
+    </>;
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -62,7 +74,7 @@ export default function CustomizedTimeline() {
                         <TimelineDot color="secondary">
                             <TimerIcon />
                         </TimelineDot>
-                        <TimelineConnector />
+                        <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
                     </TimelineSeparator>
                     <TimelineContent sx={{ py: '12px', px: 2 }}>
                         <Typography variant="h6" component="span">
@@ -80,11 +92,24 @@ export default function CustomizedTimeline() {
                         Bước 2
                     </TimelineOppositeContent>
                     <TimelineSeparator>
-                        <TimelineConnector />
-                        <TimelineDot>
-                            <RepeatIcon />
-                        </TimelineDot>
-                        <TimelineConnector />
+                        {order.isConfirmed ?
+                            <>
+
+                                <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+                                <TimelineDot color="secondary">
+                                    <RepeatIcon />
+                                </TimelineDot>
+                                <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+                            </>
+                            :
+                            <>
+                                <TimelineConnector />
+                                <TimelineDot>
+                                    <RepeatIcon />
+                                </TimelineDot>
+                                <TimelineConnector />
+                            </>
+                        }
                     </TimelineSeparator>
                     <TimelineContent sx={{ py: '12px', px: 2 }}>
                         <Typography variant="h6" component="span">
@@ -103,11 +128,23 @@ export default function CustomizedTimeline() {
                         Bước 3
                     </TimelineOppositeContent>
                     <TimelineSeparator>
-                        <TimelineConnector />
-                        <TimelineDot>
-                            <CampaignIcon  />
-                        </TimelineDot>
-                        <TimelineConnector />
+                        {order.isSendEmail ?
+                            <>
+                                <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+                                <TimelineDot color="secondary">
+                                    <CampaignIcon />
+                                </TimelineDot>
+                                <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+                            </>
+                            :
+                            <>
+                                <TimelineConnector />
+                                <TimelineDot>
+                                    <CampaignIcon />
+                                </TimelineDot>
+                                <TimelineConnector />
+                            </>
+                        }
                     </TimelineSeparator>
                     <TimelineContent sx={{ py: '12px', px: 2 }}>
                         <Typography variant="h6" component="span">
@@ -125,11 +162,22 @@ export default function CustomizedTimeline() {
                         Bước 4
                     </TimelineOppositeContent>
                     <TimelineSeparator>
-                        <TimelineConnector />
-                        <TimelineDot >
-                            <FactCheckIcon  />
-                        </TimelineDot>
-                        <TimelineConnector />
+                        {order.isCompleted ?
+                            <>
+                                <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+                                <TimelineDot color="secondary">
+                                    <FactCheckIcon />
+                                </TimelineDot>
+                                <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+                            </>
+                            : <>
+                                <TimelineConnector />
+                                <TimelineDot >
+                                    <FactCheckIcon />
+                                </TimelineDot>
+                                <TimelineConnector />
+                            </>
+                        }
                     </TimelineSeparator>
                     <TimelineContent sx={{ py: '12px', px: 2 }}>
                         <Typography variant="h6" component="span">

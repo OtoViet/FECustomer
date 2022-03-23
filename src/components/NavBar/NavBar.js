@@ -1,4 +1,4 @@
-import { Routes, Route, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLayoutEffect } from 'react';
 
 import ScheduleList from '../../pages/ScheduleList/ScheduleList';
@@ -112,7 +112,7 @@ function NavBar() {
                 }
               </div>
               <div className="ml-auto">
-                <a className="btn btn-custom" href="/">Tra cứu lịch hẹn</a>
+                <Link className="btn btn-custom" to="/scheduleList">Tra cứu lịch hẹn</Link>
               </div>
             </div>
           </nav>
@@ -138,7 +138,7 @@ function NavBar() {
           <Route path="/passwordReset/:id" element={<ResetPasswordPage />} />
           <Route path="/changePassword" element={<ChangePasswordPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/appointmentSchedule" element={<TimeLinePage />} />
+          <Route path="/appointmentSchedule/:id" element={<TimeLinePage />} />
           <Route path="/scheduleList" element={<ScheduleList />} />
         </Routes>
       </ScrollToTop>

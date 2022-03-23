@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,8 +15,13 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGetAllOrder from '../../hooks/useGetAllOrder';
 import Typography from '@mui/material/Typography';
-import AlignHorizontalRightIcon from '@mui/icons-material/AlignHorizontalRight';
-import AlignHorizontalLeftIcon from '@mui/icons-material/AlignHorizontalLeft';
+import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import TablePagination from '@mui/material/TablePagination';
+import Button from '@mui/material/Button';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.primary.main,
@@ -26,15 +32,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-        border: 0,
-    },
-}));
 
 const theme = createTheme({
     palette: {
@@ -65,9 +62,101 @@ const theme = createTheme({
         ].join(','),
     },
 });
+
+function Row(props) {
+    const { row } = props;
+    const [open, setOpen] = useState(false);
+
+    return (
+        <>
+            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+                <TableCell>
+                    <IconButton
+                        aria-label="expand row"
+                        size="small"
+                        onClick={() => setOpen(!open)}
+                    >
+                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    </IconButton>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                    {new Date(row.createdAt).toLocaleDateString('pt-PT')}
+                </TableCell>
+                <TableCell align="right">
+                    {new Date(row.dateAppointment).toLocaleDateString('pt-PT')}
+                </TableCell>
+                <TableCell align="right">
+                    {row.timeAppointment}
+                </TableCell>
+                <TableCell align="right">
+                    {row.totalPrice.toLocaleString('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND',
+                    })}
+                </TableCell>
+                <TableCell align="right">
+                    {row.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}
+                </TableCell>
+                <TableCell align="right">
+                    <Button variant="text" color="secondary" onClick={() => props.onClick(row._id)}>
+                        Xem chi tiết
+                    </Button>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                        <Box sx={{ margin: 1 }}>
+                            <Typography variant="h6" gutterBottom component="div">
+                                Dịch vụ đã chọn
+                            </Typography>
+                            <Table size="small" aria-label="purchases">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Tên dịch vụ</TableCell>
+                                        <TableCell align="right">Giá tiền</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {row.listService.map((row) => (
+                                        <TableRow key={row.id}>
+                                            <StyledTableCell component="th" scope="row">
+                                                {row.productName}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="right">{row.price.toLocaleString('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                            })}</StyledTableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </Box>
+                    </Collapse>
+                </TableCell>
+            </TableRow>
+        </>
+    );
+}
 export default function FullWidthGrid() {
+    const [page, setPage] = useState(0);
+    const navigate = useNavigate();
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     let [loading, orders] = useGetAllOrder();
     console.log(orders);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleClick = (id) => {
+        navigate(`/appointmentSchedule/${id}`);
+        // alert(id);
+    };
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
 
 
     if (loading) return <>
@@ -80,79 +169,41 @@ export default function FullWidthGrid() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Container component="main" maxWidth="md">
-                {
-                    orders.map(order => {
-                        return (
-                            <>  
-                                <AlignHorizontalRightIcon />
-                                <AlignHorizontalLeftIcon />
-                                <Typography variant="h6" component="h1" gutterBottom>
-                                    Mã lịch hẹn: {order._id}
-                                </Typography>
-                                <TableContainer component={Paper} sx={{mb:5}}>
-
-                                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell>Ngày đặt</StyledTableCell>
-                                                <StyledTableCell align="right">Ngày hẹn</StyledTableCell>
-                                                <StyledTableCell align="right">Thời gian hẹn</StyledTableCell>
-                                                <StyledTableCell align="right">Tổng tiền</StyledTableCell>
-                                                <StyledTableCell align="right">Thanh toán</StyledTableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-
-                                            <StyledTableCell component="th" scope="row">
-                                                {new Date(order.createdAt).toLocaleDateString('pt-PT')}
-                                            </StyledTableCell>
-                                            <StyledTableCell align="right">
-                                                {new Date(order.dateAppointment).toLocaleDateString('pt-PT')}
-                                            </StyledTableCell>
-                                            <StyledTableCell align="right">
-                                                {order.timeAppointment}
-                                            </StyledTableCell>
-                                            <StyledTableCell align="right">
-                                                {order.totalPrice.toLocaleString('vi-VN', {
-                                                    style: 'currency',
-                                                    currency: 'VND',
-                                                })}
-                                            </StyledTableCell>
-                                            <StyledTableCell align="right">
-                                                {order.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}
-                                            </StyledTableCell>
-                                        </TableBody>
-
-                                    </Table>
-                                    <Typography variant="h6" component="h1" gutterBottom>
-                                        Dịch vụ đã chọn
-                                    </Typography>
-                                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell>Tên dịch vụ</StyledTableCell>
-                                                <StyledTableCell align="right">Giá tiền</StyledTableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            {order.listService.map((row) => (
-                                                <StyledTableRow key={row.id}>
-                                                    <StyledTableCell component="th" scope="row">
-                                                        {row.productName}
-                                                    </StyledTableCell>
-                                                    <StyledTableCell align="right">{row.price.toLocaleString('vi-VN', {
-                                                        style: 'currency',
-                                                        currency: 'VND',
-                                                    })}</StyledTableCell>
-                                                </StyledTableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                            </>
-                        )
-                    })
-                }
+                <Paper sx={{ width: '100%' }}>
+                    <TableContainer component={Paper}>
+                        <Table stickyHeader aria-label="collapsible table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell />
+                                    <StyledTableCell>Ngày đặt</StyledTableCell>
+                                    <StyledTableCell align="right">Ngày hẹn</StyledTableCell>
+                                    <StyledTableCell align="right">Thời gian hẹn</StyledTableCell>
+                                    <StyledTableCell align="right">Tổng tiền</StyledTableCell>
+                                    <StyledTableCell align="right">Thanh toán</StyledTableCell>
+                                    <StyledTableCell align="right">Kiểm tra</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {orders
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row) => (
+                                    <Row key={row._id} row={row} onClick={handleClick} />
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[1, 2, 5]}
+                        component="div"
+                        count={orders.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        labelDisplayedRows={({ from, to, count }) => `${from}-${to} trong ${count}`}
+                        labelRowsPerPage="Số dòng trên trang"
+                    />
+                </Paper>
             </Container>
         </ThemeProvider>
     );

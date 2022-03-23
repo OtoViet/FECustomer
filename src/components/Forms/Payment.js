@@ -46,9 +46,6 @@ function Payment() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    window.addEventListener('popstate', function(event) {
-        alert('Back button was pressed.');
-    });
     const [open, setOpen] = useState(false);
     let totalPrice = 0;
     location.state.listServiceChoose.map((item) => {

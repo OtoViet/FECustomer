@@ -16,7 +16,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import useGetAllProduct from '../../hooks/useGetAllProduct';
 import { useNavigate, useLocation } from 'react-router-dom';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-
+import useGetAllStore from '../../hooks/useGetAllStore.js';
 const columns = [
     { field: 'id', headerName: 'Thứ tự', width: 80 },
     { field: 'idProduct', headerName: 'Mã sản phẩm', width: 250 },
@@ -40,6 +40,7 @@ function CarePoints() {
     const maskMap = {
         vi: '__/__/____',
     };
+    const [loadingStore, stores] = useGetAllStore();
     const location = useLocation();
     const [open, setOpen] = useState(false);
     const [carePoint, setCarePoint] = useState('');
@@ -84,10 +85,10 @@ function CarePoints() {
                     }
                 }).filter((r) => r.idProduct === location.state._id).map((r) => r.id));
         }
-    }, [products,location.state]);
+    }, [products, location.state]);
 
-    if (loading) return <>
-        <h2 style={{ textAlign: "center" }}>Đang tải danh thông tin</h2>
+    if (loading || loadingStore) return <>
+        <h2 style={{ textAlign: "center" }}>Đang tải thông tin</h2>
         <Stack alignItems="center" mt={10} mb={10}>
             <CircularProgress size={80} />
         </Stack>
@@ -106,46 +107,19 @@ function CarePoints() {
                             <h2>Địa chỉ cửa hàng OtoViet</h2>
                         </div>
                         <div className="row">
-                            <div className="col-md-4">
-                                <div className="location-item">
-                                    <i className="fa fa-map-marker-alt"></i>
-                                    <div className="location-text">
-                                        <h3>Ô tô việt 1</h3>
-                                        <p>123 Trần Hưng Đạo, Ninh Kiều, Cần Thơ</p>
-                                        <p><strong>Liên hệ:</strong>+012 345 6789</p>
+                            {stores.map((store, index) =>
+                                <div className="col-md-4" key={index}>
+                                    <div className="location-item">
+                                        <i className="fa fa-map-marker-alt"></i>
+                                        <div className="location-text">
+                                            <h3>{store.name}</h3>
+                                            <p>{store.address}</p>
+                                            <p><strong>Emai:</strong>{store.email}</p>
+                                            <p><strong>Liên hệ:</strong>{store.phoneNumber}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="location-item">
-                                    <i className="fa fa-map-marker-alt"></i>
-                                    <div className="location-text">
-                                        <h3>Ô tô việt 1</h3>
-                                        <p>123 Street, New York, USA</p>
-                                        <p><strong>Liên hệ:</strong>+012 345 6789</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="location-item">
-                                    <i className="fa fa-map-marker-alt"></i>
-                                    <div className="location-text">
-                                        <h3>Ô tô việt 1</h3>
-                                        <p>123 Street, New York, USA</p>
-                                        <p><strong>Liên hệ:</strong>+012 345 6789</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="location-item">
-                                    <i className="fa fa-map-marker-alt"></i>
-                                    <div className="location-text">
-                                        <h3>Ô tô việt 1</h3>
-                                        <p>123 Street, New York, USA</p>
-                                        <p><strong>Liên hệ:</strong>+012 345 6789</p>
-                                    </div>
-                                </div>
-                            </div>
+                            )}
                         </div>
                     </div>
 
@@ -163,9 +137,12 @@ function CarePoints() {
                                         label="Địa chỉ"
                                         onChange={handleChange}
                                     >
-                                        <MenuItem value={0}>369K Đường Nguyễn Văn Linh, Phường An Khánh, Ninh Kiều, Cần Thơ</MenuItem>
-                                        <MenuItem value={1}>Số 38 Hòa Bình, Ninh Kiều, Cần Thơ</MenuItem>
-                                        <MenuItem value={2}>58 Đường Ngô Quyền, Tân An, Ninh Kiều, Cần Thơ</MenuItem>
+                                        {
+                                            stores.map((store, index) =>
+                                                <>
+                                                    <MenuItem value={store.numOfStore}>{store.address}</MenuItem>
+                                                </>)
+                                        }
                                     </Select>
                                 </FormControl>
                             </Box>

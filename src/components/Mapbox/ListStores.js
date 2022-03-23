@@ -1,9 +1,12 @@
-import { useState, useMemo, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Map, { NavigationControl, Marker, Popup, MapProvider, FullscreenControl, GeolocateControl, useControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Pin from './Pin.js';
-import STORES from './ListStores.json';
+import useGetAllStore from '../../hooks/useGetAllStore.js';
 import mapboxgl from 'mapbox-gl';
+import {
+    Stack, CircularProgress
+} from '@mui/material';
 import * as MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css';
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -11,7 +14,7 @@ mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 mapboxgl.accessToken = "pk.eyJ1Ijoibmd1eWVubmhhdHRhbiIsImEiOiJja3pkazA0bXkxbnppMm5vMW04Y2xjc2ZsIn0.pcnzXZfj_tRB6m1Ee5zqOQ"
 function ListStores() {
     const directions = useRef(null);
-
+    const [loading, stores] = useGetAllStore();
     function DirectionsControl(props) {
         directions.current = new MapboxDirections({
             interactive: true,
@@ -30,24 +33,14 @@ function ListStores() {
         });
         return null;
     }
+
     const [popupInfo, setPopupInfo] = useState(null);
-    const pins = useMemo(
-        () =>
-            STORES.map((store, index) => (
-                <Marker
-                    key={`marker-${index}`}
-                    longitude={store.longitude}
-                    latitude={store.latitude}
-                    anchor="bottom"
-                >
-                    <Pin onClick={() => {
-                        setPopupInfo(store);
-                    }}
-                    />
-                </Marker>
-            )),
-        []
-    );
+    if (loading) return <>
+        <h2 style={{ textAlign: "center" }}>Đang tải bản đồ</h2>
+        <Stack alignItems="center" mt={10} mb={10}>
+            <CircularProgress size={80} />
+        </Stack>
+    </>;
     return <MapProvider><Map
         initialViewState={{
             longitude: 105.75,
@@ -64,7 +57,19 @@ function ListStores() {
         <NavigationControl position="top-right" />
         <DirectionsControl position="top-left" />
 
-        {pins}
+        {stores.map((store, index) => (
+            <Marker
+                key={`marker-${index}`}
+                longitude={store.longitude}
+                latitude={store.latitude}
+                anchor="bottom"
+            >
+                <Pin onClick={() => {
+                    setPopupInfo(store);
+                }}
+                />
+            </Marker>
+        ))}
 
         {popupInfo && (
             <Popup
@@ -84,9 +89,8 @@ function ListStores() {
                 }}
             >
                 <div style={{ 'textAlign': 'center' }}>
-                    {popupInfo.store}
+                    {popupInfo.name}
                 </div>
-                <img alt="anh cua hang" width="100%" src={popupInfo.image} />
             </Popup>
         )}
     </Map></MapProvider>;
