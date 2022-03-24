@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
@@ -8,9 +9,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import useGetInfoCustomer from '../../hooks/useGetInfoCustomer';
 const theme = createTheme({
     palette: {
         primary: {
@@ -42,6 +43,8 @@ const theme = createTheme({
 });
 export default function AccountMenu(props) {
     const [anchorEl, setAnchorEl] = useState(null);
+    const [loading, infoCustomer] = useGetInfoCustomer();
+    const navigate = useNavigate();
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -61,7 +64,7 @@ export default function AccountMenu(props) {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ width: 32, height: 32 }}>T</Avatar>
+                        <Avatar sx={{ width: 32, height: 32 }}>{loading ? "": infoCustomer.firstName[0]}</Avatar>
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -100,22 +103,18 @@ export default function AccountMenu(props) {
                 transformOrigin={{ horizontal: 'left', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
             >
-                <MenuItem>
+                <MenuItem onClick={()=>{
+                    navigate('/infoCustomer');
+                }}>
                     <Avatar /> Thông tin tài khoản
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={()=>{navigate('/changePassword')}}>
                     <ListItemIcon>
                         <EnhancedEncryptionIcon fontSize="small" />
                     </ListItemIcon>
                     Đổi mật khẩu
                 </MenuItem>
                 <Divider />
-                <MenuItem>
-                    <ListItemIcon>
-                        <Settings fontSize="small" />
-                    </ListItemIcon>
-                    Cài đặt
-                </MenuItem>
                 <MenuItem onClick={props.handleLogout}>
                     <ListItemIcon>
                         <Logout fontSize="small" />

@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function DetailTitle() {
     return (
         <>
@@ -8,8 +9,8 @@ function DetailTitle() {
                             <h2>Trang chi tiết</h2>
                         </div>
                         <div className="col-12">
-                            <a href="/">Trang chủ</a>
-                            <a href="detail">Chi tiết</a>
+                            <Link to="/">Trang chủ</Link>
+                            <Link to="detail">Chi tiết</Link>
                         </div>
                     </div>
                 </div>

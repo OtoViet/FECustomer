@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function AboutTitle(){
     return(
         <div className="page-header">
@@ -7,8 +8,8 @@ function AboutTitle(){
                         <h2>Về chúng tôi</h2>
                     </div>
                     <div className="col-12">
-                        <a href="/">Trang chủ</a>
-                        <a href="/about">Về chúng tôi</a>
+                        <Link to="/">Trang chủ</Link>
+                        <Link to="/about">Về chúng tôi</Link>
                     </div>
                 </div>
             </div>

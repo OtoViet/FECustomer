@@ -1,6 +1,8 @@
 import { Routes, Route, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLayoutEffect } from 'react';
 
+import InfoCustomerPage from '../../pages/InfoCustomer/InfoCustomer';
+import StoreListPage from '../../pages/StoreList/StoreList';
 import ScheduleList from '../../pages/ScheduleList/ScheduleList';
 import TimeLinePage from "../../pages/TimeLine/TimeLine";
 import CheckoutPage from '../../pages/Checkout/Checkout';
@@ -8,8 +10,6 @@ import ContactAndPreviewOrderPage from '../../pages/Booking/ContactAndPreviewOrd
 import AboutPage from '../../pages/About/About';
 import ServiceCarePage from '../../pages/ServiceCare/ServiceCare';
 import ContactPage from '../../pages/Contact/Contact';
-import PricesPage from '../../pages/Prices/Price'
-import CarePoints from '../../pages/CarePoints/CarePoints';
 import Home from '../../pages/Home/Home';
 import ListService from '../../pages/ListService/ListService';
 import Booking from '../../pages/Booking/Booking';
@@ -23,9 +23,7 @@ import ChangePasswordPage from '../../pages/ChangePassword/ChangePassword';
 import NotFoundPage from '../../pages/NotFound/NotFound';
 import FormApi from '../../api/formApi';
 import AccountMenu from '../../components/Menu/Account';
-import Dropdown from '../Menu/DropdownBlog';
 import DropdownService from '../Menu/DropdownService';
-
 function NavBar() {
   let navigate = useNavigate();
   const ScrollToTop = ({ children }) => {
@@ -101,10 +99,9 @@ function NavBar() {
                 <NavLink to="/" className="nav-item nav-link nav-item-navlink">Trang chủ</NavLink>
                 <NavLink to="/about" className="nav-item nav-link nav-item-navlink">Về chúng tôi</NavLink>
                 <DropdownService />
-                <NavLink to="/price" className="nav-item nav-link nav-item-navlink">Bảng giá</NavLink>
-                <NavLink to="/location" className="nav-item nav-link nav-item-navlink">Danh sách cửa hàng</NavLink>
+                <NavLink to="/storeList" className="nav-item nav-link nav-item-navlink">Danh sách cửa hàng</NavLink>
                 <NavLink to="/contact" className="nav-item nav-link nav-item-navlink">Liên hệ</NavLink>
-                <Dropdown />
+                <NavLink to="/booking" className="nav-item nav-link nav-item-navlink">Đặt lịch ngay</NavLink>
                 {
                   localStorage.getItem('token') ?
                     <AccountMenu handleLogout={handleLogout} /> :
@@ -124,8 +121,7 @@ function NavBar() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/service" element={<ServiceCarePage />} />
-          <Route path="/price" element={<PricesPage />} />
-          <Route path="/location" element={<CarePoints />} />
+          <Route path="/storeList" element={<StoreListPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/listService" element={<ListService />} />
           <Route path="/detail/:id" element={<Detail />} />
@@ -140,6 +136,7 @@ function NavBar() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/appointmentSchedule/:id" element={<TimeLinePage />} />
           <Route path="/scheduleList" element={<ScheduleList />} />
+          <Route path="/infoCustomer" element={<InfoCustomerPage />} />
         </Routes>
       </ScrollToTop>
 

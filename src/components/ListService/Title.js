@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function ListServiceTitle() {
     return (
         <>
@@ -8,8 +9,8 @@ function ListServiceTitle() {
                             <h2>Danh sách dịch vụ</h2>
                         </div>
                         <div className="col-12">
-                            <a href="/">Home</a>
-                            <a href="/listService">Danh sách dịch vụ</a>
+                            <Link to="/">Home</Link>
+                            <Link to="/listService">Danh sách dịch vụ</Link>
                         </div>
                     </div>
                 </div>

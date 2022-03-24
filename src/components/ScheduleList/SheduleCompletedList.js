@@ -13,7 +13,7 @@ import TableRow from '@mui/material/TableRow';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
-import useGetAllOrder from '../../hooks/useGetAllOrder';
+import useGetAllScheduleHistory from '../../hooks/useGetAllScheduleHistory';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -21,7 +21,6 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TablePagination from '@mui/material/TablePagination';
-import Button from '@mui/material/Button';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.primary.main,
@@ -97,11 +96,6 @@ function Row(props) {
                 <TableCell align="right">
                     {row.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}
                 </TableCell>
-                <TableCell align="right">
-                    <Button variant="text" color="secondary" onClick={() => props.onClick(row._id)}>
-                        Xem chi tiết
-                    </Button>
-                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -142,7 +136,7 @@ export default function FullWidthGrid() {
     const [page, setPage] = useState(0);
     const navigate = useNavigate();
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    let [loading, orders] = useGetAllOrder();
+    let [loading, scheduleHistory] = useGetAllScheduleHistory();
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -159,7 +153,7 @@ export default function FullWidthGrid() {
 
 
     if (loading) return <>
-        <h2 style={{ textAlign: "center" }}>Đang tải danh sách lịch hẹn</h2>
+        <h2 style={{ textAlign: "center" }}>Đang tải lịch sử</h2>
         <Stack alignItems="center" mt={10} mb={10}>
             <CircularProgress size={80} />
         </Stack>
@@ -179,11 +173,10 @@ export default function FullWidthGrid() {
                                     <StyledTableCell align="right">Thời gian hẹn</StyledTableCell>
                                     <StyledTableCell align="right">Tổng tiền</StyledTableCell>
                                     <StyledTableCell align="right">Thanh toán</StyledTableCell>
-                                    <StyledTableCell align="right">Kiểm tra</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {orders
+                                {scheduleHistory
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => (
                                     <Row key={row._id} row={row} onClick={handleClick} />
@@ -194,7 +187,7 @@ export default function FullWidthGrid() {
                     <TablePagination
                         rowsPerPageOptions={[1, 2, 5]}
                         component="div"
-                        count={orders.length}
+                        count={scheduleHistory.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onPageChange={handleChangePage}

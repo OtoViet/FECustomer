@@ -63,6 +63,14 @@ const formApi={
         const url ='/customer/getInfoCustomer';
         return axiosClient.get(url,body);
     },
+    updateInfoCustomer: function(body){
+        const url ='/customer/updateInfoCustomer';
+        return axiosClient.patch(url,body);
+    },
+    getAllScheduleHistory: function(){
+        const url ='/order/getAllScheduleHistory';
+        return axiosClient.get(url);
+    },
     createOrder: function(body){
         const url ='/order/createOrder';
         return axiosClient.post(url,body);
@@ -78,6 +86,10 @@ const formApi={
     getAllStore: function(){
         const url ='/admin/getAllStore';
         return axiosClient.get(url);
-    }
+    },
+    getAllEmployee: function(){
+        const url ='/admin/getAllEmployee';
+        return axiosClient.get(url);
+    },
 }
 export default formApi;

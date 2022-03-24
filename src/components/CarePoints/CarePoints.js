@@ -138,10 +138,7 @@ function CarePoints() {
                                         onChange={handleChange}
                                     >
                                         {
-                                            stores.map((store, index) =>
-                                                <>
-                                                    <MenuItem value={store.numOfStore}>{store.address}</MenuItem>
-                                                </>)
+                                            stores.map((store, index) =><MenuItem key={index} value={store.numOfStore}>{store.address}</MenuItem>)
                                         }
                                     </Select>
                                 </FormControl>

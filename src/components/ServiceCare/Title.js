@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function ServiceCareTitle() {
     return (
         <div className="page-header">
@@ -7,8 +8,8 @@ function ServiceCareTitle() {
                         <h2>Dịch vụ</h2>
                     </div>
                     <div className="col-12">
-                        <a href="/">Trang chủ</a>
-                        <a href="/service">Dịch vụ</a>
+                        <Link to="/">Trang chủ</Link>
+                        <Link to="/service">Dịch vụ</Link>
                     </div>
                 </div>
             </div>

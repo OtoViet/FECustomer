@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function CarePointsTitle() {
     return (
         <div className="page-header">
@@ -7,8 +8,8 @@ function CarePointsTitle() {
                         <h2>Danh sách cửa hàng</h2>
                     </div>
                     <div className="col-12">
-                        <a href="/">Trang chủ</a>
-                        <a href="/location">Vị trí</a>
+                        <Link to="/">Trang chủ</Link>
+                        <Link to="/storeList">Vị trí</Link>
                     </div>
                 </div>
             </div>

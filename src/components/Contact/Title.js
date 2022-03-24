@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function ContactTitle() {
     return (
         <div className="page-header">
@@ -7,8 +8,8 @@ function ContactTitle() {
                         <h2>Liên hệ với chúng tôi</h2>
                     </div>
                     <div className="col-12">
-                        <a href="/">Trang chủ</a>
-                        <a href="/contact">Liên hệ</a>
+                        <Link to="/">Trang chủ</Link>
+                        <Link to="/contact">Liên hệ</Link>
                     </div>
                 </div>
             </div>

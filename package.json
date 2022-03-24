@@ -19,6 +19,7 @@
     "formik": "^2.2.9",
     "jquery": "^3.6.0",
     "mapbox-gl": "^2.7.0",
+    "moment": "^2.29.1",
     "owl.carousel": "^2.3.4",
     "query-string": "^7.1.1",
     "react": "^17.0.2",

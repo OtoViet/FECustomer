@@ -1,3 +1,4 @@
+import { useState} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -6,13 +7,15 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 export default function ResponsiveDialog(props) {
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(props.open);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  let navigate = useNavigate();
   const handleClose = () => {
-    props.handleCloseDialog(false);
+    setOpen(false);
     if(props.url) navigate(props.url);
   };
 
@@ -20,7 +23,7 @@ export default function ResponsiveDialog(props) {
     <div>
       <Dialog
         fullScreen={fullScreen}
-        open={props.open}
+        open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >

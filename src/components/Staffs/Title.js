@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function StaffsTitle() {
     return (
         <>
@@ -8,8 +9,8 @@ function StaffsTitle() {
                             <h2>Đội ngũ nhân viên</h2>
                         </div>
                         <div className="col-12">
-                            <a href="/">Trang chủ</a>
-                            <a href="/team">Đội ngũ nhân viên</a>
+                            <Link to="/">Trang chủ</Link>
+                            <Link to="/team">Đội ngũ nhân viên</Link>
                         </div>
                     </div>
                 </div>

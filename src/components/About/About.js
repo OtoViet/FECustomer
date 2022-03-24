@@ -30,7 +30,6 @@ function About() {
                                 <li><i className="far fa-check-circle"></i>Chúng tôi sở hữu đội ngũ nhân viên thân thiện và chuyên nghiệp</li>
                                 <li><i className="far fa-check-circle"></i>Dịch vụ chăm sóc xe đảm bảo chất lượng với giá thành cạnh tranh</li>
                             </ul>
-                            <a className="btn btn-custom" href="/">Learn More</a>
                         </div>
                     </div>
                 </div>

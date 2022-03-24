@@ -1,4 +1,4 @@
-import Schedule from '../../components/ScheduleList/ScheduleList';
+import Schedule from '../../components/ScheduleList';
 import ScheduleTitle from '../../components/ScheduleList/Title';
 function ScheduleCarePage() {
     return (

@@ -40,6 +40,8 @@ function Blogs({ images }) {
                                 <Grid item xs={12} sm={6} md={4} key={index}>
                                     <Card>
                                         <CardMedia
+                                            style={{cursor:"pointer"}}
+                                            onClick={()=>handleClick(product._id)}
                                             component="img"
                                             height="200"
                                             image={product.images[0].url}
@@ -47,10 +49,15 @@ function Blogs({ images }) {
                                         />
                                         <CardContent>
                                             <Typography sx={{textAlign:"center"}} gutterBottom variant="h5" component="div">
-                                                <a href="/">{product.productName}</a>
+                                                <a style={{cursor:"pointer"}} 
+                                                onClick={(e)=>{
+                                                    e.preventDefault();
+                                                    handleClick(product._id);
+                                                }}>{product.productName}</a>
                                             </Typography>
                                             <Typography variant="body2" sx={{color: 'rgb(100,100,100)'}}>
-                                                {product.description}
+                                                {product.description.length > 100 ? 
+                                                product.description.substring(0, 90) + "..." : product.description}
                                             </Typography>
                                         </CardContent>
                                         <CardActions sx={{display:'flex' , alignItems: 'center', justifyContent:'center'}}>

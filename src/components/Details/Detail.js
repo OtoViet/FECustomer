@@ -143,9 +143,9 @@ function Detail() {
                                     <TabPanel value={value} index={0}>
                                         <div className="single-content">
                                             <h2>{product.productName}</h2>
-                                            <p>
+                                            <div style={{whiteSpace: "pre-line"}}>
                                                 {product.description}
-                                            </p>
+                                            </div>
                                         </div>
                                     </TabPanel>
                                     <TabPanel value={value} index={1}>
@@ -184,7 +184,9 @@ function Detail() {
                                                         style={{ fontWeight: 'bold' }}>
                                                         Hãy để lại góp ý của bạn cho chúng tôi
                                                     </Typography><br />
-                                                    <Button variant="contained" style={{ width: '100%' }}
+                                                    <Button variant="contained"
+                                                    sx={{mt: 2}}
+                                                    color="secondary" style={{ width: '100%' }}
                                                     onClick={handleShowFormComment}>
                                                         Viết đánh giá
                                                     </Button>

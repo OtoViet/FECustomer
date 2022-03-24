@@ -61,8 +61,6 @@ export default function BasicMenu() {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}><NavLink to="/detail" className="dropdown-item">Trang chi tiết</NavLink></MenuItem>
-                <MenuItem onClick={handleClose}><NavLink to="/team" className="dropdown-item">Đội ngũ nhân sự</NavLink></MenuItem>
                 <MenuItem onClick={handleClose}><NavLink to="/booking" className="dropdown-item">Đặt lịch hẹn</NavLink></MenuItem>
             </Menu>
         </ThemeProvider>

@@ -70,6 +70,7 @@ function Payment() {
                 {open ? <Dialog open={open}
                     handleCloseDialog={handleCloseDialog}
                     title="Thông báo"
+                    url={"/scheduleList"}
                     content="Đã gửi yêu cầu chăm sóc xe thành công" /> : null}
                 
                 <div className="rounded-lg shadow-sm p-5" style={{ backgroundColor: '#F5F5F5' }}>
