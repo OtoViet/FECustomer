@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import useGetInfoCustomer from '../../hooks/useGetInfoCustomer';
+import useGetAllStore from '../../hooks/useGetAllStore.js';
 import * as Yup from 'yup';
 import {
     Switch,
@@ -23,9 +24,8 @@ const ContactSchema = Yup.object().shape({
 export default function ContactAndPreviewOrderPage() {
     const location = useLocation();
     const navigate = useNavigate();
-    const listCarePoint = ["369K Đường Nguyễn Văn Linh, Phường An Khánh, Ninh Kiều, Cần Thơ",
-        "Số 38 Hòa Bình, Ninh Kiều, Cần Thơ",
-        "58 Đường Ngô Quyền, Tân An, Ninh Kiều, Cần Thơ"];
+    const [loading, listStore] = useGetAllStore();
+    const listCarePoint = listStore;
     const carSize = {
         carSmall: "Xe nhỏ",
         carMedium: "Xe vừa",
@@ -78,7 +78,7 @@ export default function ContactAndPreviewOrderPage() {
         }
     };
 
-    if (loadingInfoCustomer) return <>
+    if (loadingInfoCustomer || loading) return <>
         <h2 style={{ textAlign: "center" }}>Đang tải danh thông tin</h2>
         <Stack alignItems="center" mt={10} mb={10}>
             <CircularProgress size={80} />
@@ -147,7 +147,8 @@ export default function ContactAndPreviewOrderPage() {
                         <h3>Kiểm tra lại thông tin</h3>
                         <div>
                             <h4>Cửa hàng phục vụ</h4>
-                            <p>{listCarePoint[parseInt(location.state.carePoint)]}</p>
+                            <p>{listCarePoint[parseInt(location.state.carePoint)-1].name}</p>
+                            <p>Địa chỉ: {listCarePoint[parseInt(location.state.carePoint)-1].address}</p>
                             <h4>Kích cỡ xe</h4>
                             <p>{carSize[location.state.carSize]}</p>
                             {location.state.combo === "" ? null : <>

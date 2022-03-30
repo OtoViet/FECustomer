@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -11,6 +12,8 @@ import VNPayLogo from '../../assets/images/VNPayLogo.svg';
 import { useLocation } from 'react-router-dom';
 import FormApi from '../../api/formApi';
 import Dialog from '../Dialog/DialogNotify';
+import io from 'socket.io-client';
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -41,6 +44,13 @@ const theme = createTheme({
     },
 });
 function Payment() {
+    useEffect(() => {
+        const socket = io("http://localhost:5000", { transports: ['websocket', 'polling', 'flashsocket'] });
+        socket.on("connect", () => {
+            console.log(socket.id);
+        });
+        socket.emit('send',"ahihi");
+    },[]);
     const location = useLocation();
     const [value, setValue] = useState('1');
     const handleChange = (event, newValue) => {
@@ -72,7 +82,7 @@ function Payment() {
                     title="Thông báo"
                     url={"/scheduleList"}
                     content="Đã gửi yêu cầu chăm sóc xe thành công" /> : null}
-                
+
                 <div className="rounded-lg shadow-sm p-5" style={{ backgroundColor: '#F5F5F5' }}>
                     <TabContext value={value} variant="fullWidth">
                         <Box >
@@ -105,38 +115,38 @@ function Payment() {
                         <TabPanel value="2">
                             <div >
                                 <p>Thanh toán trực tuyến dễ dàng với VNPAY</p>
-                                    <form id="createOrder" action="http://localhost:5000/api/order/create_payment_url" method="POST">
-                                        <div className="form-group" style={{ display: "none" }}><label>Loại hàng hóa</label>
-                                            <select readOnly value="vehicle" id="orderType" name="orderType" className="form-control">
-                                                <option value="vehicle">Xe</option>
-                                            </select>
-                                        </div>
-                                        <div className="form-group" style={{ display: "none" }}>
-                                            <label>Số tiền</label>
-                                            <input id="amount" name="amount" placeholder="Số tiền" readOnly value={totalPrice} className="form-control" />
+                                <form id="createOrder" action="http://localhost:5000/api/order/create_payment_url" method="POST">
+                                    <div className="form-group" style={{ display: "none" }}><label>Loại hàng hóa</label>
+                                        <select readOnly value="vehicle" id="orderType" name="orderType" className="form-control">
+                                            <option value="vehicle">Xe</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group" style={{ display: "none" }}>
+                                        <label>Số tiền</label>
+                                        <input id="amount" name="amount" placeholder="Số tiền" readOnly value={totalPrice} className="form-control" />
 
-                                        </div>
-                                        <div className="form-group" style={{ display: "none" }}><label>Nội dung thanh toán</label>
-                                            <textarea id="orderDescription" name="orderDescription" readOnly value="Thanh toán dịch vụ otoviet" className="form-control" />
-                                        </div>
-                                        <div className="form-group" style={{ display: "none" }}>
-                                            <select readOnly value="" id="bankCode" name="bankCode" className="form-control" default>
-                                                <option value="">Chọn ngân hàng</option>
-                                            </select></div><div className="form-group" style={{ display: "none" }}>
-                                            <select readOnly value="vn" id="language" name="language" className="form-control" style={{ display: "none" }}>
-                                                <option value="vn">Tiếng Việt</option>
-                                            </select>
-                                        </div>
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            style={{ backgroundColor: "black" }}
-                                            size="large"
-                                            className="rounded-pill"
-                                        >
-                                            <img alt="logo vnpay" src={VNPayLogo} style={{ width: 50 }} /> Thanh toán VNPAY
-                                        </Button>
-                                    </form>
+                                    </div>
+                                    <div className="form-group" style={{ display: "none" }}><label>Nội dung thanh toán</label>
+                                        <textarea id="orderDescription" name="orderDescription" readOnly value="Thanh toan dich vu oto viet" className="form-control" />
+                                    </div>
+                                    <div className="form-group" style={{ display: "none" }}>
+                                        <select readOnly value="" id="bankCode" name="bankCode" className="form-control" default>
+                                            <option value="">Chọn ngân hàng</option>
+                                        </select></div><div className="form-group" style={{ display: "none" }}>
+                                        <select readOnly value="vn" id="language" name="language" className="form-control" style={{ display: "none" }}>
+                                            <option value="vn">Tiếng Việt</option>
+                                        </select>
+                                    </div>
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        style={{ backgroundColor: "black" }}
+                                        size="large"
+                                        className="rounded-pill"
+                                    >
+                                        <img alt="logo vnpay" src={VNPayLogo} style={{ width: 50 }} /> Thanh toán VNPAY
+                                    </Button>
+                                </form>
                                 <p className="text-muted">
                                     Nhanh chóng, an toàn và tiện lợi hơn
                                 </p>
@@ -148,6 +158,10 @@ function Payment() {
                                 <dl>
                                     <dt>Tên Ngân Hàng</dt>
                                     <dd>Sacombank</dd>
+                                </dl>
+                                <dl>
+                                    <dt>Tên Người Thụ Hưởng</dt>
+                                    <dd>CTY TNHH 1TV OTOVIET</dd>
                                 </dl>
                                 <dl>
                                     <dt>Số tài khoải</dt>

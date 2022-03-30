@@ -59,6 +59,10 @@ const formApi={
         const url ='/customer/getProductById/'+id;
         return axiosClient.get(url);
     },
+    rating: function(id,body){
+        const url ='/customer/rating/'+id;
+        return axiosClient.patch(url,body);
+    },
     getInfoCustomer: function(body){
         const url ='/customer/getInfoCustomer';
         return axiosClient.get(url,body);
@@ -91,5 +95,13 @@ const formApi={
         const url ='/admin/getAllEmployee';
         return axiosClient.get(url);
     },
+    getVnpUrlReturn: function(params){
+        const url = '/order/vnpay_return'+params;
+        return axiosClient.get(url);
+    },
+    getVnpIpn: function(params){
+        const url = '/order/vnpay_ipn'+params;
+        return axiosClient.get(url);
+    }
 }
 export default formApi;

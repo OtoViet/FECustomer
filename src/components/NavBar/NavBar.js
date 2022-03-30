@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLayoutEffect } from 'react';
 
+import ReturnUrlPage from '../../pages/Payment/ReturnUrl';
 import InfoCustomerPage from '../../pages/InfoCustomer/InfoCustomer';
 import StoreListPage from '../../pages/StoreList/StoreList';
 import ScheduleList from '../../pages/ScheduleList/ScheduleList';
@@ -137,6 +138,7 @@ function NavBar() {
           <Route path="/appointmentSchedule/:id" element={<TimeLinePage />} />
           <Route path="/scheduleList" element={<ScheduleList />} />
           <Route path="/infoCustomer" element={<InfoCustomerPage />} />
+          <Route path="/vnpReturnUrl" element={<ReturnUrlPage />} />
         </Routes>
       </ScrollToTop>
 

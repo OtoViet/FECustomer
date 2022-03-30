@@ -1,5 +1,7 @@
+import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import useGetAllProduct from '../../hooks/useGetAllProduct';
+import Pagination from '../Pagination/Pagination';
 import {
     Grid,
     Card,
@@ -16,11 +18,13 @@ import {
 function Blogs({ images }) {
     const navigate = useNavigate();
     let [loading, products] = useGetAllProduct();
-
+    const [pages, setPages] = useState(1);
     const handleClick = (id) => {
         navigate(`/detail/${id}`);
     };
-
+    const handleClickPagination = (value) => {
+        setPages(value);
+    };
     if (loading) return <>
         <h2 style={{ textAlign: "center" }}>Đang tải danh sách sản phẩm dịch vụ</h2>
         <Stack alignItems="center" mt={10} mb={10}>
@@ -35,7 +39,8 @@ function Blogs({ images }) {
                     alignItems="center"
                     mb={8} spacing={2}>
                     {
-                        products.map((product, index) => {
+                        products.slice(pages * 6 - 6, pages * 6)
+                        .map((product, index) => {
                             return (
                                 <Grid item xs={12} sm={6} md={4} key={index}>
                                     <Card>
@@ -50,6 +55,7 @@ function Blogs({ images }) {
                                         <CardContent>
                                             <Typography sx={{textAlign:"center"}} gutterBottom variant="h5" component="div">
                                                 <a style={{cursor:"pointer"}} 
+                                                href="/"
                                                 onClick={(e)=>{
                                                     e.preventDefault();
                                                     handleClick(product._id);
@@ -71,6 +77,7 @@ function Blogs({ images }) {
                         })
                     }
                 </Grid>
+                <Pagination count={Math.ceil(products.length/6)} onClick={handleClickPagination}/>
             </div>
         </div>
     );

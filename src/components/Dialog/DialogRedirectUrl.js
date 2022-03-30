@@ -16,6 +16,7 @@ export default function ResponsiveDialog(props) {
   let navigate = useNavigate();
   const handleClose = () => {
     setOpen(false);
+    props.handleCloseDialog(false);
     if(props.url) navigate(props.url);
   };
 
