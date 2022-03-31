@@ -44,13 +44,13 @@ const theme = createTheme({
     },
 });
 function Payment() {
-    useEffect(() => {
-        const socket = io("http://localhost:5000", { transports: ['websocket', 'polling', 'flashsocket'] });
-        socket.on("connect", () => {
-            console.log(socket.id);
-        });
-        socket.emit('send',"ahihi");
-    },[]);
+    const socket = io("http://localhost:5000", { transports: ['websocket', 'polling', 'flashsocket'] });
+    // useEffect(() => {
+    //     socket.on("connect", () => {
+    //         console.log(socket.id);
+    //     });
+    //     socket.emit('send',"ahihi");
+    // },[]);
     const location = useLocation();
     const [value, setValue] = useState('1');
     const handleChange = (event, newValue) => {
@@ -65,9 +65,17 @@ function Payment() {
         setOpen(status);
     };
     const handleClick = () => {
+        socket.on("connect", () => {
+            console.log(socket.id);
+        });
         FormApi.createOrder(location.state)
             .then(res => {
                 setOpen(true);
+                let titleNotify = "Có đơn hàng mới từ "+location.state.name;
+                let content = "chờ xác nhận";
+                socket.emit('send',{title:titleNotify,content:content,
+                from: location.state.email,type: "order",
+                time: res.createdAt, detail:{idOrder: res._id}});
                 console.log(res);
             })
             .catch(err => {
