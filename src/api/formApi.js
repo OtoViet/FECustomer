@@ -87,6 +87,10 @@ const formApi={
         const url ='/order/getOrderById/'+id;
         return axiosClient.get(url);
     },
+    cancelOrder: function(id){
+        const url ='/order/cancelOrder/'+id;
+        return axiosClient.patch(url);
+    },
     getAllStore: function(){
         const url ='/admin/getAllStore';
         return axiosClient.get(url);
@@ -102,6 +106,14 @@ const formApi={
     getVnpIpn: function(params){
         const url = '/order/vnpay_ipn'+params;
         return axiosClient.get(url);
-    }
+    },
+    getDiscountByCode: function(code){
+        const url ='/order/getDiscountByCode/'+code;
+        return axiosClient.get(url);
+    },
+    createNotification: function(body){
+        const url ='/admin/createNotification';
+        return axiosClient.post(url,body);
+    },
 }
 export default formApi;

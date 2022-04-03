@@ -25,6 +25,12 @@ export default function ContactAndPreviewOrderPage() {
     const location = useLocation();
     const navigate = useNavigate();
     const [loading, listStore] = useGetAllStore();
+    let totalPrice = 0;
+    location.state.listServiceChoose.forEach((item) => {
+        totalPrice += item.price;
+    });
+    totalPrice += 100000 * (location.state.carSize === "carMedium" ? 1 : 2);
+    totalPrice += location.state.priceCombo;
     const listCarePoint = listStore;
     const carSize = {
         carSmall: "Xe nhỏ",
@@ -62,9 +68,10 @@ export default function ContactAndPreviewOrderPage() {
     });
     const handleSendRequest = () => {
         if (dataForm) {
-            let dataSend = {...dataForm, ...location.state};
+            let dataSend = { ...dataForm, ...location.state };
             // console.log(dataSend);
-            navigate("/checkout", { state: dataSend});
+            dataSend.totalPrice = Math.round(totalPrice * ((100 - location.state.percentSale) / 100))
+            navigate("/checkout", { state: dataSend });
         }
     };
     const handleChangeSwitch = (event) => {
@@ -147,13 +154,21 @@ export default function ContactAndPreviewOrderPage() {
                         <h3>Kiểm tra lại thông tin</h3>
                         <div>
                             <h4>Cửa hàng phục vụ</h4>
-                            <p>{listCarePoint[parseInt(location.state.carePoint)-1].name}</p>
-                            <p>Địa chỉ: {listCarePoint[parseInt(location.state.carePoint)-1].address}</p>
+                            <p>{listCarePoint[parseInt(location.state.carePoint) - 1].name}</p>
+                            <p>Địa chỉ: {listCarePoint[parseInt(location.state.carePoint) - 1].address}</p>
                             <h4>Kích cỡ xe</h4>
-                            <p>{carSize[location.state.carSize]}</p>
+                            <p>{carSize[location.state.carSize]} {location.state.carSize !== "carSmall" ? "(Phụ thu thêm " +
+                                (100000 * (location.state.carSize === "carMedium" ? 1 : 2))
+                                    .toLocaleString('vi-VN', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                    }) + ")" : null}</p>
                             {location.state.combo === "" ? null : <>
                                 <h4>Gói combo tùy chọn</h4>
-                                <p>{combo[location.state.combo]}</p>
+                                <p>{combo[location.state.combo]} ({location.state.priceCombo.toLocaleString('vi-VN', {
+                                    style: 'currency',
+                                    currency: 'VND',
+                                })})</p>
                             </>}
                             <h4>Dịch vụ đã chọn</h4>
                             <ul>
@@ -166,10 +181,14 @@ export default function ContactAndPreviewOrderPage() {
                                     )
                                 })}
                             </ul>
+                            <h4>Tổng tiền: <h5 style={{ display: "inline", color: "red" }}>{Math.round(totalPrice * ((100 - location.state.percentSale) / 100)).toLocaleString('vi-VN', {
+                                style: 'currency',
+                                currency: 'VND',
+                            })}{location.state.percentSale === 0 ? null : ' (đã bao gồm giảm giá ' + location.state.percentSale + '%)'}</h5></h4>
                             <h4>Thời gian hẹn</h4>
                             <p>{location.state.time.toLocaleDateString('pt-PT')} - {location.state.time.getHours()}:
-                            {location.state.time.getMinutes()>=10 ? location.state.time.getMinutes()
-                            : `0${location.state.time.getMinutes()}`}</p>
+                                {location.state.time.getMinutes() >= 10 ? location.state.time.getMinutes()
+                                    : `0${location.state.time.getMinutes()}`}</p>
                             {dataForm ?
                                 <>
                                     <h4>Thông tin người đặt</h4>

@@ -96,6 +96,9 @@ function Row(props) {
                 <TableCell align="right">
                     {row.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}
                 </TableCell>
+                <TableCell align="right">
+                    {row.isCompleted ? "Đã hoàn thành" : (row.isCanceled ? "Đã hủy" : null)}
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -173,6 +176,7 @@ export default function FullWidthGrid() {
                                     <StyledTableCell align="right">Thời gian hẹn</StyledTableCell>
                                     <StyledTableCell align="right">Tổng tiền</StyledTableCell>
                                     <StyledTableCell align="right">Thanh toán</StyledTableCell>
+                                    <StyledTableCell align="right">Trạng thái</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>

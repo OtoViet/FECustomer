@@ -1,4 +1,3 @@
-import {useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -45,22 +44,13 @@ const theme = createTheme({
 });
 function Payment() {
     const socket = io("http://localhost:5000", { transports: ['websocket', 'polling', 'flashsocket'] });
-    // useEffect(() => {
-    //     socket.on("connect", () => {
-    //         console.log(socket.id);
-    //     });
-    //     socket.emit('send',"ahihi");
-    // },[]);
     const location = useLocation();
     const [value, setValue] = useState('1');
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
     const [open, setOpen] = useState(false);
-    let totalPrice = 0;
-    location.state.listServiceChoose.map((item) => {
-        totalPrice += item.price;
-    });
+    let totalPrice = location.state.totalPrice;
     const handleCloseDialog = (status) => {
         setOpen(status);
     };
@@ -69,14 +59,26 @@ function Payment() {
             console.log(socket.id);
         });
         FormApi.createOrder(location.state)
-            .then(res => {
+            .then(resOrder => {
                 setOpen(true);
-                let titleNotify = "Có đơn hàng mới từ "+location.state.name;
+                let titleNotify = "Có đơn hàng mới từ " + location.state.name;
                 let content = "chờ xác nhận";
-                socket.emit('send',{title:titleNotify,content:content,
-                from: location.state.email,type: "order",
-                time: res.createdAt, detail:{idOrder: res._id}});
-                console.log(res);
+                FormApi.createNotification({
+                    title: titleNotify, content: content,
+                    from: location.state.email, type: "order",
+                    createdAt: resOrder.createdAt, detail: { idOrder: resOrder._id }
+                })
+                .then(res => {
+                    socket.emit('send', {
+                        title: titleNotify, content: content,
+                        from: location.state.email, type: "order",
+                        createdAt: res.createdAt, detail: { idOrder: resOrder._id },
+                        isRead: false
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                });
             })
             .catch(err => {
                 console.log(err);

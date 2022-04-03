@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
@@ -17,6 +17,13 @@ import TimerIcon from '@mui/icons-material/Timer';
 import useGetOrderById from '../../hooks/useGetOrderById';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
+import CancelIcon from '@mui/icons-material/Cancel';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import io from 'socket.io-client';
+import Dialog from '../Dialog/DialogNotify';
+import FormApi from '../../api/formApi';
+import DialogConfirm from '../Dialog/DialogConfirm';
 const theme = createTheme({
     palette: {
         primary: {
@@ -48,8 +55,62 @@ const theme = createTheme({
 });
 export default function CustomizedTimeline() {
     const params = useParams();
+    const socket = io("http://localhost:5000", { transports: ['websocket', 'polling', 'flashsocket'] });
     let [loading, order] = useGetOrderById(params.id);
-    console.log(order);
+    const [open, setOpen] = useState(false);
+    const [content, setContent] = useState('');
+    const [openDialogConfirm, setOpenDialogConfirm] = useState(false);
+    const handleCloseDialog = (status) => {
+        setOpen(status);
+    };
+    const handleCloseDialogConfirm = (status) => {
+        setOpenDialogConfirm(status);
+    };
+    const handleClick = () => {
+        setOpenDialogConfirm(true);
+    };
+    const handleAccept = (value) => {
+        if (value) {
+            socket.on("connect", () => {
+                console.log(socket.id);
+            });
+            if (!loading) {
+                FormApi.cancelOrder(params.id)
+                    .then(res => {
+                        setOpen(true);
+                        setContent("Đã hủy lịch hẹn thành công!");
+                        // console.log(res);
+                    })
+                    .catch(err => {
+                        if (err.response.status === 403) {
+                            let titleNotify = "Có yêu cầu hủy lịch hẹn từ " + order.contactInfo.name;
+                            let content = "chờ xác nhận hủy";
+                            FormApi.createNotification({
+                                title: titleNotify, content: content,
+                                from: order.contactInfo.email, type: "orderCancel",
+                                createdAt: new Date(), detail: { idOrder: order._id }
+                            })
+                                .then(res => {
+                                    setOpen(true);
+                                    setContent("Đã gửi yêu cầu hủy lịch hẹn do cửa hàng đã xác nhận");
+                                    socket.emit('send', {
+                                        title: titleNotify, content: content,
+                                        from: order.contactInfo.email, type: "orderCancel",
+                                        createdAt: new Date(), detail: { idOrder: order._id },
+                                        isRead: false,
+                                    });
+                                })
+                                .catch(err => {
+                                    setOpen(true);
+                                    setContent("Có lỗi xảy ra, vui lòng thử lại sau!!!");
+                                    console.log(err);
+                                });
+                        }
+                        console.log(err);
+                    });
+            }
+        }
+    };
     if (loading) return <>
         <h2 style={{ textAlign: "center" }}>Đang tải thông tin</h2>
         <Stack alignItems="center" mt={10} mb={10}>
@@ -59,6 +120,17 @@ export default function CustomizedTimeline() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
+            {open ? <Dialog open={open}
+                handleCloseDialog={handleCloseDialog}
+                title="Thông báo"
+                url={"/"}
+                content={content} /> : null}
+            {openDialogConfirm ? <DialogConfirm open={openDialogConfirm}
+                isAccept={handleAccept}
+                handleCloseDialog={handleCloseDialogConfirm}
+                title="Thông báo"
+                url={"/"} cancel="Hủy bỏ" accept="Xác nhận hủy"
+                content={"Bạn có chắc muốn hủy lịch hẹn này?"} /> : null}
             <Timeline position="alternate">
                 <TimelineItem>
                     <TimelineOppositeContent
@@ -187,6 +259,16 @@ export default function CustomizedTimeline() {
                     </TimelineContent>
                 </TimelineItem>
             </Timeline>
+            <Box textAlign='center'>
+                <DialogConfirm />
+                {
+                    !order.isCompleted ? <Button color="secondary" variant="contained"
+                        style={{ textTransform: 'none' }} startIcon={<CancelIcon />}
+                        onClick={handleClick}>
+                        Hủy lịch hẹn
+                    </Button> : null
+                }
+            </Box>
         </ThemeProvider>
     );
 }

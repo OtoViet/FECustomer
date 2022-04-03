@@ -7,16 +7,50 @@ import ListStores from '../Mapbox/ListStores.js';
 import ComboService from '../ServiceCare/ComboService.js';
 import DialogNotify from '../Dialog/DialogNotify.js';
 import {
-    InputLabel, Box, FormControl, MenuItem, Select,
+    InputLabel, Box, Button, FormControl, MenuItem, Select,
     Grid, Typography, TextField, Stack, CircularProgress,
-    Radio, RadioGroup, FormControlLabel
+    Radio, RadioGroup, FormControlLabel, CssBaseline,
 } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import { DataGrid } from '@mui/x-data-grid';
 import useGetAllProduct from '../../hooks/useGetAllProduct';
 import { useNavigate, useLocation } from 'react-router-dom';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import useGetAllStore from '../../hooks/useGetAllStore.js';
+import FormApi from '../../api/formApi';
+
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            light: '#757ce8',
+            main: '#202C45',
+            dark: '#002884',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#ff7961',
+            main: '#E81C2E',
+            dark: '#ba000d',
+            contrastText: '#fff',
+        },
+    },
+    typography: {
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            'Barlow',
+            '"Segoe UI"',
+            'Roboto',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
+    },
+});
+
 const columns = [
     { field: 'id', headerName: 'Thứ tự', width: 80 },
     { field: 'idProduct', headerName: 'Mã sản phẩm', width: 250 },
@@ -49,8 +83,33 @@ function CarePoints() {
     const [loading, products] = useGetAllProduct();
     const [rows, setRows] = useState();
     const [combo, setCombo] = useState("");
+    const [openDiscount, setOpenDiscount] = useState("none");
+    const [discount, setDiscount] = useState("");
+    const [percentSale, setPercentSale] = useState(0);
+    const [showText, setShowText] = useState(false);
+    const [priceCombo, setPriceCombo] = useState(0);
+    const handleClickDiscount = () => {
+        setOpenDiscount("block");
+        setShowText(false);
+    };
+    const handleChangeDiscount = (event) => {
+        setDiscount(event.target.value);
+    };
+    const handleSubmitDiscount = () => {
+        FormApi.getDiscountByCode(discount).then(res => {
+            setOpenDiscount("none");
+            setPercentSale(res.percentSale);
+            setShowText(true);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
     const handleChange = (event) => {
         setCarePoint(event.target.value);
+    };
+    const handlePriceCombo = (value) => {
+        setPriceCombo(value);
     };
     const [carSize, setCarSize] = useState("");
     const [selectionModel, setSelectionModel] = useState();
@@ -138,7 +197,7 @@ function CarePoints() {
                                         onChange={handleChange}
                                     >
                                         {
-                                            stores.map((store, index) =><MenuItem key={index} value={store.numOfStore}>{store.address}</MenuItem>)
+                                            stores.map((store, index) => <MenuItem key={index} value={store.numOfStore}>{store.address}</MenuItem>)
                                         }
                                     </Select>
                                 </FormControl>
@@ -195,7 +254,7 @@ function CarePoints() {
                             </RadioGroup>
                             <h4 className="mt-4 mb-4">Chọn Combo Rửa Và Chăm Sóc Xe</h4>
 
-                            <ComboService combo={handleChangeCombo} />
+                            <ComboService combo={handleChangeCombo} priceCombo={handlePriceCombo} listProduct={products} />
 
                             <h4 className="mt-4 mb-4">Chọn Dịch Vụ</h4>
                             <div style={{ height: 420, width: '100%' }}>
@@ -237,6 +296,27 @@ function CarePoints() {
                                     renderInput={(params) => <TextField fullWidth {...params} />}
                                 />
                             </LocalizationProvider>
+                            <ThemeProvider theme={theme}>
+                                <CssBaseline />
+                                <Button sx={{ mt: 4 }} color="secondary"
+                                onClick={handleClickDiscount}>
+                                    Bạn có mã khuyến mãi?
+                                </Button><br />
+                                <Box sx={{display: openDiscount,mt:1}}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Mã khuyến mãi"
+                                        variant="outlined"
+                                        onChange={handleChangeDiscount}
+                                        value={discount}
+                                    />
+                                    <Button sx={{mt:1, ml:2}} color="secondary"
+                                    onClick={handleSubmitDiscount}>
+                                        Xác nhận
+                                    </Button>
+                                </Box>
+                            </ThemeProvider>
+                            {showText? <h6>Bạn được giảm {percentSale}% trên tổng hóa đơn</h6>: null}
                             <button className="btn btn-custom mt-4 mb-4"
                                 onClick={() => {
                                     let dataSend = {};
@@ -245,6 +325,8 @@ function CarePoints() {
                                     dataSend.carePoint = carePoint;
                                     dataSend.listServiceChoose = selectedRows;
                                     dataSend.time = value;
+                                    dataSend.priceCombo = priceCombo;
+                                    dataSend.percentSale = percentSale;
                                     if (dataSend.carSize === "" || dataSend.carePoint === "" ||
                                         dataSend.listServiceChoose.length === 0 || dataSend.time === "") {
                                         setOpen(true);
