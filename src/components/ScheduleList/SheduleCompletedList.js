@@ -126,6 +126,18 @@ function Row(props) {
                                             })}</StyledTableCell>
                                         </TableRow>
                                     ))}
+                                    {row.combo ? 
+                                        <TableRow key={row.id}>
+                                            <StyledTableCell component="th" scope="row">
+                                                {row.combo==='combo1'? 'Gói cơ bản' : row.combo==='combo2'? 'Gói premium' : 'Gói super premium'}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="right">{row.priceCombo.toLocaleString('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                            })}</StyledTableCell>
+                                        </TableRow>
+                                        : null
+                                    }
                                 </TableBody>
                             </Table>
                         </Box>

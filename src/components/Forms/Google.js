@@ -4,8 +4,15 @@ import FormApi from '../../api/formApi';
 function Google(){
     let navigate = useNavigate();
     const handleLogin = (response) => {
-        console.log(response);
-        FormApi.loginGoogle({data:response.profileObj});
+        // console.log(response);
+        let dataSend = {
+            firstName: response.profileObj.givenName,
+            lastName: response.profileObj.familyName,
+            email: response.profileObj.email,
+            // image: response.profileObj.imageUrl,
+            fullName: response.profileObj.name
+        }
+        FormApi.loginGoogle({data:dataSend});
         localStorage.setItem('token', response.tokenId);
         navigate('/');
     }

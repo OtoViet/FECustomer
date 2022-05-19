@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useEffect} from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import Container from '@mui/material/Container';
@@ -68,16 +68,39 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function CustomizedTables() {
     let indexUrl = window.location.href.indexOf("/vnpReturnUrl");
     let paramsVnpUrlReturn = window.location.href.split(window.location.href.substring(0,indexUrl)+"/vnpReturnUrl")[1];
-    console.log(window.location.href.substring(13+indexUrl));
+    // console.log(window.location.href.substring(13+indexUrl));
     const [loading, data] = useGetVnpReturnUrl(paramsVnpUrlReturn);
     useEffect(() => {
+        window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            return e.returnValue = "";
+        });
         FormApi.getVnpIpn(paramsVnpUrlReturn).then(res => {
-            console.log(res);
+            if(data.vnp_OrderInfo){
+                if(data.vnp_OrderInfo.length>0){
+                    if(res.RspCode==="00"){
+                        let idOrder = (data.vnp_OrderInfo).split('Thanh+toan+dich+vu+oto+viet+cho+don+hang+')[1];
+                        FormApi.getOrderById(idOrder).then(res => {
+                            if(res.isPaid === false){
+                                FormApi.updatePayStatuslOrder(idOrder).then(res => {
+                                    console.log(res);
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                    }
+                }
+            }
         })
         .catch(err => {
             console.log(err);
         });
-    },[]);
+    },[loading]);
 
     if (loading) return <>
         <h2 style={{ textAlign: "center" }}>Đang tải thông tin</h2>

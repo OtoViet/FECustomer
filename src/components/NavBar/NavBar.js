@@ -36,18 +36,18 @@ function NavBar() {
   };
   useLayoutEffect(() => {
     FormApi.token({ refreshToken: localStorage.getItem('refreshToken') })
-    .then((res) => {
-      if (res) {
-        localStorage.setItem('token', res.accessToken);
-        localStorage.setItem('refreshToken', res.refreshToken);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      localStorage.removeItem('token');
-      localStorage.removeItem('refreshToken');
-      navigate('/login');
-    });
+      .then((res) => {
+        if (res) {
+          localStorage.setItem('token', res.accessToken);
+          localStorage.setItem('refreshToken', res.refreshToken);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        navigate('/login');
+      });
   }, []);
   const handleLogout = () => {
     FormApi.logout()
@@ -90,23 +90,24 @@ function NavBar() {
       <div className="nav-bar">
         <div className="container">
           <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
-            <NavLink to="/" className="navbar-brand">MENU</NavLink>
+            <NavLink to="/" data-toggle="collapse" data-target=".navbar-collapse.show" className="navbar-brand">Danh Mục</NavLink>
             <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
               <span className="navbar-toggler-icon"></span>
             </button>
 
             <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
               <div className="navbar-nav mr-auto">
-                <NavLink to="/" className="nav-item nav-link nav-item-navlink">Trang chủ</NavLink>
-                <NavLink to="/about" className="nav-item nav-link nav-item-navlink">Về chúng tôi</NavLink>
+                <NavLink to="/" data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Trang chủ</NavLink>
+                <NavLink to="/about" data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Về chúng tôi</NavLink>
                 <DropdownService />
-                <NavLink to="/storeList" className="nav-item nav-link nav-item-navlink">Danh sách cửa hàng</NavLink>
-                <NavLink to="/contact" className="nav-item nav-link nav-item-navlink">Liên hệ</NavLink>
-                <NavLink to="/booking" className="nav-item nav-link nav-item-navlink">Đặt lịch ngay</NavLink>
+                <NavLink to="/storeList" data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Danh sách cửa hàng</NavLink>
+                <NavLink to="/contact" data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Liên hệ</NavLink>
+                <NavLink to="/booking" data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Đặt lịch ngay</NavLink>
+                <NavLink to="/scheduleList"  data-toggle="collapse" data-target=".navbar-collapse.show" className="d-md-block d-lg-none d-xl-none nav-item nav-link nav-item-navlink">Tra cứu lịch hẹn</NavLink>
                 {
                   localStorage.getItem('token') ?
                     <AccountMenu handleLogout={handleLogout} /> :
-                    <NavLink to="/login" className="nav-item nav-link">Đăng nhập</NavLink>
+                    <NavLink data-toggle="collapse" data-target=".navbar-collapse.show" to="/login" className="nav-item nav-link">Đăng nhập</NavLink>
                 }
               </div>
               <div className="ml-auto">

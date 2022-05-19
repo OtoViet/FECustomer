@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -22,6 +22,11 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TablePagination from '@mui/material/TablePagination';
 import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
+import Search from '@mui/icons-material/Search';
+import FormApi from '../../api/formApi';
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.primary.main,
@@ -129,6 +134,30 @@ function Row(props) {
                                             })}</StyledTableCell>
                                         </TableRow>
                                     ))}
+                                    {row.combo ? 
+                                        <TableRow key={row.id}>
+                                            <StyledTableCell component="th" scope="row">
+                                                {row.combo==='combo1'? 'Gói cơ bản' : row.combo==='combo2'? 'Gói premium' : 'Gói super premium'}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="right">{row.priceCombo.toLocaleString('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                            })}</StyledTableCell>
+                                        </TableRow>
+                                        : null
+                                    }
+                                    {row.carSize!=='carSmall' ? 
+                                        <TableRow key={row.id}>
+                                            <StyledTableCell component="th" scope="row">
+                                                {row.carSize==='carMedium'? 'Phụ thu xe cỡ vừa' : 'Phụ thu xe cỡ lớn'}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="right">{(row.carSize==='carMedium'? 100000 : 200000).toLocaleString('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                            })}</StyledTableCell>
+                                        </TableRow>
+                                        : null
+                                    }
                                 </TableBody>
                             </Table>
                         </Box>
@@ -142,7 +171,33 @@ export default function FullWidthGrid() {
     const [page, setPage] = useState(0);
     const navigate = useNavigate();
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    let [loading, orders] = useGetAllOrder();
+    let [loading, ordersGet] = useGetAllOrder();
+    const [orders, setOrders] = useState(null);
+    const [textFind, setTextFind] = useState("");
+
+    useEffect(() => {
+        setOrders(ordersGet);
+    },[loading])
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            FormApi.findOrderByEmail(textFind)
+            .then((res)=>{
+                setOrders(res);
+            })
+            .catch(err=>{
+                console.log(err);
+            });
+        }
+    }
+    const handleClickIconFind = ()=>{
+        FormApi.findOrderByEmail(textFind)
+        .then((res)=>{
+            setOrders(res);
+        })
+        .catch(err=>{
+            console.log(err);
+        });
+    };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -168,6 +223,27 @@ export default function FullWidthGrid() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Container component="main" maxWidth="md">
+                <TextField
+                    id="input-with-icon-textfield"
+                    label="Tìm kiếm lịch hẹn ( tìm qua email đặt lịch)"
+                    fullWidth
+                    onChange={(e) => {
+                        setTextFind(e.target.value);
+                        if(e.target.value.length===0) setOrders(ordersGet);
+                    }}
+                    style={{ marginBottom: 20 }}
+                    onKeyDown={handleKeyDown}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment
+                                style={{ cursor: 'pointer' }}
+                                position="start" onClick={handleClickIconFind}>
+                                <Search />
+                            </InputAdornment>
+                        ),
+                    }}
+                    variant="outlined"
+                />
                 <Paper sx={{ width: '100%' }}>
                     <TableContainer component={Paper}>
                         <Table stickyHeader aria-label="collapsible table">
@@ -184,10 +260,10 @@ export default function FullWidthGrid() {
                             </TableHead>
                             <TableBody>
                                 {orders
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => (
-                                    <Row key={row._id} row={row} onClick={handleClick} />
-                                ))}
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((row) => (
+                                        <Row key={row._id} row={row} onClick={handleClick} />
+                                    ))}
                             </TableBody>
                         </Table>
                     </TableContainer>

@@ -175,7 +175,7 @@ function Detail() {
     const [allProductSortByPriceAsc, setAllProductSortByPriceAsc] = useState([]);
     const [allProductSortByPriceDesc, setAllProductSortByPriceDesc] = useState([]);
     const [allProductSortByLatest, setAllProductSortByLatest] = useState([]);
-    const loginSchema = Yup.object().shape({
+    const ratingSchema = Yup.object().shape({
         content: Yup.string().required('Vui lòng nhập nội dung bình luận'),
         star: Yup.number().required('Vui lòng chọn số sao đánh giá'),
     });
@@ -185,7 +185,7 @@ function Detail() {
             content: '',
             star: 5,
         },
-        validationSchema: loginSchema,
+        validationSchema: ratingSchema,
         onSubmit: (values) => {
             FormApi.rating(params.id, values).then(res => {
                 console.log(res);
@@ -195,7 +195,7 @@ function Detail() {
                 setContenDialog("Bạn đã đánh giá thành công");
             }).catch(err => {
                 setOpen(true);
-                setContenDialog("Bạn đã đánh giá thất bại do bạn đã đánh giá trước đó hoặc chưa sử dụng dịch vụ!");
+                setContenDialog("Bạn đã đánh giá thất bại do bạn đã đánh giá trước đó hoặc chưa sử dụng dịch vụ hoặc do bạn chưa đăng nhập!");
             });
 
         },

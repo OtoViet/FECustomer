@@ -95,8 +95,8 @@ export default function SignUp() {
         onSubmit: (values) => {
 
             // alert(JSON.stringify(values, null, 2));
-            const loginFormData = values;
-            FormApi.signUp(loginFormData).then(res => {
+            const signUpFormData = values;
+            FormApi.signUp(signUpFormData).then(res => {
                 console.log(res);
                 setOpen(true);
                 
@@ -255,7 +255,7 @@ export default function SignUp() {
                         >
                             Đăng kí
                         </Button>
-                        <Grid container justifyContent="flex-end" alignItems="center">
+                        <Grid container justifyContent="center" alignItems="center">
                             <Grid item>
                                 <Google />
                             </Grid>

@@ -83,12 +83,20 @@ const formApi={
         const url ='/order/getAllOrder';
         return axiosClient.get(url);
     },
+    findOrderByEmail: function(email){
+        const url ='/order/findOrderByEmail/'+email;
+        return axiosClient.get(url);
+    },
     getOrderById: function(id){
         const url ='/order/getOrderById/'+id;
         return axiosClient.get(url);
     },
     cancelOrder: function(id){
         const url ='/order/cancelOrder/'+id;
+        return axiosClient.patch(url);
+    },
+    updatePayStatuslOrder: function(id){
+        const url ='/order/updatePayStatuslOrder/'+id;
         return axiosClient.patch(url);
     },
     getAllStore: function(){

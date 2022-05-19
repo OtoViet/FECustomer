@@ -134,6 +134,9 @@
         $('a').on('click', function () {
             clicked = true;
         });
+        $('.logo').on('click', function () {    
+            clicked = true;
+        });
         var bodyList = document.documentElement;
         var observer = new MutationObserver(function (mutations) {
             mutations.forEach(function (mutation) {

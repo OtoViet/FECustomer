@@ -11,6 +11,7 @@ import {
     Grid, Typography, TextField, Stack, CircularProgress,
     Radio, RadioGroup, FormControlLabel, CssBaseline,
 } from '@mui/material';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import { DataGrid } from '@mui/x-data-grid';
@@ -86,11 +87,11 @@ function CarePoints() {
     const [openDiscount, setOpenDiscount] = useState("none");
     const [discount, setDiscount] = useState("");
     const [percentSale, setPercentSale] = useState(0);
-    const [showText, setShowText] = useState(false);
+    const [text, setText] = useState(null);
     const [priceCombo, setPriceCombo] = useState(0);
     const handleClickDiscount = () => {
         setOpenDiscount("block");
-        setShowText(false);
+        setText(null);
     };
     const handleChangeDiscount = (event) => {
         setDiscount(event.target.value);
@@ -99,10 +100,10 @@ function CarePoints() {
         FormApi.getDiscountByCode(discount).then(res => {
             setOpenDiscount("none");
             setPercentSale(res.percentSale);
-            setShowText(true);
+            setText(`Bạn được giảm ${res.percentSale}% trên tổng hóa đơn`);
         })
         .catch(err => {
-            console.log(err);
+            setText(`Mã giảm giá không hợp lệ`);
         });
     };
     const handleChange = (event) => {
@@ -203,6 +204,15 @@ function CarePoints() {
                                 </FormControl>
                             </Box>
                             <h4 className="mt-4 mb-4">Chọn Kích Cỡ Xe</h4>
+                            <Typography variant="h6">
+                                <AcUnitIcon style={{color: theme.palette.secondary.main}} /> Kích thước xe nhỏ: là các dòng xe mini hay hatchback (VD: Hyundai i10, Kia Morning, Toyota Wigo, Suzuki Celerio,..)
+                            </Typography>
+                            <Typography variant="h6">
+                                <AcUnitIcon style={{color: theme.palette.secondary.main}} /> Kích thước xe vừa: là các dòng xe middle sedan & sedan (VD: Mazda 3, Camry, Toyota Vios, Honda City,...)
+                            </Typography>
+                            <Typography variant="h6">
+                                <AcUnitIcon style={{color: theme.palette.secondary.main}} /> Kích thước xe lớn: là các dòng xe SUV, CUV, MPV hoặc Pickup (VD: CX5-8, Everest, Ford Ranger,Land Rover, Lexus 570,...)
+                            </Typography>
                             <RadioGroup
                                 row
                                 aria-labelledby="demo-row-radio-buttons-group-label"
@@ -316,7 +326,7 @@ function CarePoints() {
                                     </Button>
                                 </Box>
                             </ThemeProvider>
-                            {showText? <h6>Bạn được giảm {percentSale}% trên tổng hóa đơn</h6>: null}
+                            {text? <h6>{text}</h6>: null}
                             <button className="btn btn-custom mt-4 mb-4"
                                 onClick={() => {
                                     let dataSend = {};

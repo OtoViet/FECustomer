@@ -54,11 +54,69 @@ function Payment() {
     const handleCloseDialog = (status) => {
         setOpen(status);
     };
+
+    const handleClickVnPay = () => {
+        let data = location.state;
+        // data.listServiceChoose = data.listServiceChoose.map((item, index) => {
+        //     return { ...item, idProduct: item._id, id: index }
+        // });
+        FormApi.createOrder(data)
+        .then(resOrder => {
+            let titleNotify = "Có đơn hàng mới từ " + location.state.name;
+            let content = "chờ xác nhận";
+            FormApi.createNotification({
+                title: titleNotify, content: content,
+                from: location.state.email, type: "order",
+                createdAt: resOrder.createdAt, detail: { idOrder: resOrder._id }
+            })
+            .then(res => {
+                socket.emit('send', {
+                    title: titleNotify, content: content,
+                    from: location.state.email, type: "order",
+                    createdAt: res.createdAt, detail: { idOrder: resOrder._id },
+                    isRead: false
+                });
+                fetch('http://192.168.1.6:5000/api/order/create_payment_url', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        orderType: 'vehicle',
+                        orderDescription: 'Thanh toan dich vu oto viet cho don hang ' + resOrder._id,
+                        bankCode: '',
+                        amount: totalPrice,
+                        language: 'vn'
+                    })
+                })
+                .then(response => response.json())
+                .then(responseJson => {
+                    if (responseJson.vnpUrl) {
+                        window.location.href = responseJson.vnpUrl;
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
     const handleClick = () => {
         socket.on("connect", () => {
             console.log(socket.id);
         });
-        FormApi.createOrder(location.state)
+        let data = location.state;
+        // console.log(data);
+        // data.listServiceChoose = data.listServiceChoose.map((item, index) => {
+        //     return { ...item, idProduct: item._id, id: index }
+        // });
+        FormApi.createOrder(data)
             .then(resOrder => {
                 setOpen(true);
                 let titleNotify = "Có đơn hàng mới từ " + location.state.name;
@@ -68,17 +126,17 @@ function Payment() {
                     from: location.state.email, type: "order",
                     createdAt: resOrder.createdAt, detail: { idOrder: resOrder._id }
                 })
-                .then(res => {
-                    socket.emit('send', {
-                        title: titleNotify, content: content,
-                        from: location.state.email, type: "order",
-                        createdAt: res.createdAt, detail: { idOrder: resOrder._id },
-                        isRead: false
+                    .then(res => {
+                        socket.emit('send', {
+                            title: titleNotify, content: content,
+                            from: location.state.email, type: "order",
+                            createdAt: res.createdAt, detail: { idOrder: resOrder._id },
+                            isRead: false
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err);
                     });
-                })
-                .catch(err => {
-                    console.log(err);
-                });
             })
             .catch(err => {
                 console.log(err);
@@ -125,38 +183,16 @@ function Payment() {
                         <TabPanel value="2">
                             <div >
                                 <p>Thanh toán trực tuyến dễ dàng với VNPAY</p>
-                                <form id="createOrder" action="http://localhost:5000/api/order/create_payment_url" method="POST">
-                                    <div className="form-group" style={{ display: "none" }}><label>Loại hàng hóa</label>
-                                        <select readOnly value="vehicle" id="orderType" name="orderType" className="form-control">
-                                            <option value="vehicle">Xe</option>
-                                        </select>
-                                    </div>
-                                    <div className="form-group" style={{ display: "none" }}>
-                                        <label>Số tiền</label>
-                                        <input id="amount" name="amount" placeholder="Số tiền" readOnly value={totalPrice} className="form-control" />
-
-                                    </div>
-                                    <div className="form-group" style={{ display: "none" }}><label>Nội dung thanh toán</label>
-                                        <textarea id="orderDescription" name="orderDescription" readOnly value="Thanh toan dich vu oto viet" className="form-control" />
-                                    </div>
-                                    <div className="form-group" style={{ display: "none" }}>
-                                        <select readOnly value="" id="bankCode" name="bankCode" className="form-control" default>
-                                            <option value="">Chọn ngân hàng</option>
-                                        </select></div><div className="form-group" style={{ display: "none" }}>
-                                        <select readOnly value="vn" id="language" name="language" className="form-control" style={{ display: "none" }}>
-                                            <option value="vn">Tiếng Việt</option>
-                                        </select>
-                                    </div>
-                                    <Button
-                                        type="submit"
-                                        variant="contained"
-                                        style={{ backgroundColor: "black" }}
-                                        size="large"
-                                        className="rounded-pill"
-                                    >
-                                        <img alt="logo vnpay" src={VNPayLogo} style={{ width: 50 }} /> Thanh toán VNPAY
-                                    </Button>
-                                </form>
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    style={{ backgroundColor: "black" }}
+                                    size="large"
+                                    className="rounded-pill"
+                                    onClick={handleClickVnPay}
+                                >
+                                    <img alt="logo vnpay" src={VNPayLogo} style={{ width: 50 }} /> Thanh toán VNPAY
+                                </Button>
                                 <p className="text-muted">
                                     Nhanh chóng, an toàn và tiện lợi hơn
                                 </p>

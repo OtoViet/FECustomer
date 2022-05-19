@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
-import useGetInfoCustomer from '../../hooks/useGetInfoCustomer';
+import useGetInfoCustomer from '../../hooks/useGetInfoCustomerNotRedirectLogin';
 import useGetAllStore from '../../hooks/useGetAllStore.js';
 import * as Yup from 'yup';
 import {
@@ -75,7 +75,7 @@ export default function ContactAndPreviewOrderPage() {
         }
     };
     const handleChangeSwitch = (event) => {
-        if (!loadingInfoCustomer && event.target.checked) {
+        if (loadingInfoCustomer !== 'error' && event.target.checked) {
             formik.setFieldValue('name', infoCustomer.fullName);
             formik.setFieldValue('email', infoCustomer.email);
             formik.setFieldValue('phoneNumber', infoCustomer.phoneNumber);
@@ -85,7 +85,7 @@ export default function ContactAndPreviewOrderPage() {
         }
     };
 
-    if (loadingInfoCustomer || loading) return <>
+    if (loadingInfoCustomer === true || loading) return <>
         <h2 style={{ textAlign: "center" }}>Đang tải danh thông tin</h2>
         <Stack alignItems="center" mt={10} mb={10}>
             <CircularProgress size={80} />
@@ -97,9 +97,14 @@ export default function ContactAndPreviewOrderPage() {
 
                 <h4 className="mt-4 mb-4">
                     Thông tin liên hệ
-                    <Switch {...label}
-                        // defaultChecked
-                        onChange={handleChangeSwitch} />(Mặc định)
+                    {
+                        loadingInfoCustomer === 'error' ? null :
+                            <>
+                                <Switch {...label}
+                                    // defaultChecked
+                                    onChange={handleChangeSwitch} />(Mặc định)
+                            </>
+                    }
                 </h4>
                 <div className="row">
 
@@ -154,8 +159,8 @@ export default function ContactAndPreviewOrderPage() {
                         <h3>Kiểm tra lại thông tin</h3>
                         <div>
                             <h4>Cửa hàng phục vụ</h4>
-                            <p>{listCarePoint[parseInt(location.state.carePoint) - 1].name}</p>
-                            <p>Địa chỉ: {listCarePoint[parseInt(location.state.carePoint) - 1].address}</p>
+                            <p>{listCarePoint.find(element=>element.numOfStore==parseInt(location.state.carePoint)).name}</p>
+                            <p>Địa chỉ: {listCarePoint.find(element=>element.numOfStore==parseInt(location.state.carePoint)).address}</p>
                             <h4>Kích cỡ xe</h4>
                             <p>{carSize[location.state.carSize]} {location.state.carSize !== "carSmall" ? "(Phụ thu thêm " +
                                 (100000 * (location.state.carSize === "carMedium" ? 1 : 2))
@@ -181,10 +186,10 @@ export default function ContactAndPreviewOrderPage() {
                                     )
                                 })}
                             </ul>
-                            <h4>Tổng tiền: <h5 style={{ display: "inline", color: "red" }}>{Math.round(totalPrice * ((100 - location.state.percentSale) / 100)).toLocaleString('vi-VN', {
+                            <h4>Tổng tiền: <p style={{ display: "inline", color: "red" }}>{Math.round(totalPrice * ((100 - location.state.percentSale) / 100)).toLocaleString('vi-VN', {
                                 style: 'currency',
                                 currency: 'VND',
-                            })}{location.state.percentSale === 0 ? null : ' (đã bao gồm giảm giá ' + location.state.percentSale + '%)'}</h5></h4>
+                            })}{location.state.percentSale === 0 ? null : ' (đã bao gồm giảm giá ' + location.state.percentSale + '%)'}</p></h4>
                             <h4>Thời gian hẹn</h4>
                             <p>{location.state.time.toLocaleDateString('pt-PT')} - {location.state.time.getHours()}:
                                 {location.state.time.getMinutes() >= 10 ? location.state.time.getMinutes()

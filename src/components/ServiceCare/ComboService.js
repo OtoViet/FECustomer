@@ -60,25 +60,27 @@ function ComboService(props) {
                         <div className="row">
                             <div className="col-md-4">
                                 <div className="price-item">
-                                    <div className="price-header">
-                                        <h3>Gói làm sạch cơ bản</h3>
-                                        <h2 style={{fontSize:28}}>{totalPriceCombo1.toLocaleString("vi-VN",{
-                                            style: "currency",
-                                            currency: "VND"
-                                        })}</h2>
+                                    <div style={{height: 500}}>
+                                        <div className="price-header">
+                                            <h3>Gói làm sạch cơ bản</h3>
+                                            <h2 style={{fontSize:28}}>{totalPriceCombo1.toLocaleString("vi-VN",{
+                                                style: "currency",
+                                                currency: "VND"
+                                            })}</h2>
+                                        </div>
+                                        <div className="price-body">
+                                            <ul>
+                                                {
+                                                    listProductCombo1.map((item, index) => {
+                                                        return (
+                                                            <li key={index}><i className="far fa-check-circle"></i>{item.productName}</li>
+                                                        )
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div className="price-body">
-                                        <ul>
-                                            {
-                                                listProductCombo1.map((item, index) => {
-                                                    return (
-                                                        <li key={index}><i className="far fa-check-circle"></i>{item.productName}</li>
-                                                    )
-                                                })
-                                            }
-                                        </ul>
-                                    </div>
-                                    <div className="price-footer">
+                                    <div className="price-footer ml-4">
                                         <FormControlLabel value="combo1"
                                             className="btn btn-custom"
                                             control={<Radio
@@ -90,25 +92,28 @@ function ComboService(props) {
                             </div>
                             <div className="col-md-4">
                                 <div className="price-item featured-item">
-                                    <div className="price-header">
-                                        <h3>Gói làm sạch premium</h3>
-                                        <h2 style={{fontSize:28}}>{totalPriceCombo2.toLocaleString("vi-VN",{
-                                            style: "currency",
-                                            currency: "VND"
-                                        })}</h2>
+                                    <div style={{height: 500}}>
+                                        <div className="price-header">
+                                            <h3>Gói làm sạch premium</h3>
+                                            <h2 style={{fontSize:28}}>{totalPriceCombo2.toLocaleString("vi-VN",{
+                                                style: "currency",
+                                                currency: "VND"
+                                            })}</h2>
+                                        </div>
+                                        <div className="price-body">
+                                            <ul>
+                                                {
+                                                    listProductCombo2.map((item, index) => {
+                                                        return (
+                                                            <li key={index}><i className="far fa-check-circle"></i>{item.productName}</li>
+                                                        )
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div className="price-body">
-                                        <ul>
-                                            {
-                                                listProductCombo2.map((item, index) => {
-                                                    return (
-                                                        <li key={index}><i className="far fa-check-circle"></i>{item.productName}</li>
-                                                    )
-                                                })
-                                            }
-                                        </ul>
-                                    </div>
-                                    <div className="price-footer">
+                                    
+                                    <div className="price-footer ml-4">
                                         <FormControlLabel value="combo2"
                                             className="btn btn-custom"
                                             control={<Radio
@@ -120,25 +125,27 @@ function ComboService(props) {
                             </div>
                             <div className="col-md-4">
                                 <div className="price-item">
-                                    <div className="price-header">
-                                        <h3>Gói làm sạch spremium</h3>
-                                        <h2 style={{fontSize:28}}>{totalPriceCombo3.toLocaleString("vi-VN",{
-                                            style: "currency",
-                                            currency: "VND"
-                                        })}</h2>
+                                    <div style={{height: 500}}>
+                                        <div className="price-header">
+                                            <h3>Gói làm sạch spremium</h3>
+                                            <h2 style={{fontSize:28}}>{totalPriceCombo3.toLocaleString("vi-VN",{
+                                                style: "currency",
+                                                currency: "VND"
+                                            })}</h2>
+                                        </div>
+                                        <div className="price-body">
+                                            <ul>
+                                                {
+                                                    listProductCombo3.map((item, index) => {
+                                                        return (
+                                                            <li key={index}><i className="far fa-check-circle"></i>{item.productName}</li>
+                                                        )
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div className="price-body">
-                                        <ul>
-                                            {
-                                                listProductCombo3.map((item, index) => {
-                                                    return (
-                                                        <li key={index}><i className="far fa-check-circle"></i>{item.productName}</li>
-                                                    )
-                                                })
-                                            }
-                                        </ul>
-                                    </div>
-                                    <div className="price-footer">
+                                    <div className="price-footer ml-4">
                                         <FormControlLabel value="combo3"
                                             className="btn btn-custom"
                                             control={<Radio

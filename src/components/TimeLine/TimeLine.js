@@ -55,7 +55,7 @@ const theme = createTheme({
 });
 export default function CustomizedTimeline() {
     const params = useParams();
-    const socket = io("http://localhost:5000", { transports: ['websocket', 'polling', 'flashsocket'] });
+    const socket = io("http://192.168.1.75:5000", { transports: ['websocket', 'polling', 'flashsocket'] });
     let [loading, order] = useGetOrderById(params.id);
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState('');

@@ -1,6 +1,8 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import {useNavigate} from 'react-router-dom';
 function Footer() {
+    const navigate = useNavigate();
     const NewsSchema = Yup.object().shape({
         name: Yup.string()
             .min(2, 'Too Short!')
@@ -19,22 +21,28 @@ function Footer() {
                             <p><i className="fa fa-phone-alt"></i>+012 345 67890</p>
                             <p><i className="fa fa-envelope"></i>otoviet@gmail.com</p>
                             <div className="footer-social">
-                                <a className="btn" href="/"><i className="fab fa-twitter"></i></a>
-                                <a className="btn" href="/"><i className="fab fa-facebook-f"></i></a>
-                                <a className="btn" href="/"><i className="fab fa-youtube"></i></a>
-                                <a className="btn" href="/"><i className="fab fa-instagram"></i></a>
-                                <a className="btn" href="/"><i className="fab fa-linkedin-in"></i></a>
+                                <a className="btn" href="https://www.facebook.com/nhattan.nguyen.6"><i className="fab fa-facebook-f"></i></a>
+                                <a className="btn" href="https://www.instagram.com/tan00065/"><i className="fab fa-instagram"></i></a>
+                                <a className="btn" href="https://www.linkedin.com/in/nh%E1%BA%ADt-t%C3%A2n-nguy%E1%BB%85n-345a74219/"><i className="fab fa-linkedin-in"></i></a>
                             </div>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="footer-link">
                             <h2>Liên kết</h2>
-                            <a href="/">Về chúng tôi</a>
-                            <a href="/">Liên hệ với chúng tôi</a>
-                            <a href="/">Dịch vụ của chúng tôi</a>
+                            <a href="/" onClick={(e)=>{
+                                e.preventDefault();
+                                navigate('/about');
+                            }}>Về chúng tôi</a>
+                            <a href="/" onClick={(e)=>{
+                                e.preventDefault();
+                                navigate('/contact');
+                            }}>Liên hệ với chúng tôi</a>
+                            <a href="/" onClick={(e)=>{
+                                e.preventDefault();
+                                navigate('/listService');
+                            }}>Dịch vụ của chúng tôi</a>
                             <a href="/">Danh sách cửa hàng</a>
-                            <a href="/">Giá dịch vụ</a>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
@@ -42,7 +50,6 @@ function Footer() {
                             <h2>Thông tin hữu ích</h2>
                             <a href="/term">Điều khoản sử dụng</a>
                             <a href="/privacy">Chính sách riêng tư</a>
-                            <a href="/cookies">Cookies</a>
                             <a href="/help">Giúp đỡ</a>
                             <a href="/fquas">Câu hỏi thường gặp</a>
                         </div>
@@ -79,7 +86,7 @@ function Footer() {
                 </div>
             </div>
             <div className="container copyright">
-                <p>&copy; <a href="/">Otoviet</a>, All Right Reserved. Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
+                <p>&copy; <a href="/">Otoviet</a>, Bản quyền thuộc về OtoViet. Thiết kế và tùy chỉnh bởi <a href="https://htmlcodex.com">HTML Codex & NguyenNhatTan</a></p>
             </div>
         </div>
     );
