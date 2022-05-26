@@ -88,7 +88,7 @@ export default function SignUp() {
         formik.setFieldValue('phoneNumber', infoCustomer.phoneNumber);
         formik.setFieldValue('dateOfBirth', moment(infoCustomer.dateOfBirth, "DD/MM/YYYY").toDate());
         setValueDate(moment(infoCustomer.dateOfBirth, "DD/MM/YYYY").toDate());
-    },[loading])
+    },[loading]);
     const handleChangeDate = (newValue) => {
         setValueDate(newValue);
         formik.setFieldValue('dateOfBirth', newValue);
@@ -121,6 +121,9 @@ export default function SignUp() {
                     </Typography>
                     <Box component="form" noValidate onSubmit={formik.handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
+                            <Grid item xs={12} sm={12}>
+                                Email: {infoCustomer.email}
+                            </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="family-name"

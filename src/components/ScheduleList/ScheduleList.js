@@ -176,6 +176,7 @@ export default function FullWidthGrid() {
     const [textFind, setTextFind] = useState("");
 
     useEffect(() => {
+        console.log(loading);
         setOrders(ordersGet);
     },[loading])
     const handleKeyDown = (event) => {
@@ -213,7 +214,7 @@ export default function FullWidthGrid() {
     };
 
 
-    if (loading) return <>
+    if (loading==true) return <>
         <h2 style={{ textAlign: "center" }}>Đang tải danh sách lịch hẹn</h2>
         <Stack alignItems="center" mt={10} mb={10}>
             <CircularProgress size={80} />

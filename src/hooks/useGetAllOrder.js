@@ -10,6 +10,7 @@ function useGetAllOrder() {
             setLoading(false)
         })
         .catch((error) => {
+            setLoading('error');
             console.log(error);
         });
     };

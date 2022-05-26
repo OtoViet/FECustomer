@@ -14,40 +14,40 @@ function ClientsSay() {
                     <div className="testimonial-item">
                         <img src={testimonial_1} style={{ width: 'auto' }} alt="testimonial_1" />
                         <div className="testimonial-text">
-                            <h3>Khách hàng 1</h3>
+                            <h3>Nhật Tân</h3>
                             <h4>Profession</h4>
                             <p>
-                                Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu metus tortor auctor gravid
+                                Chất lượng thật tuyệt vời! Tôi đánh giá cao cách phục vụ của nhân viên
                             </p>
                         </div>
                     </div>
                     <div className="testimonial-item">
                         <img src={testimonial_2} style={{ width: 'auto' }} alt="testimonial_2" />
                         <div className="testimonial-text">
-                            <h3>Khách hàng 2</h3>
+                            <h3>Ngọc Thư</h3>
                             <h4>Profession</h4>
                             <p>
-                                Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu metus tortor auctor gravid
+                                Nhân viên thân thiện và nhiệt tình. Giá cả tương đối ổn so với mặt bằng chung
                             </p>
                         </div>
                     </div>
                     <div className="testimonial-item">
                         <img src={testimonial_3} style={{ width: 'auto' }} alt="testimonial_3" />
                         <div className="testimonial-text">
-                            <h3>Khách hàng 3</h3>
+                            <h3>Ngọc Hải</h3>
                             <h4>Profession</h4>
                             <p>
-                                Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu metus tortor auctor gravid
+                                Tôi đã sử dụng dịch vụ ở nhiều nơi, tuy nhiên đây là nơi tôi cảm thấy tốt nhất!
                             </p>
                         </div>
                     </div>
                     <div className="testimonial-item">
                         <img src={testimonial_4} style={{ width: 'auto' }} alt="testimonial_4" />
                         <div className="testimonial-text">
-                            <h3>Khách hàng 4</h3>
+                            <h3>Trung Nghĩa</h3>
                             <h4>Profession</h4>
                             <p>
-                                Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu metus tortor auctor gravid
+                                Cửa hàng lớn và sạch đẹp, nhân viên thân thiện và giá cả phải chăng! Nên thử 1 lânS
                             </p>
                         </div>
                     </div>

@@ -134,9 +134,11 @@ function CarePoints() {
             }
         }));
         if (location.state) {
-            setSelectedRows([location.state]);
             setSelectionModel(() =>
                 products.map((product, index) => {
+                    if(product._id===location.state._id){
+                        setSelectedRows([{idProduct: location.state._id, id: index+1, productName: location.state.productName, price: location.state.price}]);
+                    }
                     return {
                         id: index + 1,
                         idProduct: product._id,
@@ -145,7 +147,7 @@ function CarePoints() {
                     }
                 }).filter((r) => r.idProduct === location.state._id).map((r) => r.id));
         }
-    }, [products, location.state]);
+    }, [products, loading, location.state]);
 
     if (loading || loadingStore) return <>
         <h2 style={{ textAlign: "center" }}>Đang tải thông tin</h2>
@@ -334,6 +336,7 @@ function CarePoints() {
                                     dataSend.carSize = carSize;
                                     dataSend.carePoint = carePoint;
                                     dataSend.listServiceChoose = selectedRows;
+                                    console.log(selectedRows);
                                     dataSend.time = value;
                                     dataSend.priceCombo = priceCombo;
                                     dataSend.percentSale = percentSale;

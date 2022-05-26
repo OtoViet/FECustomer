@@ -43,7 +43,7 @@ const theme = createTheme({
     },
 });
 function Payment() {
-    const socket = io("http://localhost:5000", { transports: ['websocket', 'polling', 'flashsocket'] });
+    const socket = io("https://luanvanapi.azurewebsites.net", { transports: ['websocket', 'polling', 'flashsocket'] });
     const location = useLocation();
     const [value, setValue] = useState('1');
     const handleChange = (event, newValue) => {
@@ -76,7 +76,7 @@ function Payment() {
                     createdAt: res.createdAt, detail: { idOrder: resOrder._id },
                     isRead: false
                 });
-                fetch('http://192.168.1.6:5000/api/order/create_payment_url', {
+                fetch('https://luanvanapi.azurewebsites.net/api/order/create_payment_url', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

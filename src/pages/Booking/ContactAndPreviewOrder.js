@@ -29,6 +29,7 @@ export default function ContactAndPreviewOrderPage() {
     location.state.listServiceChoose.forEach((item) => {
         totalPrice += item.price;
     });
+    console.log(location.state.listServiceChoose);
     totalPrice += 100000 * (location.state.carSize === "carMedium" ? 1 : 2);
     totalPrice += location.state.priceCombo;
     const listCarePoint = listStore;
@@ -69,6 +70,11 @@ export default function ContactAndPreviewOrderPage() {
     const handleSendRequest = () => {
         if (dataForm) {
             let dataSend = { ...dataForm, ...location.state };
+            if (!loadingInfoCustomer) {
+                if (infoCustomer) {
+                    dataSend.defaultEmail = infoCustomer.email;
+                }
+            }
             // console.log(dataSend);
             dataSend.totalPrice = Math.round(totalPrice * ((100 - location.state.percentSale) / 100))
             navigate("/checkout", { state: dataSend });

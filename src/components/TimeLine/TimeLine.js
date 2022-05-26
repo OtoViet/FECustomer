@@ -24,6 +24,9 @@ import io from 'socket.io-client';
 import Dialog from '../Dialog/DialogNotify';
 import FormApi from '../../api/formApi';
 import DialogConfirm from '../Dialog/DialogConfirm';
+import moment from 'moment';
+import 'moment/locale/vi';
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -55,7 +58,7 @@ const theme = createTheme({
 });
 export default function CustomizedTimeline() {
     const params = useParams();
-    const socket = io("http://192.168.1.75:5000", { transports: ['websocket', 'polling', 'flashsocket'] });
+    const socket = io("http://192.168.1.238:5000", { transports: ['websocket', 'polling', 'flashsocket'] });
     let [loading, order] = useGetOrderById(params.id);
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState('');
@@ -131,6 +134,19 @@ export default function CustomizedTimeline() {
                 title="Thông báo"
                 url={"/"} cancel="Hủy bỏ" accept="Xác nhận hủy"
                 content={"Bạn có chắc muốn hủy lịch hẹn này?"} /> : null}
+            <div style={{display:'flex', flexDirection:'column', alignItems: 'center',justifyContent: "center"}}>
+                <h4 style={{ textAlign: 'center' }}>Chi tiết lịch hẹn</h4>
+                <h5>Người đặt lịch: {order.contactInfo.name}</h5>
+                <h5>Email đặt: {order.contactInfo.email}</h5>
+                <h5>Thời gian đặt: {moment(order.createdAt).format('DD/MM/YYYY')}</h5>
+                <h5>Dịch vụ đã chọn: {order.listService.map((item,index)=>{
+                    return <h6 style={{display: 'inline'}} key={index}>{item.productName}, </h6>
+                })}</h5>
+                <h5>Combo: {order.combo}</h5>
+                <h5>Tổng tiền: {Math.round(order.totalPrice).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '₫ '}</h5>
+                <h5>Thời gian hẹn: {moment(order.dateAppointment).locale('vi').format('LLLL')}</h5>
+                <h4 style={{ textAlign: 'center' }}>Trạng thái lịch hẹn</h4>
+            </div>
             <Timeline position="alternate">
                 <TimelineItem>
                     <TimelineOppositeContent

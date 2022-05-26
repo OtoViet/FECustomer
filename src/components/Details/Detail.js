@@ -192,6 +192,7 @@ function Detail() {
                 setOpen(true);
                 setData(res);
                 setDataRating(res.rating);
+                console.log(rating);
                 setContenDialog("Bạn đã đánh giá thành công");
             }).catch(err => {
                 setOpen(true);
