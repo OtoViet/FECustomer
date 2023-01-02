@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "./Dissertation/static/css/main.34cb6efc.css",
+    "main.js": "./Dissertation/static/js/main.137a7de8.js",
+    "static/js/787.c98f4f81.chunk.js": "./Dissertation/static/js/787.c98f4f81.chunk.js",
+    "static/js/mapbox-gl-csp-worker.f398040d.worker.js": "./Dissertation/static/js/mapbox-gl-csp-worker.f398040d.worker.js",
+    "static/media/404.jpg": "./Dissertation/static/media/404.1a65232feebcad2c93d2.jpg",
+    "static/media/about.jpg": "./Dissertation/static/media/about.7869575de0801f56fd09.jpg",
+    "static/media/carousel-3.jpg": "./Dissertation/static/media/carousel-3.de6e447a8fd2d95072da.jpg",
+    "static/media/carousel-2.jpg": "./Dissertation/static/media/carousel-2.3553bff033bc010f8ecd.jpg",
+    "static/media/carousel-1.jpg": "./Dissertation/static/media/carousel-1.c0e9b7e219ddc0b69ab9.jpg",
+    "static/media/VNPayLogo.svg": "./Dissertation/static/media/VNPayLogo.55e9c8c93a5dcab0bc03750f5b1e6294.svg",
+    "index.html": "./Dissertation/index.html",
+    "static/media/car.svg": "./Dissertation/static/media/car.17df35a411eb880ad20a1c3f640b3a75.svg",
+    "main.34cb6efc.css.map": "./Dissertation/static/css/main.34cb6efc.css.map",
+    "main.137a7de8.js.map": "./Dissertation/static/js/main.137a7de8.js.map",
+    "787.c98f4f81.chunk.js.map": "./Dissertation/static/js/787.c98f4f81.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.34cb6efc.css",
+    "static/js/main.137a7de8.js"
+  ]
+}
