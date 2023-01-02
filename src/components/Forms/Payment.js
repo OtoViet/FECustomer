@@ -43,7 +43,7 @@ const theme = createTheme({
     },
 });
 function Payment() {
-    const socket = io("https://luanvanapi.azurewebsites.net", { transports: ['websocket', 'polling', 'flashsocket'] });
+    const socket = io("https://dissertation-api-server.herokuapp.com/", { transports: ['websocket', 'polling', 'flashsocket'] });
     const location = useLocation();
     const [value, setValue] = useState('1');
     const handleChange = (event, newValue) => {
@@ -76,7 +76,7 @@ function Payment() {
                     createdAt: res.createdAt, detail: { idOrder: resOrder._id },
                     isRead: false
                 });
-                fetch('https://luanvanapi.azurewebsites.net/api/order/create_payment_url', {
+                fetch('https://dissertation-api-server.herokuapp.com/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
