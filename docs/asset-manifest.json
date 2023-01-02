@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.34cb6efc.css",
+    "main.js": "/static/js/main.6ff512a1.js",
+    "static/js/787.c98f4f81.chunk.js": "/static/js/787.c98f4f81.chunk.js",
+    "static/js/mapbox-gl-csp-worker.204a831d.worker.js": "/static/js/mapbox-gl-csp-worker.204a831d.worker.js",
+    "static/media/404.jpg": "/static/media/404.1a65232feebcad2c93d2.jpg",
+    "static/media/about.jpg": "/static/media/about.7869575de0801f56fd09.jpg",
+    "static/media/carousel-3.jpg": "/static/media/carousel-3.de6e447a8fd2d95072da.jpg",
+    "static/media/carousel-2.jpg": "/static/media/carousel-2.3553bff033bc010f8ecd.jpg",
+    "static/media/carousel-1.jpg": "/static/media/carousel-1.c0e9b7e219ddc0b69ab9.jpg",
+    "static/media/VNPayLogo.svg": "/static/media/VNPayLogo.55e9c8c93a5dcab0bc03750f5b1e6294.svg",
+    "index.html": "/index.html",
+    "static/media/car.svg": "/static/media/car.17df35a411eb880ad20a1c3f640b3a75.svg",
+    "main.34cb6efc.css.map": "/static/css/main.34cb6efc.css.map",
+    "main.6ff512a1.js.map": "/static/js/main.6ff512a1.js.map",
+    "787.c98f4f81.chunk.js.map": "/static/js/787.c98f4f81.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.34cb6efc.css",
+    "static/js/main.6ff512a1.js"
+  ]
+}
