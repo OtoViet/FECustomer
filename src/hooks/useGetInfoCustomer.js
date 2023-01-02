@@ -1,6 +1,8 @@
 import FormApi from '../api/formApi.js';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { currentHost } from '../utils/path.js';
+
 function useGetInfoCustomer() {
     const navigate = useNavigate();
     const [info, setInfo] = useState([]);
@@ -12,7 +14,7 @@ function useGetInfoCustomer() {
         })
         .catch((error) => {
             console.log(error);
-            navigate('/login');
+            navigate(`${currentHost()}/login`);
         });
     };
     useEffect(() => {

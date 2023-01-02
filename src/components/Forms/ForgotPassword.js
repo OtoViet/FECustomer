@@ -15,6 +15,8 @@ import * as Yup from 'yup';
 import FormApi from '../../api/formApi';
 import ResponsiveDialog from '../Dialog/Dialog';
 import Alert from '@mui/material/Alert';
+import { currentHost } from '../../utils/path';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -46,6 +48,7 @@ const theme = createTheme({
 });
 
 export default function ForgotPassword() {
+  const host = currentHost();
   const [open, setOpen] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
   const location = useLocation();
@@ -124,12 +127,12 @@ export default function ForgotPassword() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <NavLink to="/" variant="body2">
+                <NavLink to={`${host}/`} variant="body2">
                   Về trang chủ
                 </NavLink>
               </Grid>
               <Grid item>
-                <NavLink to="/signup" variant="body2">
+                <NavLink to={`${host}/signup`} variant="body2">
                   Chưa có tài khoản? Đăng kí
                 </NavLink>
               </Grid>

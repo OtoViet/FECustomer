@@ -1,5 +1,8 @@
 import {Link} from 'react-router-dom';
+import { currentHost } from '../../utils/path';
+
 function DetailTitle() {
+    const host = currentHost();
     return (
         <>
             <div className="page-header">
@@ -9,8 +12,8 @@ function DetailTitle() {
                             <h2>Trang chi tiết</h2>
                         </div>
                         <div className="col-12">
-                            <Link to="/">Trang chủ</Link>
-                            <Link to="detail">Chi tiết</Link>
+                            <Link to={`${host}/`}>Trang chủ</Link>
+                            <Link to={`${host}/detail`}>Chi tiết</Link>
                         </div>
                     </div>
                 </div>

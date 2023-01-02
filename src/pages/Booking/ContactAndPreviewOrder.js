@@ -9,6 +9,7 @@ import {
     Stack
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { currentHost } from '../../utils/path';
 
 const ContactSchema = Yup.object().shape({
     name: Yup.string()
@@ -24,6 +25,7 @@ const ContactSchema = Yup.object().shape({
 export default function ContactAndPreviewOrderPage() {
     const location = useLocation();
     const navigate = useNavigate();
+    const host = currentHost();
     const [loading, listStore] = useGetAllStore();
     let totalPrice = 0;
     location.state.listServiceChoose.forEach((item) => {
@@ -45,7 +47,7 @@ export default function ContactAndPreviewOrderPage() {
     };
     if (location.state.carePoint === "" || location.state.carSize === ""
         || location.state.listServiceChoose.length === 0 || location.state.time === "") {
-        navigate("/booking");
+        navigate(`${host}/booking`);
     }
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
     const [dataForm, setDataForm] = useState();
@@ -77,7 +79,7 @@ export default function ContactAndPreviewOrderPage() {
             }
             // console.log(dataSend);
             dataSend.totalPrice = Math.round(totalPrice * ((100 - location.state.percentSale) / 100))
-            navigate("/checkout", { state: dataSend });
+            navigate(`${host}/checkout`, { state: dataSend });
         }
     };
     const handleChangeSwitch = (event) => {

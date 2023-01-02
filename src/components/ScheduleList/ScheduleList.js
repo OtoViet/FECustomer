@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -26,6 +25,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Search from '@mui/icons-material/Search';
 import FormApi from '../../api/formApi';
+import { currentHost } from '../../utils/path';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -205,7 +205,7 @@ export default function FullWidthGrid() {
     };
 
     const handleClick = (id) => {
-        navigate(`/appointmentSchedule/${id}`);
+        navigate(`${currentHost()}/appointmentSchedule/${id}`);
         // alert(id);
     };
     const handleChangeRowsPerPage = (event) => {

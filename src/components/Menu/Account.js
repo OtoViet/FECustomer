@@ -12,6 +12,8 @@ import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useGetInfoCustomer from '../../hooks/useGetInfoCustomer';
+import { currentHost } from '../../utils/path';
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -42,6 +44,7 @@ const theme = createTheme({
     },
 });
 export default function AccountMenu(props) {
+    const host = currentHost();
     const [anchorEl, setAnchorEl] = useState(null);
     const [loading, infoCustomer] = useGetInfoCustomer();
     const navigate = useNavigate();
@@ -104,11 +107,11 @@ export default function AccountMenu(props) {
                 anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
             >
                 <MenuItem onClick={()=>{
-                    navigate('/infoCustomer');
+                    navigate(`${host}/infoCustomer`);
                 }}>
                     <Avatar /> Thông tin tài khoản
                 </MenuItem>
-                <MenuItem onClick={()=>{navigate('/changePassword')}}>
+                <MenuItem onClick={()=>{navigate(`${host}/changePassword`)}}>
                     <ListItemIcon>
                         <EnhancedEncryptionIcon fontSize="small" />
                     </ListItemIcon>

@@ -1,8 +1,10 @@
 import {useNavigate} from 'react-router-dom';
+import { currentHost } from '../../utils/path';
+
 function Header() {
   const navigate = useNavigate();
   const handleClick = ()=>{
-    navigate('/');
+    navigate(`${currentHost()}/`);
   }
   return (
     <div className="top-bar">

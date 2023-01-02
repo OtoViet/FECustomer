@@ -1,6 +1,8 @@
 import FormApi from '../api/formApi.js';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { currentHost } from '../utils/path.js';
+
 function useGetProductById(id) {
     const navigate = useNavigate();
     const [product, setProduct] = useState([]);
@@ -12,7 +14,7 @@ function useGetProductById(id) {
         })
         .catch((error) => {
             console.log(error);
-            navigate('/login');
+            navigate(`${currentHost()}/login`);
         });
     };
     useEffect(() => {

@@ -1,5 +1,8 @@
 import {Link} from 'react-router-dom';
+import { currentHost } from '../../utils/path';
+
 function ListServiceTitle() {
+    const host = currentHost();
     return (
         <>
             <div className="page-header">
@@ -9,8 +12,8 @@ function ListServiceTitle() {
                             <h2>Danh sách dịch vụ</h2>
                         </div>
                         <div className="col-12">
-                            <Link to="/">Home</Link>
-                            <Link to="/listService">Danh sách dịch vụ</Link>
+                            <Link to={`${host}/`}>Home</Link>
+                            <Link to={`${host}/listService`}>Danh sách dịch vụ</Link>
                         </div>
                     </div>
                 </div>

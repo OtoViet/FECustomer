@@ -25,7 +25,9 @@ import NotFoundPage from '../../pages/NotFound/NotFound';
 import FormApi from '../../api/formApi';
 import AccountMenu from '../../components/Menu/Account';
 import DropdownService from '../Menu/DropdownService';
+import { currentHost } from '../../utils/path';
 function NavBar() {
+  const host = currentHost();
   let navigate = useNavigate();
   const ScrollToTop = ({ children }) => {
     const location = useLocation();
@@ -46,7 +48,7 @@ function NavBar() {
         console.log(err);
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
-        navigate('/login');
+        navigate(`${host}/login`);
       });
   }, []);
   const handleLogout = () => {
@@ -55,7 +57,7 @@ function NavBar() {
         if (res) {
           localStorage.removeItem('token');
           localStorage.removeItem('refreshToken');
-          navigate('/login');
+          navigate(`${host}/login`);
         }
       })
       .catch((err) => {
@@ -69,14 +71,14 @@ function NavBar() {
                   if (res) {
                     localStorage.removeItem('token');
                     localStorage.removeItem('refreshToken');
-                    navigate('/login');
+                    navigate(`${host}/login`);
                   }
                 })
                 .catch((err) => {
                   console.log('co loi xay ra khi goi logout lan 2');
                   localStorage.removeItem('token');
                   localStorage.removeItem('refreshToken');
-                  navigate('/login');
+                  navigate(`${host}/login`);
                 });
             }
           })
@@ -90,24 +92,24 @@ function NavBar() {
       <div className="nav-bar">
         <div className="container">
           <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
-            <NavLink to="/" data-toggle="collapse" data-target=".navbar-collapse.show" className="navbar-brand">Danh Mục</NavLink>
+            <NavLink to={`${host}/`} data-toggle="collapse" data-target=".navbar-collapse.show" className="navbar-brand">Danh Mục</NavLink>
             <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
               <span className="navbar-toggler-icon"></span>
             </button>
 
             <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
               <div className="navbar-nav mr-auto">
-                <NavLink to="/" data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Trang chủ</NavLink>
-                <NavLink to="/about" data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Về chúng tôi</NavLink>
+                <NavLink to={`${host}/`} data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Trang chủ</NavLink>
+                <NavLink to={`${host}/about`} data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Về chúng tôi</NavLink>
                 <DropdownService />
-                <NavLink to="/storeList" data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Danh sách cửa hàng</NavLink>
-                <NavLink to="/contact" data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Liên hệ</NavLink>
-                <NavLink to="/booking" data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Đặt lịch ngay</NavLink>
-                <NavLink to="/scheduleList"  data-toggle="collapse" data-target=".navbar-collapse.show" className="d-md-block d-lg-none d-xl-none nav-item nav-link nav-item-navlink">Tra cứu lịch hẹn</NavLink>
+                <NavLink to={`${host}/storeList`} data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Danh sách cửa hàng</NavLink>
+                <NavLink to={`${host}/contact`} data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Liên hệ</NavLink>
+                <NavLink to={`${host}/booking`} data-toggle="collapse" data-target=".navbar-collapse.show" className="nav-item nav-link nav-item-navlink">Đặt lịch ngay</NavLink>
+                <NavLink to={`${host}/scheduleList`}  data-toggle="collapse" data-target=".navbar-collapse.show" className="d-md-block d-lg-none d-xl-none nav-item nav-link nav-item-navlink">Tra cứu lịch hẹn</NavLink>
                 {
                   localStorage.getItem('token') ?
                     <AccountMenu handleLogout={handleLogout} /> :
-                    <NavLink data-toggle="collapse" data-target=".navbar-collapse.show" to="/login" className="nav-item nav-link">Đăng nhập</NavLink>
+                    <NavLink data-toggle="collapse" data-target=".navbar-collapse.show" to={`${host}/login`} className="nav-item nav-link">Đăng nhập</NavLink>
                 }
               </div>
               <div className="ml-auto">
@@ -118,28 +120,28 @@ function NavBar() {
         </div>
       </div>
       <ScrollToTop>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<NotFoundPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/service" element={<ServiceCarePage />} />
-          <Route path="/storeList" element={<StoreListPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/listService" element={<ListService />} />
-          <Route path="/detail/:id" element={<Detail />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/contactAndPreview" element={<ContactAndPreviewOrderPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/passwordReset" element={<ForgotPasswordPage />} />
-          <Route path="/passwordReset/:id" element={<ResetPasswordPage />} />
-          <Route path="/changePassword" element={<ChangePasswordPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/appointmentSchedule/:id" element={<TimeLinePage />} />
-          <Route path="/scheduleList" element={<ScheduleList />} />
-          <Route path="/infoCustomer" element={<InfoCustomerPage />} />
-          <Route path="/vnpReturnUrl" element={<ReturnUrlPage />} />
+        <Routes >
+          <Route path={`${host}/`} element={<Home />} />
+          <Route path={`${host}*`} element={<NotFoundPage />} />
+          <Route path={`${host}/about`} element={<AboutPage />} />
+          <Route path={`${host}/service`} element={<ServiceCarePage />} />
+          <Route path={`${host}/storeList`} element={<StoreListPage />} />
+          <Route path={`${host}/contact`} element={<ContactPage />} />
+          <Route path={`${host}/listService`} element={<ListService />} />
+          <Route path={`${host}/detail/:id`} element={<Detail />} />
+          <Route path={`${host}/team`} element={<Team />} />
+          <Route path={`${host}/booking`} element={<Booking />} />
+          <Route path={`${host}/contactAndPreview`} element={<ContactAndPreviewOrderPage />} />
+          <Route path={`${host}/login`} element={<LoginPage />} />
+          <Route path={`${host}/signup`} element={<SignUpPage />} />
+          <Route path={`${host}/passwordReset`} element={<ForgotPasswordPage />} />
+          <Route path={`${host}/passwordReset/:id`} element={<ResetPasswordPage />} />
+          <Route path={`${host}/changePassword`} element={<ChangePasswordPage />} />
+          <Route path={`${host}/checkout`} element={<CheckoutPage />} />
+          <Route path={`${host}/appointmentSchedule/:id`} element={<TimeLinePage />} />
+          <Route path={`${host}/scheduleList`} element={<ScheduleList />} />
+          <Route path={`${host}/infoCustomer`} element={<InfoCustomerPage />} />
+          <Route path={`${host}/vnpReturnUrl`} element={<ReturnUrlPage />} />
         </Routes>
       </ScrollToTop>
 

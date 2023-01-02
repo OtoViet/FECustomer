@@ -1,6 +1,8 @@
 import GoogleLogin from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import FormApi from '../../api/formApi';
+import { currentHost } from '../../utils/path';
+
 function Google(){
     let navigate = useNavigate();
     const handleLogin = (response) => {
@@ -14,7 +16,7 @@ function Google(){
         }
         FormApi.loginGoogle({data:dataSend});
         localStorage.setItem('token', response.tokenId);
-        navigate('/');
+        navigate(`${currentHost()}/`);
     }
     const handleFailure = (err) => {
         console.log(err);

@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { currentHost } from '../../utils/path';
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = useState(props.open);
@@ -16,7 +17,7 @@ export default function ResponsiveDialog(props) {
   let navigate = useNavigate();
   const handleClose = () => {
     setOpen(false);
-    navigate('/login');
+    navigate(`${currentHost()}/login`);
   };
 
   return (

@@ -2,6 +2,8 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import useGetAllProduct from '../../hooks/useGetAllProduct';
 import Pagination from '../Pagination/Pagination';
+import { currentHost } from '../../utils/path';
+
 import {
     Grid,
     Card,
@@ -16,11 +18,12 @@ import {
 
 
 function Blogs({ images }) {
+
     const navigate = useNavigate();
     let [loading, products] = useGetAllProduct();
     const [pages, setPages] = useState(1);
     const handleClick = (id) => {
-        navigate(`/detail/${id}`);
+        navigate(`${currentHost()}/detail/${id}`);
     };
     const handleClickPagination = (value) => {
         setPages(value);

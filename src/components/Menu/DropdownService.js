@@ -5,6 +5,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { currentHost } from '../../utils/path';
 
 const theme = createTheme({
     palette: {
@@ -30,6 +31,7 @@ const theme = createTheme({
     },
 });
 export default function BasicMenu() {
+    const host = currentHost();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -61,8 +63,8 @@ export default function BasicMenu() {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}><NavLink to="/service" className="dropdown-item">Giới thiệu</NavLink></MenuItem>
-                <MenuItem onClick={handleClose}><NavLink to="/listService" className="dropdown-item">Danh sách dịch vụ</NavLink></MenuItem>
+                <MenuItem onClick={handleClose}><NavLink to={`${host}/service`} className="dropdown-item">Giới thiệu</NavLink></MenuItem>
+                <MenuItem onClick={handleClose}><NavLink to={`${host}/listService`} className="dropdown-item">Danh sách dịch vụ</NavLink></MenuItem>
             </Menu>
         </ThemeProvider>
     );

@@ -5,6 +5,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { currentHost } from '../../utils/path';
 
 const theme = createTheme({
     palette: {
@@ -61,7 +62,7 @@ export default function BasicMenu() {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}><NavLink to="/booking" className="dropdown-item">Đặt lịch hẹn</NavLink></MenuItem>
+                <MenuItem onClick={handleClose}><NavLink to={`${currentHost()}/booking`} className="dropdown-item">Đặt lịch hẹn</NavLink></MenuItem>
             </Menu>
         </ThemeProvider>
     );

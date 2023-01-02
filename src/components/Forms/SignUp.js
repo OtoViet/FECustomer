@@ -18,6 +18,7 @@ import FormApi from '../../api/formApi';
 import { useState } from 'react';
 import Google from './Google';
 import ResponsiveDialog from '../Dialog/Dialog';
+import { currentHost } from '../../utils/path';
 
 const theme = createTheme({
     palette: {
@@ -260,7 +261,7 @@ export default function SignUp() {
                                 <Google />
                             </Grid>
                             <Grid item sx={{ml:1}}>
-                                <NavLink to="/login" variant="body2">
+                                <NavLink to={`${currentHost()}/login`} variant="body2">
                                     Đã có tài khoản? Đăng nhập
                                 </NavLink>
                             </Grid>

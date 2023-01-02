@@ -1,5 +1,8 @@
 import {Link} from 'react-router-dom';
+import { currentHost } from '../../utils/path';
+
 function ServiceCareTitle() {
+    const host = currentHost();
     return (
         <div className="page-header">
             <div className="container">
@@ -8,8 +11,8 @@ function ServiceCareTitle() {
                         <h2>Dịch vụ</h2>
                     </div>
                     <div className="col-12">
-                        <Link to="/">Trang chủ</Link>
-                        <Link to="/service">Dịch vụ</Link>
+                        <Link to={`${host}/`}>Trang chủ</Link>
+                        <Link to={`${host}/service`}>Dịch vụ</Link>
                     </div>
                 </div>
             </div>

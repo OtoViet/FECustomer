@@ -13,6 +13,7 @@ import * as Yup from 'yup';
 import ResponsiveDialog from '../Dialog/Dialog';
 import FormApi from '../../api/formApi';
 import { useParams, useNavigate } from 'react-router-dom';
+import { currentHost } from '../../utils/path';
 const theme = createTheme({
   palette: {
     primary: {
@@ -44,6 +45,7 @@ const theme = createTheme({
 });
 
 export default function ResetPassword() {
+  const host = currentHost();
   let params = useParams();
   let navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -53,7 +55,7 @@ export default function ResetPassword() {
       setCheckToken(true);
     }).catch(err => {
       setCheckToken(false);
-      navigate('/passwordReset',{state:{error: true}});
+      navigate(`${host}/passwordReset`,{state:{error: true}});
     });
   },[params.id, navigate]);
   const loginSchema = Yup.object().shape({

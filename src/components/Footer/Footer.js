@@ -1,7 +1,10 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import {useNavigate} from 'react-router-dom';
+import { currentHost } from '../../utils/path';
+
 function Footer() {
+    const host = currentHost();
     const navigate = useNavigate();
     const NewsSchema = Yup.object().shape({
         name: Yup.string()
@@ -32,15 +35,15 @@ function Footer() {
                             <h2>Liên kết</h2>
                             <a href="/" onClick={(e)=>{
                                 e.preventDefault();
-                                navigate('/about');
+                                navigate(`${host}/about`);
                             }}>Về chúng tôi</a>
                             <a href="/" onClick={(e)=>{
                                 e.preventDefault();
-                                navigate('/contact');
+                                navigate(`${host}/contact`);
                             }}>Liên hệ với chúng tôi</a>
                             <a href="/" onClick={(e)=>{
                                 e.preventDefault();
-                                navigate('/listService');
+                                navigate(`${host}/listService`);
                             }}>Dịch vụ của chúng tôi</a>
                             <a href="/">Danh sách cửa hàng</a>
                         </div>

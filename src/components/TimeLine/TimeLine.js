@@ -26,6 +26,7 @@ import FormApi from '../../api/formApi';
 import DialogConfirm from '../Dialog/DialogConfirm';
 import moment from 'moment';
 import 'moment/locale/vi';
+import { currentHost } from '../../utils/path';
 
 const theme = createTheme({
     palette: {
@@ -58,7 +59,7 @@ const theme = createTheme({
 });
 export default function CustomizedTimeline() {
     const params = useParams();
-    const socket = io("http://192.168.1.238:5000", { transports: ['websocket', 'polling', 'flashsocket'] });
+    const socket = io("https://dissertation-api-server.herokuapp.com", { transports: ['websocket', 'polling', 'flashsocket'] });
     let [loading, order] = useGetOrderById(params.id);
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState('');
@@ -126,7 +127,7 @@ export default function CustomizedTimeline() {
             {open ? <Dialog open={open}
                 handleCloseDialog={handleCloseDialog}
                 title="Thông báo"
-                url={"/"}
+                url={`${currentHost()}/`}
                 content={content} /> : null}
             {openDialogConfirm ? <DialogConfirm open={openDialogConfirm}
                 isAccept={handleAccept}

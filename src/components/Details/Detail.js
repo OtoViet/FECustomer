@@ -40,7 +40,9 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import FormApi from '../../api/formApi';
+import { currentHost } from '../../utils/path';
 
+const host = currentHost();
 const theme = createTheme({
     palette: {
         primary: {
@@ -253,7 +255,7 @@ function Detail() {
         setValue(newValue);
     };
     const handleClick = () => {
-        navigate('/booking', { state: product });
+        navigate(`${host}/booking`, { state: product });
     };
     if (loading || loadingAllProduct) return <>
         <h2 style={{ textAlign: "center" }}>Đang tải thông tin dịch vụ</h2>
@@ -513,7 +515,7 @@ function Detail() {
                                                                     <a href={`/detail/${product.id}`}
                                                                         onClick={(e) => {
                                                                             e.preventDefault();
-                                                                            navigate(`/detail/${product.id}`);
+                                                                            navigate(`${host}/detail/${product.id}`);
                                                                         }}
                                                                     >{product.productName}</a>
                                                                     <div className="post-meta">
@@ -547,7 +549,7 @@ function Detail() {
                                                                     <a href={`/detail/${product.id}`}
                                                                         onClick={(e) => {
                                                                             e.preventDefault();
-                                                                            navigate(`/detail/${product.id}`);
+                                                                            navigate(`${host}/detail/${product.id}`);
                                                                         }}>{product.productName}</a>
                                                                     <div className="post-meta">
                                                                         <p>Giá dịch vụ {
@@ -580,7 +582,7 @@ function Detail() {
                                                                     <a href={`/detail/${product.id}`}
                                                                         onClick={(e) => {
                                                                             e.preventDefault();
-                                                                            navigate(`/detail/${product.id}`);
+                                                                            navigate(`${host}/detail/${product.id}`);
                                                                         }}>{product.productName}</a>
                                                                     <div className="post-meta">
                                                                         <p>Giá dịch vụ {

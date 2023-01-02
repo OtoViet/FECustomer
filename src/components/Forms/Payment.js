@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import FormApi from '../../api/formApi';
 import Dialog from '../Dialog/DialogNotify';
 import io from 'socket.io-client';
+import { currentHost } from '../../utils/path';
 
 const theme = createTheme({
     palette: {
@@ -148,7 +149,7 @@ function Payment() {
                 {open ? <Dialog open={open}
                     handleCloseDialog={handleCloseDialog}
                     title="Thông báo"
-                    url={"/scheduleList"}
+                    url={`${currentHost()}/scheduleList`}
                     content="Đã gửi yêu cầu chăm sóc xe thành công" /> : null}
 
                 <div className="rounded-lg shadow-sm p-5" style={{ backgroundColor: '#F5F5F5' }}>

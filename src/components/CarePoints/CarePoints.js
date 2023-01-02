@@ -20,6 +20,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import useGetAllStore from '../../hooks/useGetAllStore.js';
 import FormApi from '../../api/formApi';
+import {currentHost} from '../../utils/path'
 
 
 const theme = createTheme({
@@ -344,7 +345,7 @@ function CarePoints() {
                                         dataSend.listServiceChoose.length === 0 || dataSend.time === "") {
                                         setOpen(true);
                                     }
-                                    else navigate("/contactAndPreview", { state: dataSend });
+                                    else navigate(`${currentHost()}/contactAndPreview`, { state: dataSend });
                                 }}>Tiếp tục </button>
                         </div>
                         <div className="care-point-detail section-header">

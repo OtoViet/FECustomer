@@ -11,12 +11,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import FormApi from '../../api/formApi';
-import { useNavigate } from 'react-router-dom';
 import ResponsiveDialog from '../Dialog/Dialog';
+import { currentHost } from '../../utils/path';
 
 const theme = createTheme({
   palette: {
@@ -49,6 +49,7 @@ const theme = createTheme({
 });
 
 export default function Login() {
+  const host = currentHost();
   let navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const loginSchema = Yup.object().shape({
@@ -71,7 +72,7 @@ export default function Login() {
         localStorage.setItem('token', res.accessToken);
         localStorage.setItem('refreshToken', res.refreshToken);
         // use react router dom to redirect to home page
-        navigate('/');
+        navigate(`${host}/`);
       }).catch(err => {
         setOpen(true);
       });
@@ -148,12 +149,12 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <NavLink to="/passwordReset" variant="body2">
+                <NavLink to={`${host}/passwordReset`} variant="body2">
                   Quên mật khẩu?
                 </NavLink>
               </Grid>
               <Grid item>
-                <NavLink to="/signup" variant="body2">
+                <NavLink to={`${host}/signup`} variant="body2">
                   Chưa có tài khoản? Đăng kí
                 </NavLink>
               </Grid>

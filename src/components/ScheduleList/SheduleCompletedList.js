@@ -21,6 +21,8 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TablePagination from '@mui/material/TablePagination';
+import { currentHost } from '../../utils/path';
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.primary.main,
@@ -158,7 +160,7 @@ export default function FullWidthGrid() {
     };
 
     const handleClick = (id) => {
-        navigate(`/appointmentSchedule/${id}`);
+        navigate(`${currentHost}/appointmentSchedule/${id}`);
         // alert(id);
     };
     const handleChangeRowsPerPage = (event) => {
